@@ -199,9 +199,12 @@ namespace paint
         }
 
         private void OnImageToBase64_Click(object sender, RoutedEventArgs e) {
-            string test = @"C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\paint\paint\Images\testcanvas.jpg";
+            string test = @"C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\paint\paint\Images\123.jpg";
+            //var fileStream = new FileStream(test, FileMode.Open, FileAccess.Read);
             //the path is the folder that saves the Export image screen shot
-            byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(test);
+            //byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(test);
+            byte[] bytes = File.ReadAllBytes(test);
+            Console.WriteLine(bytes.Length);
             string base64String = System.Convert.ToBase64String(bytes);
             Console.WriteLine("Base 64 string: " + base64String);
         }
