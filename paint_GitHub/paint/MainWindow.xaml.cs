@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -207,6 +208,20 @@ namespace paint
             Console.WriteLine(bytes.Length);
             string base64String = System.Convert.ToBase64String(bytes);
             Console.WriteLine("Base 64 string: " + base64String);
+
+            //opening http connection
+            WebRequest req = WebRequest.Create("http://www.google.co.il"); //  + "?key=" + Tags.apiKey);
+            // Console.WriteLine(req.RequestUri);
+            req.Method = "GET";
+            HttpWebResponse res = req.GetResponse() as HttpWebResponse;
+            Stream dataStream = res.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string result = reader.ReadToEnd();
+            dataStream.Close();
+            reader.Close();
+            res.Close();
+            Console.WriteLine(result);
+
         }
 
         
