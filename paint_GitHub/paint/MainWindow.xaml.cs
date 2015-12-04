@@ -122,7 +122,8 @@ namespace paint
             rtb.Render(tcanvas);
             BmpBitmapEncoder encoder = new BmpBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(rtb));
-            FileStream fs = File.Open(@"C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\paint\paint\Images\testcanvas.jpg", mode: FileMode.Create);
+            string fileName = "D:\\"+DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".jpg";
+            FileStream fs = File.Open(fileName, mode: FileMode.Create);
             encoder.Save(fs);
             fs.Close();
         }
