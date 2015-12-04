@@ -35,6 +35,7 @@ namespace paint
             //XYCoord.Content = Mouse.GetPosition(icanvas);
         }
         Window window;
+        private string screenshotFolderPath = @"..\..\Screenshots\";
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -122,7 +123,7 @@ namespace paint
             rtb.Render(tcanvas);
             BmpBitmapEncoder encoder = new BmpBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(rtb));
-            string fileName = "D:\\"+DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".jpg";
+            string fileName = screenshotFolderPath+DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".jpg";
             FileStream fs = File.Open(fileName, mode: FileMode.Create);
             encoder.Save(fs);
             fs.Close();
