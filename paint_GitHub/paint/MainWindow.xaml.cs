@@ -202,7 +202,7 @@ namespace paint
         }
 
         private void OnImageToBase64_Click(object sender, RoutedEventArgs e) {
-            string test = @"C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\final-project---class-board\paint_GitHub\paint\Images\unnamed.png";
+            string test = @"C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\Images\unnamed.png";
             //var fileStream = new FileStream(test, FileMode.Open, FileAccess.Read);
             //the path is the folder that saves the Export image screen shot
             //byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(test);
