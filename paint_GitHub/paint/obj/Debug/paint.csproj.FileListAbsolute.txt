@@ -82,3 +82,6 @@ C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\p
 C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.g.resources
 C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.Properties.Resources.resources
 C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.csproj.GenerateResource.Cache
+C:\Users\niv\Documents\GitHub\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.exe.config
+C:\Users\niv\Documents\GitHub\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.exe
+C:\Users\niv\Documents\GitHub\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.pdb
