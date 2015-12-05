@@ -8,15 +8,23 @@ var decoder = Decoder64();
  */
 app.get('/', function(req,res) {
     res.set('Content-Type', 'text/html');
-    res.send('<html><body> <h1>Welcome, This is Base64 Decode Example </h1>'+
-        '<h2> Enjoy </h2></body></html>');
+    res.send('<html><body> <h1>Welcome, This is Heroku Test Server </h1>'+
+        '<h2> Route To hello/:name To Test your name with JSON Response </h2></body></html>');
 });
 
 
-app.get('/hello', function(req,res) {
-    res.set('Content-Type', 'text/html');
-    res.send('<html><body> <h1>Hello Test </h1>'+
-        '<h2> Enjoy </h2></body></html>');
+app.get('/hello/:name', function(req,res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    var ua = req.headers['user-agent'];
+    var user_details = {
+        name: req.params.name,
+        browser: ua
+    }
+    app.set('json spaces', 4);
+    res.set("Content-Type", "application/json");
+    res.status(200);
+    res.json(user_details);
 });
 
 /*
