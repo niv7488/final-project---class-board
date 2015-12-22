@@ -54,3 +54,34 @@ C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\final-project---clas
 C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.g.resources
 C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.Properties.Resources.resources
 C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.csproj.GenerateResource.Cache
+D:\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.exe.config
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.exe
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.pdb
+D:\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.exe
+D:\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.pdb
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.csprojResolveAssemblyReference.cache
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\Graphics\testcanvas.baml
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\MainWindow.baml
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\MainWindow.g.cs
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\App.g.cs
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\paint_MarkupCompile.cache
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.g.resources
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.Properties.Resources.resources
+D:\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.csproj.GenerateResource.Cache
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.exe.config
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.exe
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.exe
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.csprojResolveAssemblyReference.cache
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\Graphics\testcanvas.baml
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\MainWindow.baml
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\MainWindow.g.cs
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\App.g.cs
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint_MarkupCompile.cache
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.g.resources
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.Properties.Resources.resources
+C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.csproj.GenerateResource.Cache
+C:\Users\niv\Documents\GitHub\final-project---class-board\paint_GitHub\paint\bin\Debug\paint.exe.config
+C:\Users\niv\Documents\GitHub\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.exe
+C:\Users\niv\Documents\GitHub\final-project---class-board\paint_GitHub\paint\obj\Debug\paint.pdb

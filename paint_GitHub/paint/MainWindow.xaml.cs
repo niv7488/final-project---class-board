@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,6 +35,7 @@ namespace paint
             //XYCoord.Content = Mouse.GetPosition(icanvas);
         }
         Window window;
+        private string screenshotFolderPath = @"..\..\Screenshots\";
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -121,7 +123,8 @@ namespace paint
             rtb.Render(tcanvas);
             BmpBitmapEncoder encoder = new BmpBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(rtb));
-            FileStream fs = File.Open(@"C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\paint\paint\Images\testcanvas.jpg", mode: FileMode.Create);
+            string fileName = screenshotFolderPath+DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".jpg";
+            FileStream fs = File.Open(fileName, mode: FileMode.Create);
             encoder.Save(fs);
             fs.Close();
         }
@@ -199,7 +202,7 @@ namespace paint
         }
 
         private void OnImageToBase64_Click(object sender, RoutedEventArgs e) {
-            string test = @"C:\Users\niv\Documents\Visual Studio 2013\Projects\paint2.0\final-project---class-board\paint_GitHub\paint\Images\unnamed.png";
+            string test = @"C:\Users\niv\Documents\Visual Studio 2013\Projects\final-project---class-board\paint_GitHub\paint\Images\unnamed.png";
             //var fileStream = new FileStream(test, FileMode.Open, FileAccess.Read);
             //the path is the folder that saves the Export image screen shot
             //byte[] bytes = System.Text.ASCIIEncoding.ASCII.GetBytes(test);
@@ -207,6 +210,20 @@ namespace paint
             Console.WriteLine(bytes.Length);
             string base64String = System.Convert.ToBase64String(bytes);
             Console.WriteLine("Base 64 string: " + base64String);
+
+            //opening http connection
+            WebRequest req = WebRequest.Create("https://boardcast-ws.herokuapp.com/"); //  + "?key=" + Tags.apiKey);
+            // Console.WriteLine(req.RequestUri);
+            req.Method = "GET";
+            HttpWebResponse res = req.GetResponse() as HttpWebResponse;
+            Stream dataStream = res.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string result = reader.ReadToEnd();
+            dataStream.Close();
+            reader.Close();
+            res.Close();
+            Console.WriteLine(result);
+
         }
 
         
