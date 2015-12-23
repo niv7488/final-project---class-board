@@ -212,7 +212,7 @@ namespace paint
             Console.WriteLine("Base 64 string: " + base64String);
 
             //opening http connection
-            WebRequest req = WebRequest.Create("http://www.google.co.il"); //  + "?key=" + Tags.apiKey);
+            WebRequest req = WebRequest.Create("https://boardcast-ws.herokuapp.com/"); //  + "?key=" + Tags.apiKey);
             // Console.WriteLine(req.RequestUri);
             req.Method = "GET";
             HttpWebResponse res = req.GetResponse() as HttpWebResponse;
