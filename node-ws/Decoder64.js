@@ -44,6 +44,7 @@ Decoder64.prototype.decode = function(data, callback) {
     }
     catch(err) {
         console.log('error detected: ' + err);
+        callback('error');
     }
 };
 

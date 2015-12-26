@@ -1,7 +1,14 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var Decoder64 = require('./Decoder64');
 var decoder = Decoder64();
+
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
 
 /**
  / Main Test Rout
@@ -11,11 +18,12 @@ app.get('/', function(req,res) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.set('Content-Type', 'text/html');
     res.send('<html><body> <h1>Welcome, This is Heroku Test Server </h1>'+
-        '<h2> Route To hello/:name To Test your name with JSON Response </h2></body></html>');
+        '<h2> 1) Route To hello/:name To Test your name with JSON Response </h2>'+
+        '<h2> 2) Route To /decode64/:base64/:filename To Upload Base64 Image with JSON Response </h2></body></html>');
 });
 
 /*
-* Hello Route to test your Request
+ * Hello Route to test your Request
  */
 app.get('/hello/:name', function(req,res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -32,7 +40,7 @@ app.get('/hello/:name', function(req,res) {
 });
 
 /*
-* Async Function Test
+ * Async Function Test
  */
 var async = function(data, callback) {
     callback(null, data);
@@ -40,33 +48,29 @@ var async = function(data, callback) {
 
 /*
  / Decode Base64 Route
+ / Params: base64, filename
  */
-app.get('/decode64/:base64/:filename', function (req,res)  {
-    console.log('incoming: ' + req.params.filename)
+app.post('/decode64', function (req,res)  {
     /* Set Headers */
     app.set('json spaces', 4);
     res.set("Content-Type", "application/json");
     res.status(200);
     var answer = {};
     /* Executing The Query via FTP */
-    decoder.decode(req.params, function(response) {
+    decoder.decode(req.body, function(response) {
         console.log('response recieved: '+ response);
-        answer.status = 'success';
-        if(answer.status != 'error') {
+
+        if(response != 'error') {
+            answer.status = 'success';
             answer.link = response;
             res.json(answer);
         }
         else {
+            answer.status = 'error';
+            answer.idea = 'try change your mime-type';
             res.json(answer);
         }
     });
-    /*app.set('json space',4);
-    res.set('Content-Type', 'text/html');
-    res.send('<html><body> <h1>Welcome, you can choose 3 routing ways : </h1>'+
-        '<h2> https://authorsws.herokuapp.com/bestSellers </h2>'+
-        '<h2> https://authorsws.herokuapp.com/bookById/number </h2>'+
-        '<h2> https://authorsws.herokuapp.com/bookByYear/number</h2> <p></p>'+
-        '<h2> Enjoy </h2></body></html>');; */
 });
 
 
