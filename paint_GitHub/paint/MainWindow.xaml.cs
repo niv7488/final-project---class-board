@@ -19,7 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Resources;
 using System.Windows.Shapes;
 using System.Xml;
-
+using System.Web.Script.Serialization;
 
 namespace paint
 {
@@ -211,18 +211,34 @@ namespace paint
             string base64String = System.Convert.ToBase64String(bytes);
             Console.WriteLine("Base 64 string: " + base64String);
 
-            //opening http connection
-            WebRequest req = WebRequest.Create("https://boardcast-ws.herokuapp.com/"); //  + "?key=" + Tags.apiKey);
-            // Console.WriteLine(req.RequestUri);
-            req.Method = "GET";
-            HttpWebResponse res = req.GetResponse() as HttpWebResponse;
-            Stream dataStream = res.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string result = reader.ReadToEnd();
-            dataStream.Close();
-            reader.Close();
-            res.Close();
-            Console.WriteLine(result);
+            //serialize the json so that the server will know what values we sent
+            string json = new JavaScriptSerializer().Serialize(new
+            {
+                base64 = base64String,                  //the picture after transfoming into base64 string
+                filename = "google.png"                 //the name of the pic-->need to be changed according to each pic
+            });
+        //opening a connection with the server
+        var baseAddress = "https://boardcast-ws.herokuapp.com/decode64/";
+        //deffine the request methood
+        var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
+        http.Accept = "application/json";
+        http.ContentType = "application/json";
+        http.Method = "POST";
+
+        string parsedContent = json;
+        ASCIIEncoding encoding = new ASCIIEncoding();
+        Byte[] bytes1 = encoding.GetBytes(parsedContent);
+
+        Stream newStream = http.GetRequestStream();
+        newStream.Write(bytes1, 0, bytes1.Length);
+        newStream.Close();
+
+        var response2 = http.GetResponse();
+
+        var stream = response2.GetResponseStream();
+        var sr = new StreamReader(stream);
+        var content = sr.ReadToEnd();
+        Console.WriteLine(content);
 
         }
 
