@@ -5,6 +5,7 @@ var Decoder64 = require('./Decoder64');
 var decoder = Decoder64();
 
 //Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser({limit: '900mb'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
