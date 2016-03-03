@@ -1,0 +1,1 @@
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\obj\Release\ResolveAssemblyReference.cache

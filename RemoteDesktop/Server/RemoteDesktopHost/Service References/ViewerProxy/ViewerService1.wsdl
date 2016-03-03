@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:tns="http://tempuri.org/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" name="ViewerService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_IViewerService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://97.87.12.242:1003/Rlc/Viewer?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://97.87.12.242:1003/Rlc/Viewer?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IViewerService_PushScreenUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:PushScreenUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IViewerService_PushScreenUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PushScreenUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IViewerService_PushCursorUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:PushCursorUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IViewerService_PushCursorUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PushCursorUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IViewerService_Ping_InputMessage">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="IViewerService_Ping_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IViewerService">
+    <wsdl:operation name="PushScreenUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IViewerService/PushScreenUpdate" message="tns:IViewerService_PushScreenUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IViewerService/PushScreenUpdateResponse" message="tns:IViewerService_PushScreenUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PushCursorUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IViewerService/PushCursorUpdate" message="tns:IViewerService_PushCursorUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IViewerService/PushCursorUpdateResponse" message="tns:IViewerService_PushCursorUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:input wsaw:Action="http://tempuri.org/IViewerService/Ping" message="tns:IViewerService_Ping_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IViewerService/PingResponse" message="tns:IViewerService_Ping_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IViewerService" type="tns:IViewerService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IViewerService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PushScreenUpdate">
+      <soap:operation soapAction="http://tempuri.org/IViewerService/PushScreenUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PushCursorUpdate">
+      <soap:operation soapAction="http://tempuri.org/IViewerService/PushCursorUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://tempuri.org/IViewerService/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ViewerService">
+    <wsdl:port name="BasicHttpBinding_IViewerService" binding="tns:BasicHttpBinding_IViewerService">
+      <soap:address location="http://97.87.12.242:1003/Rlc/Viewer" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

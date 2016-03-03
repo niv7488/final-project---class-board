@@ -1,0 +1,26 @@
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\bin\Release\WinFormClient.exe.config
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.Form1.resources
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.Properties.Resources.resources
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.csproj.GenerateResource.Cache
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\bin\Release\WinFormClient.exe
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\bin\Release\WinFormClient.pdb
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.exe
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\bin\Release\WinFormClient.exe.config
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\bin\Release\WinFormClient.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\bin\Release\WinFormClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.Form1.resources
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.Properties.Resources.resources
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\WinFormClient\obj\Release\WinFormClient.csproj.GenerateResource.Cache
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\bin\Release\WinFormClient.exe.config
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\obj\Release\WinFormClient.exe
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\obj\Release\WinFormClient.pdb
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\obj\Release\ResolveAssemblyReference.cache
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\obj\Release\WinFormClient.Logging.resources
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\obj\Release\RLC.RemoteDesktop.RemoteDesktopViewer.resources
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\obj\Release\WinFormClient.Properties.Resources.resources
+C:\Code\DOTNET\RemoteDesktop\Client\WinFormClient\obj\Release\WinFormClient.csproj.GenerateResource.Cache

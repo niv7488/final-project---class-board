@@ -1,0 +1,14 @@
+C:\Code\DOTNET\RemoteDesktop\WpfClient\bin\Debug\WpfClient.exe
+C:\Code\DOTNET\RemoteDesktop\WpfClient\bin\Debug\WpfClient.pdb
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\ResolveAssemblyReference.cache
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\Window1.baml
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\Window1.g.cs
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\App.g.cs
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\WpfClient_MarkupCompile.cache
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\WpfClient.g.resources
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\WpfClient.Properties.Resources.resources
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\WpfClient.csproj.GenerateResource.Cache
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\WpfClient.exe
+C:\Code\DOTNET\RemoteDesktop\WpfClient\obj\Debug\WpfClient.pdb
+C:\Code\DOTNET\RemoteDesktop\WpfClient\bin\Debug\RemoteDesktop.dll
+C:\Code\DOTNET\RemoteDesktop\WpfClient\bin\Debug\RemoteDesktop.pdb

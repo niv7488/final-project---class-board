@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e3f0eb98-77b7-4ebb-8025-eccb80e5163d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://97.87.12.242:1003/Rlc/Viewer" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Viewer.xsd" MetadataType="Schema" ID="a2005df3-fd95-4696-80f5-03ea882474f1" SourceId="1" SourceUrl="http://97.87.12.242:1003/Rlc/Viewer?xsd=xsd0" />
+    <MetadataFile FileName="Viewer1.xsd" MetadataType="Schema" ID="47b1fd27-5eba-40ba-bbd3-281e072a5cf7" SourceId="1" SourceUrl="http://97.87.12.242:1003/Rlc/Viewer?xsd=xsd1" />
+    <MetadataFile FileName="Viewer.disco" MetadataType="Disco" ID="2dc27746-6897-4520-a0ad-44e1bf93edd0" SourceId="1" SourceUrl="http://97.87.12.242:1003/Rlc/Viewer?disco" />
+    <MetadataFile FileName="ViewerService1.wsdl" MetadataType="Wsdl" ID="0efd774e-879a-4340-93ad-90500f006088" SourceId="1" SourceUrl="http://97.87.12.242:1003/Rlc/Viewer?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

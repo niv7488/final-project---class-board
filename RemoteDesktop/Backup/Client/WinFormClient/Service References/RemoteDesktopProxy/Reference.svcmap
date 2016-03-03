@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c90d65b4-2f9f-4406-8c5b-f871f47f7494" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.109:8080/Rlc/RemoteDesktop" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RemoteDesktop.xsd" MetadataType="Schema" ID="d1491214-0d56-4530-b29f-a00a947bab29" SourceId="1" SourceUrl="http://192.168.1.109:8080/Rlc/RemoteDesktop?xsd=xsd0" />
+    <MetadataFile FileName="RemoteDesktopService.wsdl" MetadataType="Wsdl" ID="e6fa19f1-c69f-43ad-810a-bf934bb8e265" SourceId="1" SourceUrl="http://192.168.1.109:8080/Rlc/RemoteDesktop?wsdl" />
+    <MetadataFile FileName="RemoteDesktop1.xsd" MetadataType="Schema" ID="c88fae16-7e95-4020-9cad-9c21b9313591" SourceId="1" SourceUrl="http://192.168.1.109:8080/Rlc/RemoteDesktop?xsd=xsd1" />
+    <MetadataFile FileName="RemoteDesktop.disco" MetadataType="Disco" ID="6e3d41dc-3263-4ef8-b547-a742b5cdfc1f" SourceId="1" SourceUrl="http://192.168.1.109:8080/Rlc/RemoteDesktop?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

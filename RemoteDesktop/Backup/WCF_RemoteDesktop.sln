@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteDesktop", "Server\RemoteDesktop\RemoteDesktop.csproj", "{676A275B-B7C0-4877-8852-83B856A045B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteDesktopHost", "Server\RemoteDesktopHost\RemoteDesktopHost.csproj", "{65EE3198-FA24-47CB-9B65-F2B25386D123}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteDesktopService", "Server\RemoteDesktopService\RemoteDesktopService.csproj", "{C3308BCA-4FBC-4AB2-96FC-86145B0E305D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormClient", "Client\WinFormClient\WinFormClient.csproj", "{1F85179F-6977-460F-AB02-0E489CBE4FCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServerSide", "ServerSide", "{51A1FD79-C361-4276-A950-44CB5F7D2E6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientSide", "ClientSide", "{D7CD795A-628D-47B7-92D5-1DA37D404BE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{676A275B-B7C0-4877-8852-83B856A045B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{676A275B-B7C0-4877-8852-83B856A045B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{676A275B-B7C0-4877-8852-83B856A045B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{676A275B-B7C0-4877-8852-83B856A045B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65EE3198-FA24-47CB-9B65-F2B25386D123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65EE3198-FA24-47CB-9B65-F2B25386D123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65EE3198-FA24-47CB-9B65-F2B25386D123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65EE3198-FA24-47CB-9B65-F2B25386D123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3308BCA-4FBC-4AB2-96FC-86145B0E305D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3308BCA-4FBC-4AB2-96FC-86145B0E305D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3308BCA-4FBC-4AB2-96FC-86145B0E305D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3308BCA-4FBC-4AB2-96FC-86145B0E305D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F85179F-6977-460F-AB02-0E489CBE4FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F85179F-6977-460F-AB02-0E489CBE4FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F85179F-6977-460F-AB02-0E489CBE4FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F85179F-6977-460F-AB02-0E489CBE4FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{65EE3198-FA24-47CB-9B65-F2B25386D123} = {51A1FD79-C361-4276-A950-44CB5F7D2E6F}
+		{C3308BCA-4FBC-4AB2-96FC-86145B0E305D} = {51A1FD79-C361-4276-A950-44CB5F7D2E6F}
+		{676A275B-B7C0-4877-8852-83B856A045B8} = {51A1FD79-C361-4276-A950-44CB5F7D2E6F}
+		{1F85179F-6977-460F-AB02-0E489CBE4FCB} = {D7CD795A-628D-47B7-92D5-1DA37D404BE3}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,35 @@
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureService\bin\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureService\bin\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureService\bin\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureService\bin\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureService\obj\Debug\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureService\obj\Debug\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopService\bin\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopService\bin\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopService\bin\RemoteDesktop.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopService\bin\RemoteDesktop.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\ResolveAssemblyReference.cache
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.dll
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktopService.dll
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktopService.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktop.dll
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktop.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktop.dll
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktop.pdb
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktopService.dll
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktopService.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktop.dll
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopService\bin\RemoteDesktop.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.csprojResolveAssemblyReference.cache
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.dll
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopService\obj\Debug\RemoteDesktopService.pdb

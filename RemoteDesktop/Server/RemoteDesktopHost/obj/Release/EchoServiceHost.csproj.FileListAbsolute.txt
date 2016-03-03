@@ -1,0 +1,20 @@
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\bin\Release\EchoClientTest.exe.config
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\bin\Release\EchoClientTest.exe
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\bin\Release\EchoClientTest.pdb
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\bin\Release\EchoClient.dll
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\bin\Release\EchoTunnelService.dll
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\bin\Release\EchoTunnelService.pdb
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\bin\Release\EchoClient.pdb
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\obj\Release\EchoClientTest.exe
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClientTest\obj\Release\EchoClientTest.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\bin\Release\EchoClientTest.exe.config
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\obj\Release\EchoClientTest.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\obj\Release\EchoClientTest.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\bin\Release\EchoClientTest.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\bin\Release\EchoClientTest.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\bin\Release\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\bin\Release\EchoTunnelService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\bin\Release\EchoTunnelService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\bin\Release\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClientTest\obj\Release\ResolveAssemblyReference.cache

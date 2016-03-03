@@ -1,0 +1,7 @@
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\ScreenCaptureService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\ScreenCaptureService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\obj\Debug\ScreenCaptureService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\obj\Debug\ScreenCaptureService.pdb

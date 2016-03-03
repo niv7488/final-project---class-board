@@ -1,0 +1,5 @@
+<Modules>
+  <Module PersistentId="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="System.Windows.Forms" />
+  <Module PersistentId="1F85179F-6977-460F-AB02-0E489CBE4FCB" ModuleId="WinFormClient" />
+  <Module PersistentId="676A275B-B7C0-4877-8852-83B856A045B8" ModuleId="RemoteDesktop" />
+</Modules>

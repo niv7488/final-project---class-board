@@ -1,0 +1,10 @@
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClient\bin\Release\EchoClient.dll
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClient\bin\Release\EchoClient.pdb
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClient\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClient\obj\Release\EchoClient.dll
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoClient\obj\Release\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\bin\Release\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\bin\Release\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\obj\Release\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\obj\Release\EchoClient.pdb

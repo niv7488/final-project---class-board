@@ -1,0 +1,14 @@
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoTunnelService\bin\EchoTunnelService.dll
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoTunnelService\bin\EchoTunnelService.pdb
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoTunnelService\bin\EchoClient.dll
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoTunnelService\bin\EchoClient.pdb
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoTunnelService\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoTunnelService\obj\Debug\EchoTunnelService.dll
+C:\Documents and Settings\rcravens\Desktop\SandBox\WCF_Tunnel\EchoTunnelService\obj\Debug\EchoTunnelService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\EchoTunnelService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\EchoTunnelService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\bin\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\obj\Debug\EchoTunnelService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoTunnelService\obj\Debug\EchoTunnelService.pdb

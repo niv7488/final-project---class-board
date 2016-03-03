@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+
+namespace RLC.RemoteDesktop
+{
+	[ServiceContract]
+	public interface IViewerService
+	{
+		[OperationContract]
+		void PushScreenUpdate(byte[] data);
+
+		[OperationContract]
+		void PushCursorUpdate(byte[] data);
+	}
+}

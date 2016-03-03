@@ -1,0 +1,50 @@
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\obj\Debug\EchoClientTest.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\bin\Debug\EchoClientTest.exe.config
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\bin\Debug\EchoClientTest.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\bin\Debug\EchoClientTest.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\bin\Debug\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\bin\Debug\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\bin\Debug\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\bin\Debug\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\ScreenCaptureHost\obj\Debug\EchoClientTest.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe.config
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.exe
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe.config
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.exe
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.dll
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.dll
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.pdb
+C:\Code\DOTNET\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe.config
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.pdb
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.dll
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.dll
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.pdb
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.pdb
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.exe
+C:\Users\Bob Cravens\Desktop\rdp_test\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe.config
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.exe
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopServer.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.exe
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopServer.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.dll
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.dll
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktop.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\bin\Debug\RemoteDesktopService.pdb
+C:\Users\niv\Documents\Visual Studio 2013\Projects\RemoteDesktop\Server\RemoteDesktopHost\obj\Debug\RemoteDesktopHost.csprojResolveAssemblyReference.cache

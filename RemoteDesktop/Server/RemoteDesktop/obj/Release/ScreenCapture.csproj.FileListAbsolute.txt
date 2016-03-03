@@ -1,0 +1,5 @@
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\obj\Release\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\obj\Release\EchoClient.pdb
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\bin\Release\EchoClient.dll
+C:\Users\Bob Cravens\Desktop\WCF_Tunnel\EchoClient\bin\Release\EchoClient.pdb

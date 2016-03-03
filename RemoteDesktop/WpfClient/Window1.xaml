@@ -1,0 +1,8 @@
+﻿<Window x:Class="WpfClient.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="WPF Remove Desktop Viewer" Height="300" Width="300">
+    <Grid>
+        
+    </Grid>
+</Window>

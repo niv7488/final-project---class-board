@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ScreenshotCaptureWithMouse.ScreenCapture.CaptureScreen" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAgAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>CaptureScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScreenshotCaptureWithMouse.ScreenCapture.GDIStuff" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACIAAACAAAAAAAAAGAAACAAAABA=</HashCode>
+      <FileName>GDIStuff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScreenshotCaptureWithMouse.ScreenCapture.Win32Stuff" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgIQAAEEAEAAAAgAAAAAAAAAAAgAYAQA=</HashCode>
+      <FileName>Win32Stuff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RLC.RemoteDesktop.ScreenCapture">
+    <Position X="2.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQBAAAAABAAAAAAAAAIAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>ScreenCapture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RLC.RemoteDesktop.Utils">
+    <Position X="2.5" Y="2.75" Width="6" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAQAAAAIQAAAAAAAAAQAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
