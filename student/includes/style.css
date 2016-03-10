@@ -1,0 +1,112 @@
+@viewport {
+	width:480px;
+	zoom:1;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.clear {
+	clear:both;
+}
+
+header, body, nav, main, canvas {
+	display: block;
+}
+
+main {
+	padding: 5px;
+}
+
+/******* Tools ******/
+	#tools ul {
+		list-style: none;
+		float:left;
+	}
+	
+	#tools ul li {
+		display: inline-block;
+		width:20px;
+		height:20px;
+		float: left;
+		margin: 0 10px;
+	}
+	
+	#tools ul ul {
+		display: inline-block;
+		padding: 0;
+	}
+
+	#tools ul li:hover > ul {
+		/*width:22px;*/
+		display: inline-block;
+	}
+
+	/**** PEN ****/
+		#pen {
+			background: url(../images/draw_20px.png) no-repeat;
+		}
+		
+		#penColor li {
+			width: 20px;
+			height: 20px;
+			border: 1px #000 solid;
+			display:inline-block;
+			margin: 0;
+		}
+		
+		/*** PEN COLORS ***/
+			#penColorBlack {
+				background: #000;
+			}
+			
+			#penColorRed {
+				background: #F00;
+			}
+			
+			#penColorGreen {
+				background: #0F0;
+			}
+			
+			#penColorBlue {
+				background: #00F;
+			}
+			
+			#penColorPurple {
+				background: #F0F;
+			}
+		/*** END PEN COLORS ***/
+		
+	/**** ERASE ****/
+		#erase {
+			background: url(../images/delete_20px.png) no-repeat;
+		}
+
+	/**** SHAPES ****/
+		#shapes {
+			background: url(../images/circle-1_20px.png) no-repeat;
+		}
+	
+	/**** ARROWS ****/
+		#next {
+			background: url(../images/next_20px.png) no-repeat;
+		}
+		
+		#previous {
+			background: url(../images/previous_20px.png) no-repeat;
+		}
+		
+	/**** SHAPES ****/
+		#save {
+			background: url(../images/save_20px.png) no-repeat;
+		}
+	
+/******* END Tools ******/
+
+
+#noteCanvas {
+	border: 1px solid #000;
+}
+
