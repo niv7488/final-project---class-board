@@ -52,3 +52,23 @@ D:\Epic-Pen-master\Epic Pen\obj\Release\Epic Pen.csproj.GenerateResource.Cache
 D:\Epic-Pen-master\Epic Pen\obj\Release\Epic Pen.csproj.ResolveComReference.cache
 D:\Epic-Pen-master\Epic Pen\obj\Release\backgrounWindow.baml
 D:\Epic-Pen-master\Epic Pen\obj\Release\backgrounWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Release\Epic Pen.csproj.ResolveComReference.cache
+D:\BoardcastTeacher\Epic Pen\obj\Release\click through wpf.exe
+D:\BoardcastTeacher\Epic Pen\obj\Release\click through wpf.pdb
+D:\BoardcastTeacher\Epic Pen\bin\Release\click through wpf.exe
+D:\BoardcastTeacher\Epic Pen\bin\Release\click through wpf.pdb
+D:\BoardcastTeacher\Epic Pen\obj\Release\Epic Pen.csprojResolveAssemblyReference.cache
+D:\BoardcastTeacher\Epic Pen\obj\Release\backgrounWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Release\MainWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Release\SettingsWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Release\toolsWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Release\backgrounWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Release\MainWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Release\SettingsWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Release\toolsWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Release\App.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Release\click through wpf_MarkupCompile.cache
+D:\BoardcastTeacher\Epic Pen\obj\Release\click through wpf.g.resources
+D:\BoardcastTeacher\Epic Pen\obj\Release\Epic_Pen.Properties.Resources.resources
+D:\BoardcastTeacher\Epic Pen\obj\Release\Epic Pen.csproj.GenerateResource.Cache
+D:\BoardcastTeacher\Epic Pen\bin\Release\click through wpf.exe.config

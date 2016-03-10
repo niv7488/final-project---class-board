@@ -354,6 +354,8 @@ namespace Epic_Pen
 
         void toolsWindow_CloseButtonClick(object sender, EventArgs e)
         {
+            if (inkCanvas.Strokes.Count == 0)
+                MessageBox.Show("Blank Canvas");
             Close();
             bgwn.Close();
             
