@@ -5,16 +5,16 @@ winexe
 C#
 .cs
 D:\BoardcastTeacher\Epic Pen\obj\Release\
-Epic_Pen
+BoardCast
 none
 false
 TRACE
 D:\BoardcastTeacher\Epic Pen\App.xaml
-4110668178
+5996903122
 
-81322768246
+10533253795
 171669456538
-backgrounWindow.xaml;MainWindow.xaml;SettingsWindow.xaml;toolsWindow.xaml;
+backgrounWindow.xaml;LoginWindow.xaml;MainWindow.xaml;SettingsWindow.xaml;toolsWindow.xaml;
 
 False
 

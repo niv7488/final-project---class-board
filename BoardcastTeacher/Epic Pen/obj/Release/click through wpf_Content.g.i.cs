@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/cursor-512.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/bimage.png")]
 
 

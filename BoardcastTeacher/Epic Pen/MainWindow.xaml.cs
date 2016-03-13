@@ -37,7 +37,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.IO;
 
-namespace Epic_Pen
+namespace BoardCast
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -358,7 +358,7 @@ namespace Epic_Pen
                 MessageBox.Show("Blank Canvas");
             Close();
             bgwn.Close();
-            
+            Application.Current.Shutdown();
         }
 
         void hideInkCheckBox_Checked(object sender, RoutedEventArgs e)

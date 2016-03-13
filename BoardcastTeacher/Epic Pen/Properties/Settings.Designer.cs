@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Epic_Pen.Properties {
+namespace BoardCast.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

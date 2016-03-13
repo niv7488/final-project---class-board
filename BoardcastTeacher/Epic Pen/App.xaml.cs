@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace Epic_Pen
+namespace BoardCast
 {
     /// <summary>
     /// Interaction logic for App.xaml

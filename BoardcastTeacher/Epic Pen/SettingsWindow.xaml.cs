@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Epic_Pen
+namespace BoardCast
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml

@@ -28,7 +28,7 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using Rectangle = System.Windows.Shapes.Rectangle;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
-namespace Epic_Pen
+namespace BoardCast
 {
     /// <summary>
     /// Interaction logic for toolsWindow.xaml
@@ -36,8 +36,9 @@ namespace Epic_Pen
     public partial class ToolsWindow : Window
     {
         public static int courseID;
+        public static string date;
         private string screenshotFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
-        public string fileName,date;
+        public string fileName;
         InkCanvas inkCanvas;
         private InkCanvas bgCanvas;
         public ToolsWindow()
@@ -61,6 +62,8 @@ namespace Epic_Pen
             Top = desktopWorkingArea.Bottom - Height+40;
             WindowStyle = WindowStyle.None;
             ResizeMode = ResizeMode.NoResize;
+            Thread FileUploadThread = new Thread(UploadManager.Instance.Main);
+            FileUploadThread.Start();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -246,7 +249,7 @@ namespace Epic_Pen
         {
             this.Hide();
              date = DateTime.Now.ToString("ddMMyyyy");
-            fileName = screenshotFolderPath + DateTime.Now.ToString("hhmmss");
+            fileName = DateTime.Now.ToString("hhmmss");
             courseID = 1234;
             int ix, iy, iw, ih;
             ix = Convert.ToInt32(Screen.PrimaryScreen.Bounds.X);
@@ -268,28 +271,30 @@ namespace Epic_Pen
             }
             this.Show();
             inkCanvas.Strokes.Clear();
-            MessageBox.Show(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"));
-            Thread Base64converter = new Thread(Base64Thread);
-            Base64converter.Start();
+            string fullFilePath = System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg");
+            MessageBox.Show(fullFilePath);
+            UploadManager.Instance.uploadFilesStack.Push(fullFilePath);
+           // Thread Base64converter = new Thread(Base64Thread);
+            //Base64converter.Start();
         }
 #region Base64 convert+Upload
         private void Base64Thread()
         {
             //the path is the folder that saves the Export image screen shot
-            byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(screenshotFolderPath, fileName + ".png")));
+            byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"));
             Console.WriteLine("Bytes Length " + bytes.Length);
             string base64String = System.Convert.ToBase64String(bytes);
 
             //serialize the json so that the server will know what values we sent
             string json = new JavaScriptSerializer().Serialize(new
             {
-                base64 = base64String,                  //the picture after transfoming into base64 string
+               // base64 = base64String,                  //the picture after transfoming into base64 string
                 filename = fileName,                 //the name of the pic-->need to be changed according to each pic
-                cours_id = courseID,
+                course_id = courseID,
                 date = date
             });
             //opening a connection with the server
-            var baseAddress = "https://boardcast-ws.herokuapp.com/decode64/";
+            var baseAddress = "https://boardcast-ws.herokuapp.com/testchannel/";
             //deffine the request methood
             //var http = HttpWebRequest.Create(new Uri(baseAddress));
             var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
