@@ -24,12 +24,13 @@ namespace BoardCast
 
        public LoginWindow()
         {
-            InitializeComponent();
-            bw.WorkerReportsProgress = true;
-            bw.WorkerSupportsCancellation = true;
-            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+           InitializeComponent();
+           fillCoursesList();
+           bw.WorkerReportsProgress = true;
+           bw.WorkerSupportsCancellation = true;
+           bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+           bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+           bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -92,13 +93,16 @@ namespace BoardCast
                 lblfrgtPass.Visibility = Visibility.Visible;
                 lblfrgtPass.Content = "LOGIN SUCCESSFUL";
                 Mouse.OverrideCursor = null;
-                txtBxuserName.IsEnabled = true;
-                passBxPassword.IsEnabled = true;
-                btnLogin.IsEnabled = true;
-                MainWindow main = new MainWindow();
+                txtBxuserName.Visibility = Visibility.Hidden;
+                passBxPassword.Visibility = Visibility.Hidden;
+                btnLogin.Visibility = Visibility.Hidden;
+                CoursesList.Visibility = Visibility.Visible;
+                btnLogout.Visibility = Visibility.Visible;
+                //btnStart.Visibility = Visibility.Visible;
+                /* MainWindow main = new MainWindow();
                 App.Current.MainWindow = main;
                 this.Close();
-                main.Show();
+                main.Show();*/
             }
         }
 
@@ -126,6 +130,33 @@ namespace BoardCast
         private void passBxPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
             passBxPassword.BorderBrush = Brushes.White;
+        }
+
+        void fillCoursesList()
+        {
+            CoursesList.Items.Add("test1");
+            CoursesList.Items.Add("test2");
+            CoursesList.Items.Add("test3");
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PlaceholdersListBox_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
+            if (item != null)
+            {
+                btnStart.Visibility = Visibility.Visible;
+                // ListBox item clicked - do some cool things here
+            }
         }
     }
 }
