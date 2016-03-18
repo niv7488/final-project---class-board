@@ -1,0 +1,10 @@
+C:\Users\Eyal\Desktop\dialog\bin\Debug\CustomOpenFileDialog.exe
+C:\Users\Eyal\Desktop\dialog\bin\Debug\CustomOpenFileDialog.pdb
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.csprojResolveAssemblyReference.cache
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomControls.Controls.OpenFileDialogEx.resources
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomControls.FormMain.resources
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomControls.FormOpenFileDialog.resources
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.Properties.Resources.resources
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.csproj.GenerateResource.Cache
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.exe
+C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.pdb

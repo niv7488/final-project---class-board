@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace BoardCast
 {
@@ -21,7 +17,10 @@ namespace BoardCast
     public partial class LoginWindow : Window
     {
        public BackgroundWorker bw = new BackgroundWorker();
-
+       public int selectedCours;
+       public bool isUploading = false;
+       private string screenshotFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
+       private string canvasFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
        public LoginWindow()
         {
            InitializeComponent();
@@ -31,6 +30,18 @@ namespace BoardCast
            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+           if (!isUploading)
+           {
+               if (Directory.EnumerateFileSystemEntries(screenshotFolderPath).Any())
+               {
+                   System.IO.DirectoryInfo dir = new DirectoryInfo(screenshotFolderPath);
+
+                   foreach (FileInfo file in dir.GetFiles())
+                   {
+                       file.Delete();
+                   }
+               }
+           }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -134,19 +145,42 @@ namespace BoardCast
 
         void fillCoursesList()
         {
-            CoursesList.Items.Add("test1");
-            CoursesList.Items.Add("test2");
-            CoursesList.Items.Add("test3");
+            CoursesList.Items.Add("123456:לוגיקה");
+            CoursesList.Items.Add("350876542:חדווא 1");
+            CoursesList.Items.Add("350876541:JAVA");
+            CoursesList.Items.Add("350876543:לוגיקה");
+            CoursesList.Items.Add("350876542:חדווא 1");
+            CoursesList.Items.Add("350876541:JAVA");
+            CoursesList.Items.Add("350876543:לוגיקה");
+            CoursesList.Items.Add("350876542:חדווא 1");
+            CoursesList.Items.Add("350876541:JAVA");
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            lblLoading.Visibility = Visibility.Hidden;
+            lblfrgtPass.Visibility = Visibility.Hidden;
+            //lblfrgtPass.Content = "LOGIN SUCCESSFUL";
+            Mouse.OverrideCursor = null;
+            txtBxuserName.Visibility = Visibility.Visible;
+            passBxPassword.Visibility = Visibility.Visible;
+            btnLogin.Visibility = Visibility.Visible;
+            CoursesList.Visibility = Visibility.Hidden;
+            btnLogout.Visibility = Visibility.Hidden;
+            txtBxuserName.IsEnabled = true;
+            passBxPassword.IsEnabled = true;
+            btnLogin.IsEnabled = true;
+            txtBxuserName.Text = "";
+            passBxPassword.Password = "";
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MainWindow main = new MainWindow(selectedCours);
+            
+            App.Current.MainWindow = main;
+            this.Close();
+            main.Show();
         }
 
         private void PlaceholdersListBox_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -154,9 +188,19 @@ namespace BoardCast
             var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
             if (item != null)
             {
+                string c = item.ToString();
+                Console.WriteLine(c);
+                string[] courseInfo = c.Split(':');
+                selectedCours = Int32.Parse(courseInfo[1]); 
                 btnStart.Visibility = Visibility.Visible;
                 // ListBox item clicked - do some cool things here
             }
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            btnLogin_Click(sender,e);
         }
     }
 }

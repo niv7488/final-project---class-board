@@ -5,8 +5,12 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Web.Configuration;
 using System.Web.Script.Serialization;
+using System.Windows;
 using System.Windows.Forms.VisualStyles;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BoardCast
 {
@@ -16,6 +20,7 @@ namespace BoardCast
         private static object syncRoot = new Object();
         private static object dataToken = new Object();
         private static bool isMainThreadRunning = false;
+        private int courseID;
         public bool Stop { get; set; }
         //queue of document to add and remove
         public Stack<string> uploadFilesStack = new Stack<string>();
@@ -90,6 +95,7 @@ namespace BoardCast
                 isMainThreadRunning = false;
             }
         }
+
         #region base64Converter
         private void Base64Convert()
         {
@@ -106,13 +112,13 @@ namespace BoardCast
             //serialize the json so that the server will know what values we sent
             string json = new JavaScriptSerializer().Serialize(new
             {
-                // base64 = base64String,                  //the picture after transfoming into base64 string
+                base64 = base64String,                  //the picture after transfoming into base64 string
                 filename = Path.GetFileNameWithoutExtension(uploadedFileName),                 //the name of the pic-->need to be changed according to each pic
-                course_id = ToolsWindow.courseID,
+                course_id = courseID,
                 date = ToolsWindow.date
             });
             //opening a connection with the server
-            var baseAddress = "https://boardcast-ws.herokuapp.com/testchannel/";
+            var baseAddress = "https://boardcast-ws.herokuapp.com/decode64/";
             //deffine the request methood
             //var http = HttpWebRequest.Create(new Uri(baseAddress));
             var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
@@ -127,17 +133,37 @@ namespace BoardCast
             Stream newStream = http.GetRequestStream();
             newStream.Write(bytes1, 0, bytes1.Length);
             newStream.Close();
+            try
+            {
+                var response2 = http.GetResponse();
+                var stream = response2.GetResponseStream();
+                var sr = new StreamReader(stream);
+                var responeContent = sr.ReadToEnd();
+                //Console.WriteLine(content);
+                var contentToObject = (JObject)JsonConvert.DeserializeObject(responeContent);
 
-            var response2 = http.GetResponse();
+                var responeStatus = (string)contentToObject["status"];
+                if (responeStatus.Equals("Success"))
+                {
+                    uploadFilesStack.Pop();
+                    uploadedFileName = null;
+                    isBase64Converted = false;
+                    base64String = null;
+                }
+                else
+                {
+                    MessageBox.Show("Error from server: " + (string)contentToObject["error"]);
+                }
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show("Error from server: " + e.Message);
+            }
+        }
 
-            var stream = response2.GetResponseStream();
-            var sr = new StreamReader(stream);
-            var content = sr.ReadToEnd();
-            Console.WriteLine(content);
-            uploadFilesStack.Pop();
-            uploadedFileName = null;
-            isBase64Converted = false;
-            base64String = null;
+        public void setCourseID(int cID)
+        {
+            courseID = cID;
         }
     }
 }

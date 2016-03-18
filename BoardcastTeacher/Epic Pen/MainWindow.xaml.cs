@@ -45,6 +45,7 @@ namespace BoardCast
     public partial class MainWindow : Window
     {
         private backgroundWindow bgwn;
+        public static int courseID;
         public string AssemblyTitle
        {
            get
@@ -78,8 +79,10 @@ namespace BoardCast
 
         WindowInteropHelper _host;
 
-        public MainWindow()
+        public MainWindow(int cID)
         {
+           
+            toolsWindow.setCourseID(cID);
             InitializeComponent();
             bgwn = new backgroundWindow();
             bgwn.Show();
@@ -298,14 +301,14 @@ namespace BoardCast
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             trayIcon.Visible = false;
-            saveSettings();
+           /* saveSettings();
             if (rememberContent.Checked)
             {
 
                 FileStream fS = new System.IO.FileStream(appDataDir + "\\content.ink", System.IO.FileMode.Create);
                 inkCanvas.Strokes.Save(fS);
                 fS.Close();
-            }
+            }*/
         }
 
         void saveSettings()
@@ -352,13 +355,19 @@ namespace BoardCast
         
 
 
-        void toolsWindow_CloseButtonClick(object sender, EventArgs e)
+        public void toolsWindow_CloseButtonClick(object sender, EventArgs e)
         {
-            if (inkCanvas.Strokes.Count == 0)
-                MessageBox.Show("Blank Canvas");
+            LoginWindow main = new LoginWindow();
+            App.Current.MainWindow = main;
             Close();
             bgwn.Close();
-            Application.Current.Shutdown();
+            toolsWindow.Close();
+            //Application.Current.Shutdown();
+            main.Show();
+            if (UploadManager.Instance.uploadFilesStack.Count > 0)
+            {
+                main.isUploading = true;
+            }
         }
 
         void hideInkCheckBox_Checked(object sender, RoutedEventArgs e)

@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardCast", "Epic Pen\BoardCast.csproj", "{0165969A-8C55-4C8C-A1A1-3DADB0982DD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomOpenFileDialog", "Epic Pen\IncludedProjects\dialog\CustomOpenFileDialog.csproj", "{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,14 @@ Global
 		{0165969A-8C55-4C8C-A1A1-3DADB0982DD6}.Release|x64.Build.0 = Release|x64
 		{0165969A-8C55-4C8C-A1A1-3DADB0982DD6}.Release|x86.ActiveCfg = Release|x86
 		{0165969A-8C55-4C8C-A1A1-3DADB0982DD6}.Release|x86.Build.0 = Release|x86
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{63F16AD6-3C52-43BA-A3D7-981AC870E7CE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

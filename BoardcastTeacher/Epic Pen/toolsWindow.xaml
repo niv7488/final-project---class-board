@@ -276,7 +276,7 @@
                     <DockPanel Name="toolsDockPanel" LastChildFill="False" Width="1000">
                         <Border DockPanel.Dock="Right" Background="Black" Width="50" Name="selectedColourBorder" Margin="0,4,4,4" />
                         <StackPanel Margin="4,4,4,4" Width="500">
-                            <StackPanel Orientation="Horizontal" x:Name="toolStackPanel" Width="354" Margin="0" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" x:Name="toolStackPanel" Width="606" Margin="0,0,-106,0" HorizontalAlignment="Left" Height="36">
                                 <Button Cursor="Hand" Style="{StaticResource highlightedButtonStyle}" x:Name="cursorButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Cursor (Cntl + 2)" Click="cursorButton_Click" BorderBrush="Red" Margin="0,2,2,2" IsTabStop="False" Height="31" Width="35">
                                     <Image Source="icons/cursor-512.png" Height="22" Width="26"/>
                                 </Button>
@@ -413,6 +413,18 @@
                                                 <RotateTransform/>
                                             </TransformGroup>
                                         </TextBlock.RenderTransform></TextBlock>
+                                </Button>
+                                <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenBrowser" x:Name="WebButton" Height="31" Width="35" >
+                                    <Image Source="icons/web.png" Height="22" Width="22" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                </Button>
+                                <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnOpenFileClicked" x:Name="OpenButton" Height="31" Width="35" >
+                                    <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                </Button>
+                                <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnOpenImageClicked" x:Name="ImageOpen" Height="31" Width="35" >
+                                    <Image Source="icons/gallery.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                </Button>
+                                <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnLogoutClicked" x:Name="logOut" Height="31" Width="35" >
+                                    <Image Source="icons/gallery.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
                                 </Button>
                             </StackPanel>
                             <StackPanel x:Name="PowerPointPanel" Orientation="Horizontal" Visibility="Hidden" >

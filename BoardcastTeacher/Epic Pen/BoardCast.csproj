@@ -81,6 +81,7 @@
     <ApplicationIcon>pencilIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -228,6 +229,21 @@
   <ItemGroup>
     <Resource Include="Images\BCLogo.jpg" />
     <Resource Include="Images\LoginBG.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\openfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\web.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="IncludedProjects\dialog\CustomOpenFileDialog.csproj">
+      <Project>{63f16ad6-3c52-43ba-a3d7-981ac870e7ce}</Project>
+      <Name>CustomOpenFileDialog</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\gallery.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

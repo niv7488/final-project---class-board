@@ -16,15 +16,21 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CustomControls;
+using CustomControls.Controls;
+using CustomControls.OS;
 using Microsoft.Office.Core;
+using Application = System.Windows.Forms.Application;
 using Button = System.Windows.Controls.Button;
 using Cursors = System.Windows.Input.Cursors;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Path = System.IO.Path;
 using Rectangle = System.Windows.Shapes.Rectangle;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
@@ -35,9 +41,10 @@ namespace BoardCast
     /// </summary>
     public partial class ToolsWindow : Window
     {
-        public static int courseID;
+        private int courseID;
         public static string date;
         private string screenshotFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
+        private string canvasFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
         public string fileName;
         InkCanvas inkCanvas;
         private InkCanvas bgCanvas;
@@ -250,7 +257,7 @@ namespace BoardCast
             this.Hide();
              date = DateTime.Now.ToString("ddMMyyyy");
             fileName = DateTime.Now.ToString("hhmmss");
-            courseID = 1234;
+            //courseID = 1234;
             int ix, iy, iw, ih;
             ix = Convert.ToInt32(Screen.PrimaryScreen.Bounds.X);
             iy = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Y);
@@ -270,12 +277,14 @@ namespace BoardCast
                 image.Save(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
             }
             this.Show();
-            inkCanvas.Strokes.Clear();
+            ExportCanvasToFile();
             string fullFilePath = System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg");
             MessageBox.Show(fullFilePath);
+            UploadManager.Instance.setCourseID(courseID);
             UploadManager.Instance.uploadFilesStack.Push(fullFilePath);
-           // Thread Base64converter = new Thread(Base64Thread);
-            //Base64converter.Start();
+            cursorButton_Click(sender,e);
+            
+
         }
 #region Base64 convert+Upload
         private void Base64Thread()
@@ -413,6 +422,76 @@ namespace BoardCast
         }
 #endregion
 
-        
+        private void OpenBrowser(object sender, RoutedEventArgs e)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo("http://google.com");
+            startInfo.WindowStyle = ProcessWindowStyle.Maximized;
+            Process.Start(startInfo);
+            
+            
+        }
+
+        private void OnOpenFileClicked(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "All files (*.*)|*.*";
+
+            // Get the selected file name and display in a TextBox 
+            Nullable<bool> result = openFileDialog1.ShowDialog();
+
+            // Get the selected file name and display in a TextBox
+            if (result == true)
+            {
+                // Open document 
+                string filename = openFileDialog1.FileName;
+                ProcessStartInfo startInfo = new ProcessStartInfo(filename);
+                startInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                Process.Start(startInfo);
+            }
+        }
+
+        public void setCourseID(int cID)
+        {
+            courseID = cID;
+        }
+
+        public void ExportCanvasToFile()
+        {
+            string xaml = XamlWriter.Save(inkCanvas);
+            if (Directory.Exists(canvasFolderPath))
+                File.WriteAllText(System.IO.Path.Combine(canvasFolderPath, fileName + ".xaml"), xaml);
+            else
+            {
+                Directory.CreateDirectory(canvasFolderPath);
+                File.WriteAllText(System.IO.Path.Combine(canvasFolderPath, fileName + ".xaml"), xaml);
+            }
+            inkCanvas.Strokes.Clear();
+        }
+
+        private void OnOpenImageClicked(object sender, RoutedEventArgs e)
+        {
+            FormOpenFileDialog controlex = new FormOpenFileDialog();
+            controlex.StartLocation = AddonWindowLocation.Right;
+            controlex.DefaultViewMode = FolderViewMode.Thumbnails;
+            controlex.OpenDialog.InitialDirectory = screenshotFolderPath;
+            controlex.OpenDialog.AddExtension = true;
+            controlex.OpenDialog.Filter = "Image Files(*.bmp;*.jpg;*.gif;*.png)|*.bmp;*.jpg;*.gif;*.png";
+            var result = controlex.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                // Open document 
+                string filename = controlex.OpenDialog.FileName;
+                ProcessStartInfo startInfo = new ProcessStartInfo(filename);
+                startInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                Process.Start(startInfo);
+                Thread.Sleep(2000);
+                SendKeys.SendWait("{F11}");
+            }
+        }
+
+        private void OnLogoutClicked(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
