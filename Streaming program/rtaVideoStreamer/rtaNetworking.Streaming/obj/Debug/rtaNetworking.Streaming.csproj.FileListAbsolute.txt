@@ -1,0 +1,10 @@
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaNetworking.Streaming\obj\Debug\ResolveAssemblyReference.cache
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaNetworking.Streaming\bin\Debug\rtaNetworking.Streaming.dll
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaNetworking.Streaming\bin\Debug\rtaNetworking.Streaming.pdb
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaNetworking.Streaming\obj\Debug\rtaNetworking.Streaming.dll
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaNetworking.Streaming\obj\Debug\rtaNetworking.Streaming.pdb
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaNetworking.Streaming\bin\Debug\rtaNetworking.Streaming.dll
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaNetworking.Streaming\bin\Debug\rtaNetworking.Streaming.pdb
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaNetworking.Streaming\obj\Debug\rtaNetworking.Streaming.csprojResolveAssemblyReference.cache
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaNetworking.Streaming\obj\Debug\rtaNetworking.Streaming.dll
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaNetworking.Streaming\obj\Debug\rtaNetworking.Streaming.pdb

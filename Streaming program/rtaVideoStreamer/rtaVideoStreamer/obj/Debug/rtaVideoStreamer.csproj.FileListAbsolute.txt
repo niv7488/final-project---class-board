@@ -1,0 +1,20 @@
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaVideoStreamer.exe
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaVideoStreamer.pdb
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\ResolveAssemblyReference.cache
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.Form1.resources
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.Properties.Resources.resources
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.csproj.GenerateResource.Cache
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.exe
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.pdb
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaNetworking.Streaming.dll
+U:\Development\Projects\VS 2008\Projects\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaNetworking.Streaming.pdb
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.exe
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.pdb
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaVideoStreamer.exe
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaVideoStreamer.pdb
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaNetworking.Streaming.dll
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\bin\Debug\rtaNetworking.Streaming.pdb
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.csprojResolveAssemblyReference.cache
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.Form1.resources
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.Properties.Resources.resources
+C:\Users\niv\Desktop\rtaVideoStreamer\rtaVideoStreamer\obj\Debug\rtaVideoStreamer.csproj.GenerateResource.Cache
