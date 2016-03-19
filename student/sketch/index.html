@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sketchpad 3.7 - Draw, Create, Share!</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="description" content="Sketchpad; multi-touch, multi-user, non-destructive drawing application written in HTML5."/>
+	<meta name="viewport" content="minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+	<!-- favicons -->
+	<link rel="image_src" class="facebook"/>
+	<link rel="icon" href="./media/ux/favicon/apple-touch-icon-precomposed.png" type="image/x-icon" id="favicon"/> 
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://sketch.io/sketchpad/media/ux/favicon/apple-touch-icon-144x144-precomposed.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://sketch.io/sketchpad/media/ux/favicon/apple-touch-icon-114x114-precomposed.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://sketch.io/sketchpad/media/ux/favicon/apple-touch-icon-72x72-precomposed.png"/>
+	<link rel="apple-touch-icon-precomposed" href="https://sketch.io/sketchpad/media/ux/favicon/apple-touch-icon-precomposed.png"/>
+
+	<!-- sketchpad -->
+	<!-- SketchAPI v3.7.3.34 -->
+	<link href="min/sketchapi.min.css" type="text/css" rel="stylesheet"/>
+	<script src="min/sketchapi.min.js" type="text/javascript"></script>
+</head>
+<body class="sketchapi sk-instant">
+
+	<!--- TOOLSET -->
+	<div class="sk-toolset">
+		<div class="left"></div>
+		<div class="center"></div>
+		<div class="right"></div>
+	</div>
+
+	<!--- SIDEBAR LEFT -->
+	<div class="sk-sidebar sk-sidebar-left">
+		<span class="tabs"></span>
+
+		<!--- CONFIGURE -->
+		<div id="sk-configure" class="sk-pane"></div>
+
+		<!--- CONFIGURE: FILL -->
+		<div id="sk-configure-fill" class="sk-pane">
+			<div class="sk-row-head">
+				<span class="icon-left to-configure"></span>
+				<span class="sk-translate">fill</span>
+			</div>
+			<div class="sk-pane-content"></div>
+		</div>
+
+		<!--- CONFIGURE: STROKE -->
+		<div id="sk-configure-stroke" class="sk-pane">
+			<div class="sk-row-head">
+				<span class="icon-left to-configure"></span>
+				<span class="sk-translate">stroke</span>
+			</div>
+			<div class="sk-pane-content"></div>
+		</div>
+
+		<!--- LAYERS -->
+		<div id="sk-layers" class="sk-pane">
+			<div class="sk-row-head sk-translate">layers</div>		
+			<ul class="sk-pane-content sk-tree"></ul>
+		</div>
+
+		<!--- HISTORY -->
+		<div id="sk-history" class="sk-pane">
+			<div class="sk-row-head sk-translate">history</div>
+			<ul class="sk-pane-content sk-tree"></ul>
+		</div>
+
+		<!--- EFFECTS -->
+		<div id="sk-effects" class="sk-pane"></div>
+
+		<!--- DOCUMENT -->
+		<div id="sk-document" class="sk-projects sk-pane">
+			<div class="sk-row-head sk-translate">file</div>
+			<div class="sk-row to-document-new">
+				<span class="sk-translate">new</span>
+				<span class="icon-right"></span>
+				</div>
+			<div class="sk-row to-document-open">
+				<span class="sk-translate">open</span>
+				<span class="icon-right"></span>
+			</div>
+			<div class="sk-row-head sk-translate">upload</div>
+			<div class="sk-row to-document-upload">
+				<span class="sk-translate">upload as new</span>
+				<span class="icon-right"></span>
+			</div>
+			<div class="sk-row to-document-upload">
+				<span class="sk-translate">place into</span>
+				<span class="icon-right"></span>
+			</div>
+			<div class="sk-row-head sk-translate">layout</div>
+			<div class="sk-row to-document-resize">
+				<span class="sk-translate">resize</span>
+				<span class="icon-right"></span>
+			</div>
+			<div class="sk-row to-document-background">
+				<span class="sk-translate">background</span>
+				<span class="icon-right"></span>
+			</div>
+		</div>
+		
+		<!--- DOCUMENT: NEW -->
+		<div id="sk-document-new" class="sk-projects sk-pane"></div>
+		
+		<!--- DOCUMENT: UPLOAD -->
+		<div id="sk-document-upload" class="sk-projects sk-pane"></div>
+		
+		<!--- DOCUMENT: RESIZE -->
+		<div id="sk-document-resize" class="sk-projects sk-pane"></div>
+		
+		<!--- DOCUMENT: BACKGROUND -->
+		<div id="sk-document-background" class="sk-projects sk-pane"></div>
+		
+		<!--- DOCUMENT: OPEN -->
+		<div id="sk-document-open" class="sk-projects sk-pane"></div>
+
+		<!--- SAVE -->
+		<div id="sk-save" class="sk-projects sk-pane">
+			<div class="sk-row-head sk-translate">export</div>
+			<div class="sk-row to-download">
+				<span class="sk-translate">download</span>
+				<span class="icon-right"></span>
+			</div>
+			<div class="sk-row to-print">
+				<span class="sk-translate">print</span>
+				<span class="icon-right"></span>
+			</div>
+			<div class="sk-row to-share">
+				<span class="sk-translate">share</span>
+				<span class="icon-right"></span>
+			</div>
+		</div>
+
+		<!--- SAVE: DOWNLOAD -->
+		<div id="sk-download" class="sk-projects sk-pane"></div>
+
+		<!--- SAVE: PRINT -->
+		<div id="sk-print" class="sk-projects sk-pane"></div>
+
+		<!--- SAVE: SHARE -->
+		<div id="sk-share" class="sk-projects sk-pane"></div>
+	</div>
+
+	<!--- CONTENT -->
+	<div class="sk-contents">
+		<div class="sk-viewport">
+			<!--- ORIENTATION -->
+			<div id="sk-orientation"></div>
+
+			<!--- CANVAS -->
+			<div class="sk-canvas" style="z-index: 0;">
+				<div class="sk-canvas-content" style="width: inherit; height: inherit;"></div>
+				<div class="clear"></div>
+			</div>
+
+			<!--- VIDEOS -->
+			<div id="videos" style="z-index: 1"></div>
+
+			<!--- FILTERS -->
+			<div id="filters" style="z-index: 2;"></div>
+		</div>
+	</div>
+</body>
+
+</html>
