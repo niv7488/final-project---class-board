@@ -1,100 +1,67 @@
-/*
-  ___________           __         .__         .__        
- /   _____/  | __ _____/  |_  ____ |  |__      |__| ____  
- \_____  \|  |/ // __ \   __\/ ___\|  |  \     |  |/  _ \ 
- /        \    <\  ___/|  | \  \___|   Y  \    |  (  <_> )
-/_______  /__|_ \\___  >__|  \___  >___|  / /\ |__|\____/ 
-		\/     \/    \/          \/     \/  \/            
-
- HTML5 graphics made w/ WebGL, WebRTC & Canvas
-
- -------------------------------------------------------------------
- Sketchpad 3.7 built for "Draw, Create, Share!"
- -------------------------------------------------------------------
- Sketch API v3.7.3.34
- Copyright (c) Sketch.IO, Inc. <https://sketch.io>
- -------------------------------------------------------------------
- */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-nav,
-section {
-    display: block
+article, aside, details, figcaption, 
+figure, footer, header, hgroup, nav, section {
+    display: block;
+    margin:0;
+    padding: 0;
 }
 
-audio,
-canvas,
-video {
+audio, canvas, video {
     display: inline-block;
     *display: inline;
-    *zoom: 1
+    *zoom: 1;
 }
 
 audio:not([controls]) {
-    display: none
+    display: none;
 }
 
 html {
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%
+    -ms-text-size-adjust: 100%;
 }
 
-html,
-button,
-input,
-select,
-textarea {
+html, button, input, select, textarea {
     font-family: sans-serif;
-    color: #222
+    color: #222;
 }
 
 body {
     margin: 0;
     font-size: 1em;
-    line-height: 1.4
+    line-height: 1.4;
 }
 
-a,
-a:visited {
-    color: #005AD0
+a, a:visited {
+    color: #005AD0;
 }
 
 a:hover {
-    color: #FF3DBD
+    color: #FF3DBD;
 }
 
 a:focus {
-    outline: thin dotted
+    outline: thin dotted;
 }
 
-a:hover,
-a:active {
-    outline: 0
+a:hover, a:active {
+    outline: 0;
 }
 
 abbr[title] {
-    border-bottom: 1px dotted
+    border-bottom: 1px dotted;
 }
 
-b,
-strong {
-    font-weight: 700
+b, strong {
+    font-weight: 700;
 }
 
 blockquote {
-    margin: 1em 40px
+    margin: 1em 40px;
 }
 
 dfn {
-    font-style: italic
+    font-style: italic;
 }
 
 hr {
@@ -103,203 +70,191 @@ hr {
     border: 0;
     border-top: 1px solid #ccc;
     margin: 1em 0;
-    padding: 0
+    padding: 0;
 }
 
 ins {
     background: #ff9;
     color: #000;
-    text-decoration: none
+    text-decoration: none;
 }
 
 mark {
     background: #ff0;
     color: #000;
     font-style: italic;
-    font-weight: 700
+    font-weight: 700;
 }
 
-pre,
-code,
-kbd,
-samp {
+pre, code, kbd, samp {
     font-family: monospace, serif;
     _font-family: 'courier new', monospace;
-    font-size: 1em
+    font-size: 1em;
 }
 
 pre {
     white-space: pre;
     white-space: pre-wrap;
-    word-wrap: break-word
+    word-wrap: break-word;
 }
 
 q {
-    quotes: none
+    quotes: none;
 }
 
-q:before,
-q:after {
+q:before, q:after {
     content: "";
-    content: none
+    content: none;
 }
 
 small {
-    font-size: 85%
+    font-size: 85%;
 }
 
-sub,
-sup {
+sub, sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
-    vertical-align: baseline
+    vertical-align: baseline;
 }
 
 sup {
-    top: -.5em
+    top: -.5em;
 }
 
 sub {
-    bottom: -.25em
+    bottom: -.25em;
 }
 
-ul,
-ol {
+ul, ol {
     margin: 1em 0;
-    padding: 0 0 0 40px
+    padding: 0 0 0 40px;
 }
 
 dd {
-    margin: 0 0 0 40px
+    margin: 0 0 0 40px;
 }
 
-nav ul,
-nav ol {
+nav ul, nav ol {
     list-style: none;
     list-style-image: none;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 img {
     border: 0;
     -ms-interpolation-mode: bicubic;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
 svg:not(:root) {
-    overflow: hidden
+    overflow: hidden;
 }
 
 figure {
-    margin: 0
+    margin: 0;
 }
 
 form {
-    margin: 0
+    margin: 0;
 }
 
 fieldset {
     border: 0;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 label {
-    cursor: pointer
+    cursor: pointer;
 }
 
 legend {
     border: 0;
     *margin-left: -7px;
     padding: 0;
-    white-space: normal
+    white-space: normal;
 }
 
-button,
-input,
-select,
-textarea {
+button, input, select, textarea {
     font-size: 100%;
     margin: 0;
     vertical-align: baseline;
-    *vertical-align: middle
+    *vertical-align: middle;
 }
 
-button,
-input {
-    line-height: normal
+button, input {
+    line-height: normal;
 }
 
-button,
-input[type=button],
-input[type=reset],
+button, input[type=button], 
+input[type=reset], 
 input[type=submit] {
     cursor: pointer;
     -webkit-appearance: button;
-    *overflow: visible
+    *overflow: visible;
 }
 
-button[disabled],
+button[disabled], 
 input[disabled] {
-    cursor: default
+    cursor: default;
 }
 
-input[type=checkbox],
+input[type=checkbox], 
 input[type=radio] {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0;
     *width: 13px;
-    *height: 13px
+    *height: 13px;
 }
 
 input[type=search] {
     -webkit-appearance: textfield;
     -moz-box-sizing: content-box;
-    box-sizing: content-box
+    box-sizing: content-box;
 }
 
-input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-decoration, 
 input[type=search]::-webkit-search-cancel-button {
-    -webkit-appearance: none
+    -webkit-appearance: none;
 }
 
-button::-moz-focus-inner,
+button::-moz-focus-inner, 
 input::-moz-focus-inner {
     border: 0;
-    padding: 0
+    padding: 0;
 }
 
 textarea {
     overflow: auto;
     vertical-align: top;
-    resize: vertical
+    resize: vertical;
 }
 
-input:valid,
+input:valid, 
 textarea:valid {}
 
-input:invalid,
+input:invalid, 
 textarea:invalid {
-    background-color: #f0dddd
+    background-color: #f0dddd;
 }
 
 table {
     border-collapse: collapse;
-    border-spacing: 0
+    border-spacing: 0;
 }
 
 td {
-    vertical-align: top
+    vertical-align: top;
 }
 
 .chromeframe {
     margin: .2em 0;
     background: #ccc;
-    color: #000;
-    padding: .2em 0
+    color: #fff;
+    padding: .2em 0;
 }
 
 .ir {
@@ -311,16 +266,16 @@ td {
     background-repeat: no-repeat;
     text-align: left;
     direction: ltr;
-    *line-height: 0
+    *line-height: 0;
 }
 
 .ir br {
-    display: none
+    display: none;
 }
 
 .hidden {
     display: none!important;
-    visibility: hidden
+    visibility: hidden;
 }
 
 .visuallyhidden {
@@ -331,41 +286,40 @@ td {
     overflow: hidden;
     padding: 0;
     position: absolute;
-    width: 1px
+    width: 1px;
 }
 
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
     clip: auto;
     height: auto;
     margin: 0;
     overflow: visible;
     position: static;
-    width: auto
+    width: auto;
 }
 
 .invisible {
-    visibility: hidden
+    visibility: hidden;
 }
 
 .clearfix:before,
 .clearfix:after {
     content: "";
-    display: table
+    display: table;
 }
 
 .clearfix:after {
-    clear: both
+    clear: both;
 }
 
 .clearfix {
-    *zoom: 1
+    *zoom: 1;
 }
 
 #sk-text-metrics .sk-expand {
     min-width: 999999px;
     min-height: 999999px;
-    position: absolute
+    position: absolute;
 }
 
 #sk-text-metrics .sk-expand .sk-dummy-text {
@@ -376,7 +330,7 @@ td {
     top: 0;
     left: 0;
     position: absolute;
-    z-index: 999999
+    z-index: 999999;
 }
 
 .sketchapi,
@@ -384,7 +338,7 @@ td {
     width: inherit;
     height: inherit;
     position: relative;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .sketchapi .sk-dummy-canvas,
@@ -396,11 +350,11 @@ td {
     width: inherit;
     height: inherit;
     overflow: hidden;
-    -webkit-user-select: none
+    -webkit-user-select: none;
 }
 
 .sketchapi .sk-dummy-canvas {
-    font-size: 0
+    font-size: 0;
 }
 
 .sketchapi .sk-canvas canvas {
@@ -408,7 +362,7 @@ td {
     cursor: default;
     position: absolute;
     top: 0;
-    left: 0
+    left: 0;
 }
 
 .sketchapi .sk-textarea-wrap {
@@ -422,7 +376,7 @@ td {
     font-size: normal;
     line-height: normal;
     overflow: hidden;
-    outline: 1px solid rgba(0, 0, 0, .1)
+    outline: 1px solid rgba(0, 0, 0, .1);
 }
 
 .sketchapi .sk-textarea-wrap .textarea {
@@ -442,7 +396,7 @@ td {
     font: inherit;
     -webkit-user-select: text;
     -webkit-perspective: 1000;
-    -webkit-transform: translate3d(0, 0, 0)
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .sketchapi .sk-textarea-wrap .textarea:after {
@@ -456,11 +410,11 @@ td {
     position: absolute;
     z-index: -1;
     left: -4px;
-    top: 0
+    top: 0;
 }
 
 .sketchapi .sk-header {
-    -webkit-user-select: none
+    -webkit-user-select: none;
 }
 
 .sk-scroller {
@@ -473,18 +427,18 @@ td {
     clear: both;
     position: relative;
     padding: 0;
-    margin: 0 0 3px
+    margin: 0 0 3px;
 }
 
 .sk-scroller .sk-divider {
     clear: both;
     padding: 10px;
     color: #999;
-    font-style: italic
+    font-style: italic;
 }
 
 .sk-scroller::-webkit-scrollbar {
-    width: 0!important
+    width: 0!important;
 }
 
 .sk-scroller>span {
@@ -495,23 +449,23 @@ td {
     float: left;
     margin: 0;
     padding: 0;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .sk-scroller div.noItemsAdded {
-    padding: 10px
+    padding: 10px;
 }
 
 .sk-scroller>span.selected {
     z-index: 1;
     background: #00AA29;
     border-radius: 2px;
-    box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .25)
+    box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .25);
 }
 
 .sk-scroller>span .loader {
     background: rgba(0, 0, 0, .75);
-    background-image: url(../media/ux/loader.gif);
+    background-image: url(../images/logo144x144.png);
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
@@ -524,11 +478,11 @@ td {
     height: inherit;
     display: block;
     opacity: .75;
-    z-index: 1
+    z-index: 1;
 }
 
 .sketchapi .sk-break {
-    border-top: 1px solid #171717
+    border-top: 1px solid #171717;
 }
 
 .sketchapi .sk-content-info {
@@ -536,7 +490,7 @@ td {
     line-height: 1.4em;
     font-size: 13px;
     clear: both;
-    display: block
+    display: block;
 }
 
 .sketchapi #sk-configure .sk-pane-content,
@@ -544,7 +498,7 @@ td {
     -webkit-transition-property: opacity;
     transition-property: opacity;
     -webkit-transition-duration: .25s;
-    transition-duration: .25s
+    transition-duration: .25s;
 }
 
 .sketchapi .sk-configure-credits {
@@ -554,7 +508,7 @@ td {
     padding: 6px 0 4px 9px;
     position: relative;
     top: -2px;
-    cursor: default
+    cursor: default;
 }
 
 .sketchapi .sk-configure-credits a,
@@ -566,11 +520,11 @@ td {
     text-decoration: underline;
     color: #FD903B;
     font-weight: 700;
-    margin-left: 3px
+    margin-left: 3px;
 }
 
 .sketchapi .sk-configure-credits a:hover {
-    color: #FF3DBD
+    color: #FF3DBD;
 }
 
 .sketchapi .content {
@@ -578,15 +532,16 @@ td {
     overflow: auto;
     overflow-x: hidden;
     color: #BBB;
-    clear: both
+    clear: both;
 }
 
 .sketchapi .sk-error {
-    display: none
+    display: none;
 }
 
+
 .sketchapi .sk-toolset {
-    width: 100%
+    width: 100%;
 }
 
 .sketchapi .sk-subtool {
@@ -605,14 +560,14 @@ td {
     text-align: center;
     width: 16.666%;
     padding: 5px;
-    display: inline-block
+    display: inline-block;
 }
 
 .sketchapi .sk-subtool.selected {
     box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .25);
     color: #fff;
     border: 0;
-    background: rgba(0, 227, 89, .75)
+    background: rgba(0, 227, 89, .75);
 }
 
 #snapshot {
@@ -624,13 +579,13 @@ td {
     position: absolute;
     top: 0;
     width: inherit;
-    height: inherit
+    height: inherit;
 }
 
 #snapshot.fadein {
     -webkit-transition: opacity 50ms ease;
     transition: opacity 50ms ease;
-    opacity: 1
+    opacity: 1;
 }
 
 #sk-orientation {
@@ -649,11 +604,11 @@ td {
     padding: 5px;
     border-radius: 20px;
     right: 20px;
-    top: 68px
+    top: 68px;
 }
 
 #sk-orientation.sk-opened {
-    display: block
+    display: block;
 }
 
 #sk-orientation div.controller div,
@@ -666,12 +621,12 @@ td {
     background: rgba(170, 170, 170, 1);
     border-radius: 20px;
     position: relative;
-    margin: auto
+    margin: auto;
 }
 
 #sk-orientation div.controller {
     background: 0;
-    width: inherit
+    width: inherit;
 }
 
 #sk-orientation div.controller span {
@@ -683,7 +638,7 @@ td {
     position: relative;
     left: -7px;
     width: 19px;
-    height: 7px
+    height: 7px;
 }
 
 #sk-orientation div[class*=icon-] {
@@ -700,54 +655,54 @@ td {
     margin: 5px 0 0;
     background: #eee;
     color: #71B8DA;
-    line-height: 30px;
-    opacity: 1
+    line-height: 20px;
+    opacity: 1;
 }
 
 #sk-orientation div:first-child {
-    margin: 0 0 5px
+    margin: 0 0 5px;
 }
 
 #sk-orientation div[class*=icon-]:hover {
     opacity: 1;
     background: #fff;
-    color: #80d1f7
+    color: #80d1f7;
 }
 
 .sketchapi .sk-hide {
-    display: none
+    display: none;
 }
 
 .alertify {
-    color: #000
+    color: #000;
 }
 
 .alertify .confirm-message {
     margin: 0 15px;
     padding: 0;
-    line-height: 2em
+    line-height: 2em;
 }
 
 html body #sk-printable {
-    display: none
+    display: none;
 }
 
 @media print {
     .sketchapi,
     .sketchapi .sk-viewport {
-        overflow: visible
+        overflow: visible;
     }
     html * {
         display: none;
         visibility: hidden;
-        overflow: visible
+        overflow: visible;
     }
     html,
     body {
         display: block;
         visibility: visible;
         background: 0;
-        overflow: visible
+        overflow: visible;
     }
     html body #sk-printable,
     html body #sk-printable canvas {
@@ -757,28 +712,28 @@ html body #sk-printable {
         top: 0;
         left: 0;
         z-index: 99999999;
-        background: 0
+        background: 0;
     }
 }
 
 @page {
-    margin: 0
+    margin: 0;
 }
 
 .sketchapi .sk-slider {
     -webkit-user-select: none;
-    padding: 3px 8px 0
+    padding: 3px 8px 0;
 }
 
 .sketchapi .sk-slider .sk-title {
     float: left;
-    cursor: default
+    cursor: default;
 }
 
 .sketchapi .sk-slider .values {
     float: right;
     color: #444;
-    cursor: default
+    cursor: default;
 }
 
 .sketchapi .sk-slider .values input {
@@ -788,20 +743,20 @@ html body #sk-printable {
     background: 0;
     border: 0;
     text-align: right;
-    max-width: 45px
+    max-width: 45px;
 }
 
 .sketchapi .sk-slider .value0 {
     color: #888;
     padding-right: 3px;
     cursor: text;
-    outline: 0
+    outline: 0;
 }
 
 .sketchapi .sk-slider .value1 {
     color: #888;
     padding-left: 3px;
-    cursor: text
+    cursor: text;
 }
 
 .sk-focus-element {
@@ -814,7 +769,7 @@ html body #sk-printable {
     top: -3px;
     left: 0;
     opacity: .01;
-    position: absolute
+    position: absolute;
 }
 
 .sk-timer {
@@ -822,7 +777,7 @@ html body #sk-printable {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 .sk-timer canvas {
@@ -833,13 +788,13 @@ html body #sk-printable {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0
+    bottom: 0;
 }
 
 .sk-file-picker {
     width: 100%;
     width: calc(100% - 3px);
-    text-transform: uppercase
+    text-transform: uppercase;
 }
 
 .sk-style canvas {
@@ -851,11 +806,11 @@ html body #sk-printable {
     margin: 7px 0 7px 20px;
     vertical-align: middle;
     border-radius: 3px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .sk-style div.sk-checkbox {
-    margin: 8px
+    margin: 8px;
 }
 
 .sk-range {
@@ -870,20 +825,20 @@ html body #sk-printable {
     margin: -5px 0;
     position: relative;
     z-index: 100;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .sk-range div {
     box-shadow: 0 2px 2px 0 #999);
-    border-radius: 50%;
-    background: #fefefe;
-    background: -webkit-linear-gradient(top, #fefefe, #dadada);
-    background: linear-gradient(to bottom, #fefefe, #dadada);
-    top: 12px;
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    z-index: 1
+border-radius: 50%;
+background: #fefefe;
+background: -webkit-linear-gradient(top, #fefefe, #dadada);
+background: linear-gradient(to bottom, #fefefe, #dadada);
+top: 12px;
+width: 12px;
+height: 12px;
+position: absolute;
+z-index: 1;
 }
 
 .sk-range .sk-range-span {
@@ -895,20 +850,20 @@ html body #sk-printable {
     height: 6px;
     left: 50px;
     top: 15px;
-    z-index: 0
+    z-index: 0;
 }
 
 .sk-label .sk-title {
     margin: 4px 0 0 7px;
     font-weight: 400;
-    display: block
+    display: block;
 }
 
 div.sk-checkbox {
     display: inline-block;
     vertical-align: middle;
     padding: 3px;
-    margin: 0 0 8px 20px
+    margin: 0 0 8px 20px;
 }
 
 div.sk-checkbox>div {
@@ -921,7 +876,7 @@ div.sk-checkbox>div {
     -webkit-transition-duration: .4s;
     transition-duration: .4s;
     -webkit-transition-property: background-color;
-    transition-property: background-color
+    transition-property: background-color;
 }
 
 div.sk-checkbox>div>div {
@@ -938,19 +893,19 @@ div.sk-checkbox>div>div {
     -webkit-transition-property: left, background-color;
     transition-property: left, background-color;
     pointer-events: none;
-    position: relative
+    position: relative;
 }
 
 div.sk-checkbox.sk-checked>div {
     width: 40px;
     background-position: 0 0;
     background-color: rgba(0, 227, 89, .75);
-    border: 1px solid #000
+    border: 1px solid #000;
 }
 
 div.sk-checkbox.sk-checked>div>div {
     left: 20px;
-    background-color: #fff
+    background-color: #fff;
 }
 
 .sk-button,
@@ -978,26 +933,26 @@ div.sk-checkbox.sk-checked>div>div {
     padding: 0 7px;
     background-repeat: repeat-x;
     background-size: 30px 30px;
-    background-position: -1px -.5px
+    background-position: -1px -.5px;
 }
 
 .sketchapi .button {
     box-shadow: 0 0 0 2px #000;
-    text-align: center
+    text-align: center;
 }
 
 .sketchapi .sk-fileWrapper input,
 .sketchapi .sk-fileWrapper div,
 .sketchapi .button.grey {
-    background-color: rgba(55, 55, 55, 1)
+    background-color: rgba(55, 55, 55, 1);
 }
 
 .sketchapi .button.green {
-    background-color: #00AA29
+    background-color: #00AA29;
 }
 
 .sketchapi .button.red {
-    background-color: rgba(184, 31, 44, 1)
+    background-color: rgba(184, 31, 44, 1);
 }
 
 .sk-button:hover,
@@ -1005,7 +960,7 @@ div.sk-checkbox.sk-checked>div>div {
 .sketchapi .sk-fileWrapper:hover input,
 .sketchapi .sk-fileWrapper:hover div {
     color: #fff;
-    background-color: rgba(24, 100, 207, 1)
+    background-color: rgba(24, 100, 207, 1);
 }
 
 .sk-button:active,
@@ -1013,12 +968,12 @@ div.sk-checkbox.sk-checked>div>div {
 .sketchapi .sk-fileWrapper:active input,
 .sketchapi .sk-fileWrapper:active div {
     color: #fff;
-    background-color: #00AA29
+    background-color: #00AA29;
 }
 
 .sketchapi .sk-fileWrapper,
 .sketchapi .sk-fileWrapper div {
-    display: block
+    display: block;
 }
 
 .sketchapi #sk-configure .sk-fileWrapper {
@@ -1029,13 +984,13 @@ div.sk-checkbox.sk-checked>div>div {
     font-size: normal;
     padding: 0;
     text-align: center;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .sketchapi input,
 .sketchapi textarea,
 .sketchapi button {
-    outline: 0
+    outline: 0;
 }
 
 .sk-ghost-backdrop {
@@ -1049,7 +1004,7 @@ div.sk-checkbox.sk-checked>div>div {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 .sk-selectmenu-backdrop {
@@ -1064,11 +1019,11 @@ div.sk-checkbox.sk-checked>div>div {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .25)
+    background: rgba(0, 0, 0, .25);
 }
 
 .sk-selectmenu-backdrop.open {
-    opacity: 1
+    opacity: 1;
 }
 
 .sk-selectmenu-backdrop .arrow {
@@ -1086,30 +1041,30 @@ div.sk-checkbox.sk-checked>div>div {
     margin: 0;
     padding: 0;
     display: none;
-    background: rgba(255, 255, 255, 1)
+    background: rgba(255, 255, 255, 1);
 }
 
 .sk-selectmenu-backdrop .arrow.active {
     color: #000;
-    opacity: 1
+    opacity: 1;
 }
 
 .sk-selectmenu-backdrop .arrow:hover {
-    color: rgba(54, 107, 245, 1)
+    color: rgba(54, 107, 245, 1);
 }
 
 .sk-selectmenu-backdrop .arrow-down {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 1) 50%);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 1) 50%)
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 1) 50%);
 }
 
 .sk-selectmenu-backdrop .arrow-up {
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 1) 50%);
-    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 1) 50%)
+    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 1) 50%);
 }
 
 .sk-selectmenu-container {
@@ -1120,7 +1075,7 @@ div.sk-checkbox.sk-checked>div>div {
     display: inline-block;
     vertical-align: middle;
     width: inherit;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .sk-selectmenu-header {
@@ -1138,7 +1093,7 @@ div.sk-checkbox.sk-checked>div>div {
     overflow: hidden;
     z-index: 9999999;
     width: inherit;
-    font-size: 12px
+    font-size: 12px;
 }
 
 .sk-selectmenu-header .data-header {
@@ -1147,7 +1102,7 @@ div.sk-checkbox.sk-checked>div>div {
     text-overflow: ellipsis;
     white-space: nowrap;
     line-height: 2em;
-    float: left
+    float: left;
 }
 
 .sk-selectmenu-header .icon-caret-down {
@@ -1158,11 +1113,11 @@ div.sk-checkbox.sk-checked>div>div {
     overflow: hidden;
     float: right;
     padding: 0 3px;
-    line-height: 2em
+    line-height: 2em;
 }
 
 .sk-selectmenu-header:hover {
-    background: #444
+    background: #444;
 }
 
 .sk-selectmenu {
@@ -1188,23 +1143,23 @@ div.sk-checkbox.sk-checked>div>div {
     box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
     background-clip: padding-box;
     display: none;
-    max-height: 420px
+    max-height: 420px;
 }
 
 .sk-selectmenu-break {
     background: #ddd;
-    height: 1px
+    height: 1px;
 }
 
 .sk-selectmenu-backdrop.open>ul,
 .sk-selectmenu.open {
-    opacity: .94
+    opacity: .94;
 }
 
 .sk-selectmenu>li .sk-icon {
     width: 1em;
     text-align: center;
-    display: inline-block
+    display: inline-block;
 }
 
 .sk-selectmenu>li>span {
@@ -1217,7 +1172,7 @@ div.sk-checkbox.sk-checked>div>div {
     color: #333;
     white-space: nowrap;
     text-decoration: none;
-    font-size: 12px
+    font-size: 12px;
 }
 
 .sk-selectmenu>li>span.sk-hovered {
@@ -1225,7 +1180,7 @@ div.sk-checkbox.sk-checked>div>div {
     background-image: -webkit-linear-gradient(top, #ccc, #dfdfdf);
     background-image: linear-gradient(to bottom, #ccc, #dfdfdf);
     background-repeat: repeat-x;
-    color: rgba(54, 107, 245, 1)
+    color: rgba(54, 107, 245, 1);
 }
 
 .sk-selectmenu>li>span.sk-selected {
@@ -1236,24 +1191,24 @@ div.sk-checkbox.sk-checked>div>div {
     background: -webkit-linear-gradient(top, rgba(54, 107, 245, 1), rgba(54, 107, 245, .69));
     background: linear-gradient(to bottom, rgba(54, 107, 245, 1), rgba(54, 107, 245, .69));
     background-repeat: repeat-x;
-    position: relative
+    position: relative;
 }
 
 .sk-selectmenu>li>span.sk-selected:after {
     font-family: sketchpad;
     font-size: .75em;
-    content: "\e605";
+    content: "998";
     display: block;
     position: absolute;
     right: 7px;
     top: 3px;
-    color: #fff
+    color: #fff;
 }
 
 .sk-selectmenu>.disabled>span,
 .sk-selectmenu>.disabled>span:hover,
 .sk-selectmenu>.disabled>span:focus {
-    color: #999
+    color: #000;
 }
 
 .sk-selectmenu>.disabled>span:hover,
@@ -1264,625 +1219,580 @@ div.sk-checkbox.sk-checked>div>div {
 }
 
 @font-face {
-    font-family: sketchpad;
-    src: url(../media/ux/iconfont/sketchpad/sketchpad.eot);
-    src: url(../media/ux/iconfont/sketchpad/sketchpad.eot?#iefix) format('embedded-opentype'), url(../media/ux/iconfont/sketchpad/sketchpad.woff) format('woff'), url(../media/ux/iconfont/sketchpad/sketchpad.ttf) format('truetype'), url(../media/ux/iconfont/sketchpad/sketchpad.svg#sk) format('svg');
-    font-weight: 400;
-    font-style: normal
+    font-family: 'Boardcast';
+    src: url('../fonts/Boardcast.eot');
+    src: url('../fonts/Boardcast.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Boardcast.woff') format('woff'),
+    url('../fonts/Boardcast.ttf') format('truetype'),
+    url('../fonts/Boardcast.svg#Boardcast') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 [class^=icon-],
 [class*=" icon-"] {
-    font-family: sketchpad;
-    speak: none;
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
+    display: inline-block;
+    font-family: 'Boardcast';
+   font-style: normal;
+   font-weight: normal;
+   line-height: 1;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale
+   color: #000;
 }
 
-.icon-pencil:before {
-    content: "\e606"
-}
+.icon-pencil:before{content:'\0043';}
 
 .icon-zoom-out:before {
-    content: "\e651"
+    content: "00";
 }
 
 .icon-zoom-in:before {
-    content: "\e636"
+    content: "01";
 }
 
 .icon-frame:before {
-    content: "\e612"
+    content: "02";
 }
 
 .icon-powernib:before {
-    content: "\e603"
+    content: "03";
 }
 
 .icon-brush:before {
-    content: "\e602"
+    content: "04";
 }
 
 .icon-clipboard:before {
-    content: "\e610"
+    content: "05";
 }
 
-.icon-text:before {
-    content: "\e61a"
-}
+.icon-text:before{content:'\0055';}
 
-.icon-select:before {
-    content: "\e64d"
-}
+.icon-select:before{content:'\004f';}
 
-.icon-trash:before {
-    content: "\e650"
-}
+.icon-trash::before{content:'\0046';}
 
 .icon-spraypaint:before {
-    content: "\e64f"
+    content: "06";
 }
 
-.icon-pen:before {
-    content: "\e609"
-}
+.icon-pen:before{content:'\004a';}
 
-.icon-crayon:before {
-    content: "\e632"
-}
+.icon-crayon:before{content:'\0049';}
 
 .icon-paintbrush:before {
-    content: "\e646"
+    content: "07";
 }
 
 .icon-polyline:before {
-    content: "\e668"
+    content: "08";
 }
 
 .icon-path:before {
-    content: "\e669"
+    content: "09";
 }
 
 .icon-palette:before {
-    content: "\e61f"
+    content: "10";
 }
 
 .icon-compass:before {
-    content: "\e60f"
+    content: "11";
 }
 
 .icon-file-new:before {
-    content: "\e614"
+    content: "12";
 }
 
 .icon-ring:before {
-    content: "\e65a"
+    content: "13";
 }
 
 .icon-pie:before {
-    content: "\e662"
+    content: "14";
 }
 
 .icon-pixelate:before {
-    content: "\e631"
+    content: "15";
 }
 
 .icon-lighten:before {
-    content: "\e635"
+    content: "16";
 }
 
 .icon-opacity:before {
-    content: "\e64b"
+    content: "17";
 }
 
 .icon-darken:before {
-    content: "\e656"
+    content: "18";
 }
 
 .icon-web:before {
-    content: "\e633"
+    content: "19";
 }
 
 .icon-radial-burst:before {
-    content: "\e634"
+    content: "20";
 }
 
-.icon-marquee:before {
-    content: "\e607"
-}
+.icon-marquee:before{content:'\004e';}
 
 .icon-infinity:before {
-    content: "\e666"
+    content: "22";
 }
 
 .icon-camera:before {
-    content: "\e034"
+    content: "23";
 }
 
 .icon-library:before {
-    content: "\e072"
+    content: "24";
 }
 
 .icon-layers:before {
-    content: "\e097"
+    content: "25";
 }
 
 .icon-open:before {
-    content: "\e09c"
+    content: "26";
 }
 
 .icon-print:before {
-    content: "\e117"
+    content: "27";
 }
 
 .icon-speechbubble:before {
-    content: "\e166"
+    content: "28";
 }
 
 .icon-video-tutorial:before {
-    content: "\e170"
+    content: "29";
 }
 
 .icon-expand:before {
-    content: "\e1bf"
+    content: "30";
 }
 
 .icon-configure:before {
-    content: "\e1db"
+    content: "31";
 }
 
 .icon-spirograph:before {
-    content: "\e242"
+    content: "32";
 }
 
 .icon-highlight:before {
-    content: "\e462"
+    content: "33";
 }
 
 .icon-google-drive:before {
-    content: "\e497"
+    content: "34";
 }
 
 .icon-html5:before {
-    content: "\e4ea"
+    content: "35";
 }
 
 .icon-blur:before {
-    content: "\e015"
+    content: "36";
 }
 
 .icon-copy:before {
-    content: "\e05a"
+    content: "37";
 }
 
 .icon-video:before {
-    content: "\e0f5"
+    content: "38";
 }
 
 .icon-contract:before {
-    content: "\e134"
+    content: "39";
 }
 
 .icon-adjustments:before {
-    content: "\e140"
+    content: "40";
 }
 
 .icon-magicwand:before {
-    content: "\e14d"
+    content: "41";
 }
 
 .icon-font-size:before {
-    content: "\e2f7"
+    content: "42";
 }
 
 .icon-arrow-up:before {
-    content: "\e29f"
+    content: "43";
 }
 
 .icon-scissors:before {
-    content: "\e608"
+    content: "44";
 }
 
 .icon-caret-up:before {
-    content: "\e29d"
+    content: "45";
 }
 
 .icon-caret-down:before {
-    content: "\e29c"
+    content: "46";
 }
 
-.icon-rectangle:before {
-    content: "\e65f"
-}
+.icon-rectangle:before{content:'\0052';}
 
-.icon-stamp:before {
-    content: "\e60a"
-}
+.icon-stamp:before{content:'\004b';}
 
-.icon-image:before {
-    content: "\e60e"
-}
+.icon-photo:before{content:'\0044';}
 
 .icon-sketchy:before {
-    content: "\e663"
+    content: "47";
 }
 
 .icon-merge:before {
-    content: "\e661"
+    content: "48";
 }
 
 .icon-check:before {
-    content: "\e605"
+    content: "49";
 }
 
 .icon-gear:before {
-    content: "\e611"
+    content: "50";
 }
 
 .icon-floodfill:before {
-    content: "\e618"
+    content: "51";
 }
 
-.icon-clipart:before {
-    content: "\e61b"
-}
+.icon-clipart:before { content:'\0044'; }
 
 .icon-test1:before {
-    content: "\e604"
+    content: "52";
 }
 
 .icon-test2:before {
-    content: "\e615"
+    content: "53";
 }
 
 .icon-close:before {
-    content: "\e626"
+    content: "54";
 }
 
 .icon-file-zip:before {
-    content: "\e627"
+    content: "55";
 }
 
 .icon-file-pdf:before {
-    content: "\e628"
+    content: "56";
 }
 
-.icon-crop:before {
-    content: "\e629"
-}
+.icon-crop:before{content:'\0044';}
 
 .icon-pacman:before {
-    content: "\e61d"
+    content: "58";
 }
 
 .icon-twitter:before {
-    content: "\e619"
+    content: "59";
 }
 
 .icon-facebook:before {
-    content: "\e62e"
+    content: "60";
 }
 
 .icon-rss:before {
-    content: "\e62f"
+    content: "61";
 }
 
 .icon-google-plus:before {
-    content: "\e630"
+    content: "62";
 }
 
 .icon-stop:before {
-    content: "\e637"
+    content: "63";
 }
 
 .icon-play:before {
-    content: "\e638"
+    content: "64";
 }
 
 .icon-pause:before {
-    content: "\e639"
+    content: "65";
 }
 
 .icon-paragraph-left:before {
-    content: "\e63a"
+    content: "66";
 }
 
 .icon-paragraph-center:before {
-    content: "\e63b"
+    content: "67";
 }
 
 .icon-paragraph-right:before {
-    content: "\e63c"
+    content: "68";
 }
 
 .icon-bold:before {
-    content: "\e63d"
+    content: "69";
 }
 
 .icon-italic:before {
-    content: "\e63e"
+    content: "70";
 }
 
 .icon-text-height:before {
-    content: "\e63f"
+    content: "71";
 }
 
 .icon-text-width:before {
-    content: "\e640"
+    content: "72";
 }
 
 .icon-indent-increase:before {
-    content: "\e641"
+    content: "73";
 }
 
 .icon-indent-decrease:before {
-    content: "\e642"
+    content: "74";
 }
 
 .icon-underline:before {
-    content: "\e643"
+    content: "75";
 }
 
 .icon-strikethrough:before {
-    content: "\e644"
+    content: "76";
 }
 
 .icon-email:before {
-    content: "\e645"
+    content: "77";
 }
 
 .icon-pinterest:before {
-    content: "\e647"
+    content: "78";
 }
 
 .icon-tumblr:before {
-    content: "\e648"
+    content: "79";
 }
 
 .icon-code:before {
-    content: "\e649"
+    content: "80";
 }
 
 .icon-keyboard:before {
-    content: "\e64a"
+    content: "81";
 }
 
 .icon-save:before {
-    content: "\e62b"
+    content: "82";
 }
 
-.icon-calligraphy:before {
-    content: "\e00e"
-}
+.icon-calligraphy:before{content:'\0042';}
 
 .icon-eye-open:before {
-    content: "\e1e9"
+    content: "83";
 }
 
 .icon-eye-close:before {
-    content: "\e1ea"
+    content: "84";
 }
 
 .icon-arrow:before {
-    content: "\e2be"
+    content: "85";
 }
 
 .icon-square:before {
-    content: "\e653"
+    content: "86";
 }
 
 .icon-polygon:before {
-    content: "\e654"
+    content: "87";
 }
 
 .icon-spiral:before {
-    content: "\e655"
+    content: "88";
 }
 
 .icon-oil:before {
-    content: "\e657"
+    content: "89";
 }
 
 .icon-fur:before {
-    content: "\e658"
+    content: "90";
 }
 
 .icon-chrome:before {
-    content: "\e659"
+    content: "91";
 }
 
 .icon-command:before {
-    content: "\e2e5"
+    content: "92";
 }
 
 .icon-circle:before {
-    content: "\e617"
+    content: "93";
 }
 
-.icon-triangle:before {
-    content: "\e60c"
-}
+.icon-triangle:before{content:'\0054';}
 
-.icon-ellipse:before {
-    content: "\e61e"
-}
+.icon-ellipse:before{content:'\0045';}
 
 .icon-history:before {
-    content: "\e0af"
+    content: "94";
 }
 
 .icon-screen:before {
-    content: "\e0c2"
+    content: "95";
 }
 
 .icon-search:before {
-    content: "\f002"
+    content: "96";
 }
 
 .icon-export:before {
-    content: "\f045"
+    content: "97";
 }
 
 .icon-file:before {
-    content: "\f15b"
+    content: "98";
 }
 
 .icon-reddit:before {
-    content: "\f1a2"
+    content: "99";
 }
 
 .icon-grid:before {
-    content: "\e664"
+    content: "100";
 }
 
 .icon-refresh:before {
-    content: "\e665"
+    content: "101";
 }
 
 .icon-convert:before {
-    content: "\e620"
+    content: "102";
 }
 
-.icon-undo:before {
-    content: "\e621"
-}
+.icon-undo:before{content:'\0056';}
 
-.icon-redo:before {
-    content: "\e622"
-}
+.icon-redo:before{content:'\004c';}
 
 .icon-burst:before {
-    content: "\e623"
+    content: "103";
 }
 
 .icon-star:before {
-    content: "\e624"
+    content: "104";
 }
 
 .icon-settings:before {
-    content: "\e625"
+    content: "105";
 }
 
 .icon-left:before {
-    content: "\e60d"
+    content: "106";
 }
 
 .icon-right:before {
-    content: "\e616"
+    content: "107";
 }
 
 .icon-download:before {
-    content: "\e62a"
+    content: "108";
 }
 
 .icon-heart:before {
-    content: "\e64c"
+    content: "109";
 }
 
-.icon-menu:before {
-    content: "\e613"
-}
+.icon-menu:before{content:'\0051';}
 
 .icon-help:before {
-    content: "\e61c"
+    content: "111";
 }
 
 .icon-eraser:before {
-    content: "\e60b"
+    content: '\0046';
 }
 
 .icon-plus:before {
-    content: "\e600"
+    content: "113";
 }
 
 .icon-minus:before {
-    content: "\e601"
+    content: "114";
 }
 
 .icon-upload:before {
-    content: "\e65b"
+    content: "115";
 }
 
 .icon-remove:before {
-    content: "\e65e"
+    content: "116";
 }
 
 .icon-microphone:before {
-    content: "\f130"
+    content: "117";
 }
 
 .icon-microphone-off:before {
-    content: "\f131"
+    content: "118";
 }
 
 .icon-power:before {
-    content: "\e62c"
+    content: "119";
 }
 
 .icon-attachment:before {
-    content: "\e62d"
+    content: "120";
 }
 
 .icon-eyedropper:before {
-    content: "\e64e"
+    content: "121";
 }
 
 .icon-hand:before {
-    content: "\e65d"
+    content: "122";
 }
 
-.icon-zoom:before {
-    content: "\f002"
-}
+.icon-zoom:before{content:'\0057';}
 
 .icon-streamer:before {
-    content: "\e602"
+    content: "124";
 }
 
 .icon-regularPolygon:before {
-    content: "\e654"
+    content: "125";
 }
 
-.icon-clipart:before {
-    line-height: 1em;
-    content: "\e604"
-}
-
-.icon-clipart:after {
-    line-height: 1em;
-    margin-left: -1em;
-    content: "\e615"
-}
+.icon-clipart:before{content:'\0044';}
 
 .icon-document:before {
-    content: "\f15b";
-    font-size: .95em
+    content: "126";
 }
 
 .icon-about:before {
-    content: "\e61c"
+    content: "127";
 }
 
 .icon-screenshot:before {
-    content: "\e607"
+    content: "128";
 }
 
 .icon-vectorfill:before {
-    content: "\e618"
+    content: "129";
 }
 
+/*Toolbar background*/
 .sk-toolset:after {
     content: " ";
-    background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5));
-    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5));
+    border-bottom: solid 3px #235592;
+    background: #f6f6f6;
     display: block;
     width: inherit;
-    height: 40px;
+    height: 30px;
     position: absolute;
     top: 0;
     z-index: -1
@@ -1905,38 +1815,38 @@ div.sk-checkbox.sk-checked>div>div {
     left: 0;
     top: 0;
     width: inherit;
-    height: 40px;
+    height: 30px;
     padding: 0;
     border: 0;
     position: absolute;
     opacity: 1;
-    z-index: 3
+    z-index: 3;
 }
 
 .sk-toolset.sk-disabled {
-    opacity: 0
+    opacity: 0;
 }
 
 .sk-toolset .left {
     position: relative;
-    float: left
+    float: left;
 }
 
 .sk-toolset .right {
     position: relative;
-    float: right
+    float: right;
 }
 
 .sk-toolset .center {
     position: relative;
     display: inline-block;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 .sk-toolset span.hr {
     position: relative;
     display: inline-block;
-    width: 5px
+    width: 5px;
 }
 
 .sk-toolset .sk-tool {
@@ -1944,24 +1854,24 @@ div.sk-checkbox.sk-checked>div>div {
     border-radius: 0;
     border: 0;
     box-shadow: inset -1px 0 0 0 #333;
-    color: #ddd;
+    color: #555;
     cursor: pointer;
     display: table;
     float: left;
-    font-size: 26px;
+    font-size: 20px;
     line-height: 1em;
     outline: 0;
     padding: 0;
     position: relative;
     text-align: center;
-    text-shadow: .5px .5px #000;
+    /*text-shadow: .5px .5px #000;*/
     -webkit-transition-duration: .25s;
     transition-duration: .25s;
     -webkit-transition-property: color, background, box-shadow, font-size;
     transition-property: color, background, box-shadow, font-size;
     vertical-align: middle;
-    width: 50px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     z-index: 0
 }
 
@@ -1986,22 +1896,21 @@ div.sk-checkbox.sk-checked>div>div {
 }
 
 .sk-toolset .sk-icon:hover:before {
-    color: #fff
+    color: #fff;
 }
 
 .sk-toolset .sk-tool:hover {
-    background: #444;
-    box-shadow: inset 0 0 10px 2px #333
+    background: #ffa83d;
 }
 
 .sk-toolset .sk-tool:active .sk-icon {
-    color: #ccc
+    color: #ccc;
 }
 
 .sk-toolset .sk-tool:active {
     background: rgba(54, 107, 245, 1);
     box-shadow: inset 0 0 10px 2px rgba(34, 57, 145, 1);
-    color: #ccc
+    color: #ccc;
 }
 
 .sk-toolset .sk-tool.selected .sk-icon:before {
@@ -2014,8 +1923,8 @@ div.sk-checkbox.sk-checked>div>div {
 
 .sk-toolset .sk-tool.selected {
     z-index: 1;
-    font-size: 32px;
-    background: rgba(0, 106, 245, .85);
+    font-size: 26px;
+    background: rgba(35,85,142,.85);
     box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0)
 }
 
@@ -2031,11 +1940,11 @@ div.sk-checkbox.sk-checked>div>div {
     -webkit-transition-property: all;
     transition-property: all;
     -webkit-transition-duration: .25s;
-    transition-duration: .25s
+    transition-duration: .25s;
 }
 
 .sk-toolset .sk-tool.selected img {
-    -webkit-transform: scale(1.3)
+    -webkit-transform: scale(1.3);
 }
 
 .sk-toolset .sk-tool span.sk-arrow:after {
@@ -2045,7 +1954,7 @@ div.sk-checkbox.sk-checked>div>div {
     height: 16px;
     position: absolute;
     top: -16px;
-    right: -9px
+    right: -9px;
 }
 
 .sk-toolset .sk-tool span.sk-arrow {
@@ -2061,20 +1970,20 @@ div.sk-checkbox.sk-checked>div>div {
     border-bottom: 0 solid transparent;
     border-right: 11px solid #777;
     border-left: 0;
-    z-index: 1
+    z-index: 1;
 }
 
 .sk-toolset .sk-tool.selected span.sk-arrow {
-    border-right: 11px solid rgba(80, 175, 255, 1)
+    border-right: 11px solid rgba(80, 175, 255, 1);
 }
 
 .sk-toolset .sk-tool span.sk-arrow:hover {
-    border-right: 11px solid #fff
+    border-right: 11px solid #fff;
 }
 
 .sk-toolset .sk-fileWrapper {
     display: inline-block;
-    float: left
+    float: left;
 }
 
 #sk-uploader {
@@ -2092,13 +2001,13 @@ div.sk-checkbox.sk-checked>div>div {
     color: #fff;
     line-height: 1em;
     text-align: center;
-    text-shadow: 1px 1px 4px #000;
+    /*text-shadow: 1px 1px 4px #000;*/
     background: rgba(255, 255, 255, .4);
-    opacity: 0
+    opacity: 0;
 }
 
 #sk-uploader.visible {
-    opacity: 1
+    opacity: 1;
 }
 
 #sk-uploader .sk-uploader-text {
@@ -2121,14 +2030,14 @@ div.sk-checkbox.sk-checked>div>div {
     line-height: 1.2em;
     display: table-cell;
     vertical-align: middle;
-    border: 10px solid #ff5db1
+    border: 10px solid #ff5db1;
 }
 
 #sk-uploader .sk-uploader-text div {
     font-size: .35em;
     line-height: 2em;
     width: 100%;
-    display: inline-block
+    display: inline-block;
 }
 
 #sk-uploader .sk-uploader-anim {
@@ -2148,7 +2057,7 @@ div.sk-checkbox.sk-checked>div>div {
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease-in-out;
     -moz-box-sizing: border-box;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 @-webkit-keyframes pulsate {
@@ -2177,7 +2086,7 @@ div.sk-checkbox.sk-checked>div>div {
 .alertify .confirm-message {
     margin: 0 15px;
     padding: 0;
-    line-height: 1.2em
+    line-height: 1.2em;
 }
 
 .alertify,
@@ -2788,11 +2697,14 @@ body>cmenu {
 }
 
 ._contextmenu_screen_ cmenu menuitem {
-    -webkit-user-drag: none
+    -webkit-user-drag: none;
+    /*display: inline;*/
+    /*height: 40px;
+    width: 70px;*/
 }
 
 ._contextmenu_screen_>cmenu {
-    background-color: rgba(0, 0, 0, 1);
+    background-color: #F6F6F6;
     background-clip: padding-box;
     color: #fff;
     border: 1px solid rgba(55, 55, 55, 1);
@@ -2812,12 +2724,12 @@ body>cmenu {
 }
 
 ._contextmenu_screen_ cmenu>.submenu:after {
-    content: "\25B6";
+    content: "999";
     float: right;
     position: relative;
     left: 14px;
     top: 2px;
-    font-size: 16px;
+    font-size: 30px;
     color: #404040
 }
 
@@ -2834,7 +2746,7 @@ body>cmenu {
     padding: 0 5px 0 0;
     top: 2px;
     position: relative;
-    font-size: 16px;
+    font-size: 30px;
     width: 20px;
     text-align: center;
     display: inline-block;
@@ -2844,10 +2756,10 @@ body>cmenu {
 ._contextmenu_screen_ cmenu menuitem {
     position: relative;
     cursor: pointer;
-    font-size: 14px;
+    /*font-size: 14px;*/
     color: #fff;
-    padding: 5px 55px 5px 10px;
-    border-bottom: 1px solid #333
+    padding: 5px 20px 5px 10px;
+    border-bottom: 1px solid #F6F6F6;
 }
 
 ._contextmenu_screen_ cmenu menuitem span.code {
@@ -2865,7 +2777,7 @@ body>cmenu {
 ._contextmenu_screen_ cmenu .sk-fileWrapper:hover menuitem,
 ._contextmenu_screen_ cmenu menuitem:hover {
     cursor: pointer;
-    background: #00AA29;
+    background: #ffa83d;
     color: #fff
 }
 
@@ -4151,7 +4063,9 @@ body>cmenu {
 
 * {
     -moz-box-sizing: border-box;
-    box-sizing: border-box
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
 }
 
 html,
@@ -4337,7 +4251,7 @@ textarea {
 }
 
 .sk-timer canvas {
-    border: 5px solid #000
+    border: 5px solid #000;
 }
 
 .sk-content {
@@ -4353,9 +4267,11 @@ textarea {
 }
 
 .sk-toolset {
+    height: 30px;
+    background: #fff;/*
     background-image: url(../media/ux/bg_woodgrain_dark.png);
     -webkit-transition-property: opacity, padding;
-    transition-property: opacity, padding;
+    transition-property: opacity, padding;*/
     -webkit-transition-duration: .35s;
     transition-duration: .35s;
     padding-left: 0
@@ -4371,6 +4287,7 @@ textarea {
     min-width: 44px
 }
 
+/*
 .sk-toolset #tool-redo {
     position: absolute;
     right: 0;
@@ -4383,14 +4300,18 @@ textarea {
 
 .sk-toolset #tool-redo:hover {
     box-shadow: inset 0 0 10px 2px #777
-}
+}*/
 
 .sk-sidebar {
     margin-top: 0;
     padding-top: 81px;
     padding-bottom: 35px
 }
-
+/*
 .sk-sidebar .sk-title {
     padding-top: 5px
+    }*/
+
+div.sk-toolset div.center .sk-tool {
+    width: 20px;
 }
