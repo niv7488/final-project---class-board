@@ -1,0 +1,11 @@
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\bin\Debug\ScreenTask.exe.config
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\bin\Debug\WebServer\bootstrap.min.css
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\bin\Debug\WebServer\index.html
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\bin\Debug\ScreenTask.exe
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\bin\Debug\ScreenTask.pdb
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\obj\Debug\ScreenTask.csprojResolveAssemblyReference.cache
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\obj\Debug\ScreenTask.frmMain.resources
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\obj\Debug\ScreenTask.Properties.Resources.resources
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\obj\Debug\ScreenTask.csproj.GenerateResource.Cache
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\obj\Debug\ScreenTask.exe
+C:\Users\niv\Desktop\ScreenTask-master\ScreenTask\obj\Debug\ScreenTask.pdb
