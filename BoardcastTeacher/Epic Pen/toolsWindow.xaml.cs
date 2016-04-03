@@ -45,9 +45,12 @@ namespace BoardCast
         public static string date;
         private string screenshotFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
         private string canvasFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
+        private string backgroundFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Backgrounds");
         public string fileName;
         InkCanvas inkCanvas;
         private InkCanvas bgCanvas;
+        private Thread FileUploadThread;
+        private Thickness toolsDockMargin;
         public ToolsWindow()
         {
             InitializeComponent();
@@ -68,8 +71,9 @@ namespace BoardCast
             var desktopWorkingArea = SystemParameters.WorkArea;
             Top = desktopWorkingArea.Bottom - Height+40;
             WindowStyle = WindowStyle.None;
+            this.Width =SystemParameters.PrimaryScreenWidth;
             ResizeMode = ResizeMode.NoResize;
-            Thread FileUploadThread = new Thread(UploadManager.Instance.Main);
+            FileUploadThread = new Thread(UploadManager.Instance.Main);
             FileUploadThread.Start();
         }
 
@@ -183,8 +187,8 @@ namespace BoardCast
 
             if ((bool)hideInkCheckBox.IsChecked)
             {
-                //toolsDockPanel.Height = 0;
-                DoubleAnimation doubleAnimation = new DoubleAnimation();
+                
+               /* DoubleAnimation doubleAnimation = new DoubleAnimation();
                 doubleAnimation.From = toolsDockPanelDefaultHeight;
                 doubleAnimation.To = 0;
                 doubleAnimation.Duration = new Duration(new TimeSpan(0,0,0,0,200));
@@ -196,13 +200,15 @@ namespace BoardCast
                 Rectangle rect = new Rectangle();
                 Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(DockPanel.HeightProperty));
                 Storyboard storyboard = new Storyboard();
+                storyboard.Completed +=new EventHandler(onStoryDone);
                 storyboard.Children.Add(doubleAnimation);
-                storyboard.Begin();
+                storyboard.Begin();*/
+                toolsDockPanel.Visibility = Visibility.Hidden;
+               // toolsDockPanel.Margin = new Thickness(0,toolsDockPanelDefaultHeight,0,0);
             }
             else
             {
-                //toolsDockPanel.Height = double.NaN;
-                DoubleAnimation doubleAnimation = new DoubleAnimation();
+                /*DoubleAnimation doubleAnimation = new DoubleAnimation();
                 doubleAnimation.From = 0;
                 doubleAnimation.To = toolsDockPanelDefaultHeight;
                 doubleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0,0, 200));
@@ -215,10 +221,12 @@ namespace BoardCast
                 Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(DockPanel.HeightProperty));
                 Storyboard storyboard = new Storyboard();
                 storyboard.Children.Add(doubleAnimation);
-                storyboard.Begin();
+                storyboard.Begin();*/
+                toolsDockPanel.Visibility = Visibility.Visible;
             }
 
         }
+
         Style defaultButtonStyle;
         double toolsDockPanelDefaultHeight;
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -235,8 +243,12 @@ namespace BoardCast
         {
             if(brushSizeStackPanel.IsVisible)
                 brushSizeStackPanel.Visibility = Visibility.Hidden;
-            else
+            else 
+            { 
                 brushSizeStackPanel.Visibility=Visibility.Visible;
+                if (colorPanel.IsVisible)
+                    colorPanel.Visibility = Visibility.Hidden;
+            }
         }
 
         private void onColorClick(object sender, MouseButtonEventArgs e)
@@ -244,18 +256,22 @@ namespace BoardCast
             if (colorPanel.IsVisible)
                 colorPanel.Visibility = Visibility.Hidden;
             else
+            { 
                 colorPanel.Visibility = Visibility.Visible;
+                if (brushSizeStackPanel.IsVisible)
+                    brushSizeStackPanel.Visibility = Visibility.Hidden;
+            }
         }
 
         private void onPPTClick(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("ppt clicked");
         }
-
+#region imageCapture
         private void onCaptureClick(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-             date = DateTime.Now.ToString("ddMMyyyy");
+           this.Hide();
+            date = DateTime.Now.ToString("ddMMyyyy");
             fileName = DateTime.Now.ToString("hhmmss");
             //courseID = 1234;
             int ix, iy, iw, ih;
@@ -270,63 +286,107 @@ namespace BoardCast
                      new System.Drawing.Size(iw, ih),
                      CopyPixelOperation.SourceCopy);
             if (Directory.Exists(screenshotFolderPath))
-                image.Save(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
+                image.Save(Path.Combine(screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
             else
             {
                 Directory.CreateDirectory(screenshotFolderPath);
-                image.Save(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
+                image.Save(Path.Combine(screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
             }
-            this.Show();
             ExportCanvasToFile();
-            string fullFilePath = System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg");
-            MessageBox.Show(fullFilePath);
+            
+            string fullFilePath = Path.Combine(screenshotFolderPath, fileName + ".jpeg");
+            //MessageBox.Show(fullFilePath);
             UploadManager.Instance.setCourseID(courseID);
             UploadManager.Instance.uploadFilesStack.Push(fullFilePath);
             cursorButton_Click(sender,e);
-            
-
-        }
-#region Base64 convert+Upload
-        private void Base64Thread()
-        {
-            //the path is the folder that saves the Export image screen shot
-            byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"));
-            Console.WriteLine("Bytes Length " + bytes.Length);
-            string base64String = System.Convert.ToBase64String(bytes);
-
-            //serialize the json so that the server will know what values we sent
-            string json = new JavaScriptSerializer().Serialize(new
+            if (UploadManager.Instance.isThreadSleep)
             {
-               // base64 = base64String,                  //the picture after transfoming into base64 string
-                filename = fileName,                 //the name of the pic-->need to be changed according to each pic
-                course_id = courseID,
-                date = date
-            });
-            //opening a connection with the server
-            var baseAddress = "https://boardcast-ws.herokuapp.com/testchannel/";
-            //deffine the request methood
-            //var http = HttpWebRequest.Create(new Uri(baseAddress));
-            var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
-            http.Accept = "application/json";
-            http.ContentType = "application/json";
-            http.Method = "POST";
-
-            string parsedContent = json;
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            Byte[] bytes1 = encoding.GetBytes(parsedContent);
-
-            Stream newStream = http.GetRequestStream();
-            newStream.Write(bytes1, 0, bytes1.Length);
-            newStream.Close();
-
-            var response2 = http.GetResponse();
-
-            var stream = response2.GetResponseStream();
-            var sr = new StreamReader(stream);
-            var content = sr.ReadToEnd();
-            Console.WriteLine(content);
-            Console.WriteLine(DateTime.Now);
+                FileUploadThread.Interrupt();
+            }
         }
+
+        public void ExportCanvasToFile()
+        {
+            string xaml = XamlWriter.Save(inkCanvas);
+            if (Directory.Exists(canvasFolderPath))
+                File.WriteAllText(Path.Combine(canvasFolderPath, fileName + ".xaml"), xaml);
+            else
+            {
+                Directory.CreateDirectory(canvasFolderPath);
+                File.WriteAllText(Path.Combine(canvasFolderPath, fileName + ".xaml"), xaml);
+            }
+            inkCanvas.Strokes.Clear();
+            
+            ExportBgAsImage();
+        }
+
+        public void ExportBgAsImage()
+        {
+            
+            
+            int ix, iy, iw, ih;
+            ix = Convert.ToInt32(Screen.PrimaryScreen.Bounds.X);
+            iy = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Y);
+            iw = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width);
+            ih = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height);
+            Bitmap image = new Bitmap(iw, ih,
+                   System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Graphics g = Graphics.FromImage(image);
+            g.CopyFromScreen(ix, iy, ix, iy,
+                     new System.Drawing.Size(iw, ih),
+                     CopyPixelOperation.SourceCopy);
+            if (Directory.Exists(backgroundFolderPath))
+                image.Save(Path.Combine(backgroundFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
+            else
+            {
+                Directory.CreateDirectory(backgroundFolderPath);
+                image.Save(Path.Combine(backgroundFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
+            }
+            hideInkCheckBox.IsChecked = false;
+            this.Show();
+        }
+#endregion
+#region Base64 convert+Upload
+        //private void Base64Thread()
+        //{
+        //    //the path is the folder that saves the Export image screen shot
+        //    byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"));
+        //    Console.WriteLine("Bytes Length " + bytes.Length);
+        //    string base64String = System.Convert.ToBase64String(bytes);
+
+        //    //serialize the json so that the server will know what values we sent
+        //    string json = new JavaScriptSerializer().Serialize(new
+        //    {
+        //       // base64 = base64String,                  //the picture after transfoming into base64 string
+        //        filename = fileName,                 //the name of the pic-->need to be changed according to each pic
+        //        course_id = courseID,
+        //        date = date
+        //    });
+        //    //opening a connection with the server
+        //    var baseAddress = "https://boardcast-ws.herokuapp.com/testchannel/";
+        //    //deffine the request methood
+        //    //var http = HttpWebRequest.Create(new Uri(baseAddress));
+        //    var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
+        //    http.Accept = "application/json";
+        //    http.ContentType = "application/json";
+        //    http.Method = "POST";
+
+        //    string parsedContent = json;
+        //    ASCIIEncoding encoding = new ASCIIEncoding();
+        //    Byte[] bytes1 = encoding.GetBytes(parsedContent);
+
+        //    Stream newStream = http.GetRequestStream();
+        //    newStream.Write(bytes1, 0, bytes1.Length);
+        //    newStream.Close();
+
+        //    var response2 = http.GetResponse();
+
+        //    var stream = response2.GetResponseStream();
+        //    var sr = new StreamReader(stream);
+        //    var content = sr.ReadToEnd();
+        //    Console.WriteLine(content);
+        //    Console.WriteLine(DateTime.Now);
+        //}
 #endregion
         #region PPT Handler
 
@@ -364,14 +424,12 @@ namespace BoardCast
 
                     oSlideShowView = objPres.SlideShowWindow.View;
                     PowerPointPanel.Visibility = Visibility.Visible;
-
                 }
             }
             catch (Exception exception)
             {
                 MessageBox.Show("Unable to open Power Point, please make sure you have the program installed correctly");
             }
-            
         }
 
         /// <summary>
@@ -418,7 +476,6 @@ namespace BoardCast
                     pros[i].Kill();
                 }
             }
-
         }
 #endregion
 
@@ -427,13 +484,15 @@ namespace BoardCast
             ProcessStartInfo startInfo = new ProcessStartInfo("http://google.com");
             startInfo.WindowStyle = ProcessWindowStyle.Maximized;
             Process.Start(startInfo);
-            
-            
         }
 
         private void OnOpenFileClicked(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            /*if(OpenPanel.IsVisible)
+                OpenPanel.Visibility = Visibility.Hidden;
+            else
+                OpenPanel.Visibility = Visibility.Visible;*/
+             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "All files (*.*)|*.*";
 
             // Get the selected file name and display in a TextBox 
@@ -455,43 +514,44 @@ namespace BoardCast
             courseID = cID;
         }
 
-        public void ExportCanvasToFile()
-        {
-            string xaml = XamlWriter.Save(inkCanvas);
-            if (Directory.Exists(canvasFolderPath))
-                File.WriteAllText(System.IO.Path.Combine(canvasFolderPath, fileName + ".xaml"), xaml);
-            else
-            {
-                Directory.CreateDirectory(canvasFolderPath);
-                File.WriteAllText(System.IO.Path.Combine(canvasFolderPath, fileName + ".xaml"), xaml);
-            }
-            inkCanvas.Strokes.Clear();
-        }
+        
 
-        private void OnOpenImageClicked(object sender, RoutedEventArgs e)
+        void OnOpenImageClicked(object sender, RoutedEventArgs e)
         {
             FormOpenFileDialog controlex = new FormOpenFileDialog();
             controlex.StartLocation = AddonWindowLocation.Right;
             controlex.DefaultViewMode = FolderViewMode.Thumbnails;
             controlex.OpenDialog.InitialDirectory = screenshotFolderPath;
             controlex.OpenDialog.AddExtension = true;
-            controlex.OpenDialog.Filter = "Image Files(*.bmp;*.jpg;*.gif;*.png)|*.bmp;*.jpg;*.gif;*.png";
+            controlex.OpenDialog.Filter = "Image Files(*.bmp;*.jpg;*.gif;*.png; *.jpeg)|*.bmp;*.jpg;*.jpeg;*.gif;*.png";
             var result = controlex.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Open document 
                 string filename = controlex.OpenDialog.FileName;
                 ProcessStartInfo startInfo = new ProcessStartInfo(filename);
+                startInfo.Verb = "edit";
                 startInfo.WindowStyle = ProcessWindowStyle.Maximized;
                 Process.Start(startInfo);
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 SendKeys.SendWait("{F11}");
             }
         }
 
-        private void OnLogoutClicked(object sender, RoutedEventArgs e)
+        private void openFiles_Click(object sender, RoutedEventArgs e)
         {
-            
+            if ((sender as Button).ContextMenu.IsEnabled)
+            {
+                (sender as Button).ContextMenu.IsEnabled = false;
+                (sender as Button).ContextMenu.IsOpen = false;
+            }
+            else
+            {
+                (sender as Button).ContextMenu.IsEnabled = true;
+                (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
+                (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
+                (sender as Button).ContextMenu.IsOpen = true;
+            }
         }
     }
 }

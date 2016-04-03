@@ -22,12 +22,14 @@ namespace BoardCast
         private static bool isMainThreadRunning = false;
         private int courseID;
         public bool Stop { get; set; }
+        public bool isUploading = false;
         //queue of document to add and remove
         public Stack<string> uploadFilesStack = new Stack<string>();
         private string uploadedFileName;
         private string base64String;
         private int timeCounter = 0;
         private bool isBase64Converted = false;
+        public bool isThreadSleep = false;
 
         public static UploadManager Instance
         {
@@ -63,13 +65,31 @@ namespace BoardCast
                     //if add queue not empty extract and add
                     if (uploadFilesStack.Count != 0)
                     {
+                        isUploading = true;
                         uploadedFileName = (string)uploadFilesStack.Peek();
                         Console.WriteLine(uploadedFileName + " Just poped from stack");
+                        
                     }
                     else
                     {
+                        if (isUploading)
+                        {
+                            isUploading = false;
+                        }
                         uploadedFileName = null;
-                        Thread.Sleep(5000);
+                        try
+                        {
+                            Console.WriteLine("Upload Thread going to sleep.");
+                            isThreadSleep = true;
+                            // woken up by a ThreadInterruptedException.
+                            Thread.Sleep(Timeout.Infinite);
+                        }
+                        catch (ThreadInterruptedException e)
+                        {
+                            Console.WriteLine("Upload Thread Woke up");
+                            isThreadSleep = false;
+                        }
+                        //.Sleep(5000);
                     }
                 }
                 if (uploadedFileName != null)
@@ -95,6 +115,7 @@ namespace BoardCast
                 isMainThreadRunning = false;
             }
         }
+
 
         #region base64Converter
         private void Base64Convert()
@@ -152,7 +173,13 @@ namespace BoardCast
                 }
                 else
                 {
-                    MessageBox.Show("Error from server: " + (string)contentToObject["error"]);
+                    var responeErrorCode = (string)contentToObject["error"];
+                    if (responeErrorCode.Equals("5000"))
+                    MessageBox.Show("Error from server: No such course registered in system \nPlease contact support" );
+                    uploadFilesStack.Pop();
+                    uploadedFileName = null;
+                    isBase64Converted = false;
+                    base64String = null;
                 }
             }
             catch (WebException e)

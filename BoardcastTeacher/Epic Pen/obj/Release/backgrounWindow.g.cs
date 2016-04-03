@@ -51,7 +51,7 @@ namespace BoardCast {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/click through wpf;component/backgrounwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Boardcast;component/backgrounwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\backgrounWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

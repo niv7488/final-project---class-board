@@ -139,7 +139,7 @@ namespace BoardCast {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/click through wpf;component/loginwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Boardcast;component/loginwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\LoginWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

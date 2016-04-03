@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -18,31 +19,41 @@ namespace BoardCast
     {
        public BackgroundWorker bw = new BackgroundWorker();
        public int selectedCours;
-       public bool isUploading = false;
        private string screenshotFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
        private string canvasFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
        public LoginWindow()
-        {
-           InitializeComponent();
-           fillCoursesList();
-           bw.WorkerReportsProgress = true;
-           bw.WorkerSupportsCancellation = true;
-           bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-           bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-           bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-           if (!isUploading)
+       {
+           try
            {
-               if (Directory.EnumerateFileSystemEntries(screenshotFolderPath).Any())
+               InitializeComponent();
+               fillCoursesList();
+               bw.WorkerReportsProgress = true;
+               bw.WorkerSupportsCancellation = true;
+               bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+               bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+               bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+               if (!UploadManager.Instance.isUploading)
                {
-                   System.IO.DirectoryInfo dir = new DirectoryInfo(screenshotFolderPath);
-
-                   foreach (FileInfo file in dir.GetFiles())
+                   if (!Directory.Exists(screenshotFolderPath))
                    {
-                       file.Delete();
+                       Directory.CreateDirectory(screenshotFolderPath);
+                   }
+                   else if (Directory.EnumerateFileSystemEntries(screenshotFolderPath).Any())
+                   {
+                       System.IO.DirectoryInfo dir = new DirectoryInfo(screenshotFolderPath);
+
+                       foreach (FileInfo file in dir.GetFiles())
+                       {
+                           file.Delete();
+                       }
                    }
                }
            }
-        }
+           catch (Exception e)
+           {
+               MessageBox.Show(e.Message);
+           }
+       }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -82,7 +93,7 @@ namespace BoardCast
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -124,6 +135,7 @@ namespace BoardCast
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
+            Environment.Exit(0);
             App.Current.Shutdown();
         }
 
@@ -146,7 +158,7 @@ namespace BoardCast
         void fillCoursesList()
         {
             CoursesList.Items.Add("123456:לוגיקה");
-            CoursesList.Items.Add("350876542:חדווא 1");
+            CoursesList.Items.Add("99999:חדווא 1");
             CoursesList.Items.Add("350876541:JAVA");
             CoursesList.Items.Add("350876543:לוגיקה");
             CoursesList.Items.Add("350876542:חדווא 1");

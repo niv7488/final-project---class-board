@@ -51,7 +51,7 @@ namespace BoardCast {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/click through wpf;component/settingswindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Boardcast;component/settingswindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\SettingsWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

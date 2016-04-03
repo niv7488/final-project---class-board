@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/gallery.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/toolbar.png")]
 
 

@@ -1,0 +1,5 @@
+D:\BoardcastTeacher\ScreenCast\bin\Release\ScreenCast.dll
+D:\BoardcastTeacher\ScreenCast\bin\Release\ScreenCast.pdb
+D:\BoardcastTeacher\ScreenCast\obj\Release\ScreenCast.dll
+D:\BoardcastTeacher\ScreenCast\obj\Release\ScreenCast.pdb
+D:\BoardcastTeacher\ScreenCast\obj\Release\ScreenCast.csprojResolveAssemblyReference.cache

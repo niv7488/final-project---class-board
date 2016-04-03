@@ -8,3 +8,13 @@ C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.Properties.Resources
 C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.csproj.GenerateResource.Cache
 C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.exe
 C:\Users\Eyal\Desktop\dialog\obj\Debug\CustomOpenFileDialog.pdb
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\bin\Debug\CustomOpenFileDialog.exe
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\bin\Debug\CustomOpenFileDialog.pdb
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomOpenFileDialog.csprojResolveAssemblyReference.cache
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomControls.Controls.OpenFileDialogEx.resources
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomControls.FormMain.resources
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomControls.FormOpenFileDialog.resources
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomOpenFileDialog.Properties.Resources.resources
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomOpenFileDialog.csproj.GenerateResource.Cache
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomOpenFileDialog.exe
+D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Debug\CustomOpenFileDialog.pdb

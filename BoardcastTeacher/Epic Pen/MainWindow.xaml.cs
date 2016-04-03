@@ -19,6 +19,7 @@
 //THE SOFTWARE.
 
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -36,6 +37,7 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.IO;
+using ScreenCast;
 
 namespace BoardCast
 {
@@ -46,6 +48,7 @@ namespace BoardCast
     {
         private backgroundWindow bgwn;
         public static int courseID;
+        private ScreenShareServer realTimeCasting;
         public string AssemblyTitle
        {
            get
@@ -81,7 +84,8 @@ namespace BoardCast
 
         public MainWindow(int cID)
         {
-           
+            realTimeCasting = new ScreenShareServer();
+            realTimeCasting.InitServer();
             toolsWindow.setCourseID(cID);
             InitializeComponent();
             bgwn = new backgroundWindow();
@@ -180,6 +184,7 @@ namespace BoardCast
             else
                 extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
         }
+        
         ToolsWindow toolsWindow = new ToolsWindow();
         bool is64Bit;
         System.Windows.Forms.MenuItem rememberContent;
@@ -192,8 +197,6 @@ namespace BoardCast
             appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + AssemblyTitle;
             if (!Directory.Exists(appDataDir))
                 Directory.CreateDirectory(appDataDir);
-
-
 
             trayIcon = new System.Windows.Forms.NotifyIcon(new System.ComponentModel.Container());
 
@@ -256,7 +259,6 @@ namespace BoardCast
 
             toolsWindow.hideInkCheckBox.Checked += new RoutedEventHandler(hideInkCheckBox_Checked);
             toolsWindow.hideInkCheckBox.Unchecked += new RoutedEventHandler(hideInkCheckBox_Checked);
-
             toolsWindow.cursorButton.Click += new RoutedEventHandler(cursorButton_Click);
             toolsWindow.penButton.Click += new RoutedEventHandler(drawButton_Click);
             toolsWindow.highlighterButton.Click += new RoutedEventHandler(drawButton_Click);
@@ -311,21 +313,6 @@ namespace BoardCast
             }*/
         }
 
-        void saveSettings()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.AppendChild(xmlDoc.CreateDocumentType("Settings",null,null,null));
-            xmlDoc.AppendChild(xmlDoc.CreateElement("Settings"));
-            xmlDoc.LastChild.AppendChild(xmlDoc.CreateElement("RememberContent"));
-            xmlDoc.LastChild.LastChild.Attributes.Append(xmlDoc.CreateAttribute("value"));
-            xmlDoc.LastChild.LastChild.Attributes["value"].Value = rememberContent.Checked.ToString();
-            xmlDoc.LastChild.AppendChild(xmlDoc.CreateElement("EnableHotkeys"));
-            xmlDoc.LastChild.LastChild.Attributes.Append(xmlDoc.CreateAttribute("value"));
-            xmlDoc.LastChild.LastChild.Attributes["value"].Value = enableHotkeys.Checked.ToString();
-            xmlDoc.Save(appDataDir + "\\settings.xml");
-        }
-
-
         void loadSettings()
         {
             XmlDocument xmlDoc = new XmlDocument();
@@ -357,6 +344,7 @@ namespace BoardCast
 
         public void toolsWindow_CloseButtonClick(object sender, EventArgs e)
         {
+            realTimeCasting.CloseCastingService();
             LoginWindow main = new LoginWindow();
             App.Current.MainWindow = main;
             Close();
@@ -364,18 +352,15 @@ namespace BoardCast
             toolsWindow.Close();
             //Application.Current.Shutdown();
             main.Show();
-            if (UploadManager.Instance.uploadFilesStack.Count > 0)
-            {
-                main.isUploading = true;
-            }
         }
 
-        void hideInkCheckBox_Checked(object sender, RoutedEventArgs e)
+       public void hideInkCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if ((bool)((CheckBox)sender).IsChecked)
                 this.Visibility = System.Windows.Visibility.Hidden;
             else
                 this.Visibility = System.Windows.Visibility.Visible;
         }
+
     }
 }
