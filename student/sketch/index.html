@@ -19,6 +19,7 @@
 	<!-- sketchpad -->
 	<!-- SketchAPI v3.7.3.34 -->
 	<link href="min/sketchapi.min.css" type="text/css" rel="stylesheet"/>
+	<script src="includes/jquery-2.2.1.min.js"></script>
 	<script src="min/sketchapi.min.js" type="text/javascript"></script>
 </head>
 <body class="sketchapi sk-instant">
@@ -141,6 +142,9 @@
 
 		<!--- SAVE: SHARE -->
 		<div id="sk-share" class="sk-projects sk-pane"></div>
+
+		<!--Course content-->
+		<div id="bc-course" class="sk-projects sk-pane"></div>
 	</div>
 
 	<!--- CONTENT -->
@@ -161,6 +165,16 @@
 			<!--- FILTERS -->
 			<div id="filters" style="z-index: 2;"></div>
 		</div>
+			<div class="bc-boardcontent">
+				<iframe id="bc-iframe" height="100%" width="100%" src="streaming_screen.html"></iframe>
+			</div>
+	</div>
+
+	
+
+	<!--- FOOTER -->
+	<div class="bc-footer">
+		<input type="text" name="notebook"><div id="buttonOk">OK</div>
 	</div>
 </body>
 

@@ -1729,6 +1729,8 @@ div.sk-checkbox.sk-checked>div>div {
     content: "115";
 }
 
+.icon-gallery:before{content:'\0048';}
+
 .icon-remove:before {
     content: "116";
 }
@@ -4314,4 +4316,17 @@ textarea {
 
 div.sk-toolset div.center .sk-tool {
     width: 20px;
+}
+
+.bc-boardcontent {
+    display:none;
+    width: 90%;
+    height: 90%;
+    position:absolute;
+    top:40px;
+}
+
+#bc-iframe {
+    width: 100%;
+    height:100%;
 }
