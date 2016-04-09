@@ -1731,6 +1731,8 @@ div.sk-checkbox.sk-checked>div>div {
 
 .icon-gallery:before{content:'\0048';}
 
+.icon-courseflow:before { content: '\0041'; }
+
 .icon-remove:before {
     content: "116";
 }
@@ -2838,6 +2840,11 @@ body>cmenu {
     background: #00AA29
 }
 
+#bc-course .sk-tree li.file.selected,
+.sk-tree li.file.selected.enabled {
+    background: #FFF;
+}
+
 .sk-tree li.file.selected {
     background: rgba(0, 106, 245, .85)
 }
@@ -2860,6 +2867,7 @@ body>cmenu {
     color: #fff
 }
 
+/*
 .sk-tree li.file {
     cursor: pointer;
     height: 29px;
@@ -2867,6 +2875,18 @@ body>cmenu {
     background: rgba(42, 42, 42, .85);
     border-left: 1px solid rgba(255, 255, 255, .15);
     border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    display: block
+}*/
+
+.sk-tree li.file {
+    cursor: pointer;
+    height: 150px;
+    line-height: 150px;
+    background: url(http://www.board-cast.com/images/courses/123456/bower.png);
+    background-size: 200px 150px;
+    border-left: 1px solid rgba(255, 255, 255, .15);
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     display: block
@@ -3446,7 +3466,7 @@ body>cmenu {
 
 .sk-pane {
     -webkit-transition-property: opacity;
-    -webkit-transition-duration: .5s;
+    -webkit-transition-duration: 4s;
     display: none;
     height: inherit;
     width: inherit
