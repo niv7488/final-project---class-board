@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Boardcast.exe" size="820088">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Boardcast.exe" size="833912">
       <assemblyIdentity name="Boardcast" version="1.5.5.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vEhjW+TQgvv+TZHQUX7aEQmq9TmxtA4VCxhOUjnEndc=</dsig:DigestValue>
+        <dsig:DigestValue>kzl1UY4m9lxhOAK4ywKgE9a9Uhk6Eui3w7PHJIVQgec=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NS4o7mdlkMUdptxuATHINLHbazLEm1/k0MvlGUQnOO4=</dsig:DigestValue>
+        <dsig:DigestValue>rvy6wmyCngc6DPtd3he3s2H7bDrTJaDV09KjIPaSKqo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

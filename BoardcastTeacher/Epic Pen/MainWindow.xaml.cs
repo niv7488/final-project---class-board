@@ -49,6 +49,8 @@ namespace BoardCast
         private backgroundWindow bgwn;
         public static int courseID;
         private ScreenShareServer realTimeCasting;
+        backgroundWindow blankBackground = new backgroundWindow();
+        
         public string AssemblyTitle
        {
            get
@@ -256,7 +258,7 @@ namespace BoardCast
             toolsWindow.setInkCanvas(inkCanvas);
             toolsWindow.Owner = this;
             toolsWindow.CloseButtonClick += new EventHandler(toolsWindow_CloseButtonClick);
-
+            toolsWindow.CreateBlankCanvasClick += new EventHandler(toolsWindow_CreateBlankCanvasClick);
             toolsWindow.hideInkCheckBox.Checked += new RoutedEventHandler(hideInkCheckBox_Checked);
             toolsWindow.hideInkCheckBox.Unchecked += new RoutedEventHandler(hideInkCheckBox_Checked);
             toolsWindow.cursorButton.Click += new RoutedEventHandler(cursorButton_Click);
@@ -345,13 +347,28 @@ namespace BoardCast
         public void toolsWindow_CloseButtonClick(object sender, EventArgs e)
         {
             realTimeCasting.CloseCastingService();
+            toolsWindow.itemsControl.Items.Clear();
+            Console.WriteLine("Total items in itemscontroller "+ toolsWindow.itemsControl.Items.Count);
+            toolsWindow.Close();
             LoginWindow main = new LoginWindow();
             App.Current.MainWindow = main;
             Close();
             bgwn.Close();
-            toolsWindow.Close();
+            blankBackground.Close();
             //Application.Current.Shutdown();
             main.Show();
+        }
+
+        public void toolsWindow_CreateBlankCanvasClick(object sender, EventArgs e)
+        {
+            if (toolsWindow.isTempCanvasOpen)
+            {
+                blankBackground.Show();
+            }
+            else
+            {
+                blankBackground.Hide();
+            }
         }
 
        public void hideInkCheckBox_Checked(object sender, RoutedEventArgs e)

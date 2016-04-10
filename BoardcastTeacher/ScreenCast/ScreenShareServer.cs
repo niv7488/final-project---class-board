@@ -80,7 +80,6 @@ namespace ScreenCast
         {
             //serv = serv??new HttpListener();
             var selectedIP = ipList[1];
-
             var url = string.Format("http://{0}:{1}", selectedIP, port.ToString());
             Console.WriteLine("IP is: "+url);
             serv.Prefixes.Clear();

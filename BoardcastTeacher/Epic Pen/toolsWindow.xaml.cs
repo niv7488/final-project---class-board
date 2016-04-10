@@ -28,11 +28,12 @@ using Microsoft.Office.Core;
 using Application = System.Windows.Forms.Application;
 using Button = System.Windows.Controls.Button;
 using Cursors = System.Windows.Input.Cursors;
+using Image = System.Windows.Controls.Image;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Orientation = System.Windows.Controls.Orientation;
 using Path = System.IO.Path;
-using Rectangle = System.Windows.Shapes.Rectangle;
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
+
 
 namespace BoardCast
 {
@@ -51,6 +52,7 @@ namespace BoardCast
         private InkCanvas bgCanvas;
         private Thread FileUploadThread;
         private Thickness toolsDockMargin;
+        public bool isTempCanvasOpen { get; set; }
         public ToolsWindow()
         {
             InitializeComponent();
@@ -75,6 +77,7 @@ namespace BoardCast
             ResizeMode = ResizeMode.NoResize;
             FileUploadThread = new Thread(UploadManager.Instance.Main);
             FileUploadThread.Start();
+            isTempCanvasOpen = false;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -109,7 +112,8 @@ namespace BoardCast
         {
             foreach (Button i in toolStackPanel.Children)
                // if (i.Name != "brushSize")
-                i.Style = defaultButtonStyle;
+                if (!(isTempCanvasOpen && i.Name.Equals("createBlankBackground")))
+                    i.Style = defaultButtonStyle;
         }
 
         public void cursorButton_Click(object sender, RoutedEventArgs e)
@@ -187,41 +191,11 @@ namespace BoardCast
 
             if ((bool)hideInkCheckBox.IsChecked)
             {
-                
-               /* DoubleAnimation doubleAnimation = new DoubleAnimation();
-                doubleAnimation.From = toolsDockPanelDefaultHeight;
-                doubleAnimation.To = 0;
-                doubleAnimation.Duration = new Duration(new TimeSpan(0,0,0,0,200));
-                ExponentialEase expoEase = new ExponentialEase();
-                expoEase.Exponent = 7;
-                doubleAnimation.EasingFunction = expoEase;
-                //Storyboard.SetTargetName(doubleAnimation, toolsDockPanel.Name);
-                Storyboard.SetTarget(doubleAnimation, toolsDockPanel);
-                Rectangle rect = new Rectangle();
-                Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(DockPanel.HeightProperty));
-                Storyboard storyboard = new Storyboard();
-                storyboard.Completed +=new EventHandler(onStoryDone);
-                storyboard.Children.Add(doubleAnimation);
-                storyboard.Begin();*/
+              
                 toolsDockPanel.Visibility = Visibility.Hidden;
-               // toolsDockPanel.Margin = new Thickness(0,toolsDockPanelDefaultHeight,0,0);
             }
             else
             {
-                /*DoubleAnimation doubleAnimation = new DoubleAnimation();
-                doubleAnimation.From = 0;
-                doubleAnimation.To = toolsDockPanelDefaultHeight;
-                doubleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0,0, 200));
-                ExponentialEase expoEase = new ExponentialEase();
-                expoEase.Exponent = 7;
-                doubleAnimation.EasingFunction = expoEase;
-                //Storyboard.SetTargetName(doubleAnimation, toolsDockPanel.Name);
-                Storyboard.SetTarget(doubleAnimation, toolsDockPanel);
-                Rectangle rect = new Rectangle();
-                Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(DockPanel.HeightProperty));
-                Storyboard storyboard = new Storyboard();
-                storyboard.Children.Add(doubleAnimation);
-                storyboard.Begin();*/
                 toolsDockPanel.Visibility = Visibility.Visible;
             }
 
@@ -239,6 +213,11 @@ namespace BoardCast
             defaultButtonStyle = eraseAllButton.Style;
         }
 
+        /// <summary>
+        /// Brush size button listener to open size select panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BrushSize_OnClick(object sender, RoutedEventArgs e)
         {
             if(brushSizeStackPanel.IsVisible)
@@ -251,6 +230,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Color button listener to open panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onColorClick(object sender, MouseButtonEventArgs e)
         {
             if (colorPanel.IsVisible)
@@ -268,6 +252,12 @@ namespace BoardCast
             MessageBox.Show("ppt clicked");
         }
 #region imageCapture
+        /// <summary>
+        /// Capture screenshot, saves it locally and add to upload manager stack
+        /// saves the picture on date time format
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onCaptureClick(object sender, RoutedEventArgs e)
         {
            this.Hide();
@@ -303,8 +293,51 @@ namespace BoardCast
             {
                 FileUploadThread.Interrupt();
             }
+            itemsControl.Items.Add(CreatePreviewThumbnail(fullFilePath));
+            
         }
 
+        /// <summary>
+        /// Generate thimbmnail from last screenshot take
+        /// </summary>
+        /// <param name="path"> holds the last taken screenshot path</param>
+        /// <returns></returns>
+        private StackPanel CreatePreviewThumbnail(string path)
+        {
+            StackPanel sp = new StackPanel();
+            sp.Orientation = Orientation.Horizontal;
+            Image Img = new Image();
+            Img.Width = 150;
+            Img.Height = 150;
+            Img.Source = new BitmapImage(new Uri(path));
+            sp.Children.Add(Img);
+            sp.Margin = new Thickness(2,0,2,50);
+            Img.MouseDown += new MouseButtonEventHandler(onThumbnailsClick);
+            return sp;
+        }
+
+        /// <summary>
+        /// Event listener on thumbnails click - open selected image on full screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void onThumbnailsClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                var image = sender as Image;
+               // MessageBox.Show(image.Source.ToString());
+                ProcessStartInfo startInfo = new ProcessStartInfo(image.Source.ToString());
+                startInfo.Verb = "edit";
+                startInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                Process.Start(startInfo);
+                Thread.Sleep(1000);
+                SendKeys.SendWait("{F11}");
+            }
+        }
+        /// <summary>
+        /// Export transparent canvas layer to local xaml file
+        /// </summary>
         public void ExportCanvasToFile()
         {
             string xaml = XamlWriter.Save(inkCanvas);
@@ -320,10 +353,11 @@ namespace BoardCast
             ExportBgAsImage();
         }
 
+        /// <summary>
+        /// Export Background image withouth the canvas layer
+        /// </summary>
         public void ExportBgAsImage()
         {
-            
-            
             int ix, iy, iw, ih;
             ix = Convert.ToInt32(Screen.PrimaryScreen.Bounds.X);
             iy = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Y);
@@ -346,49 +380,8 @@ namespace BoardCast
             this.Show();
         }
 #endregion
-#region Base64 convert+Upload
-        //private void Base64Thread()
-        //{
-        //    //the path is the folder that saves the Export image screen shot
-        //    byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(screenshotFolderPath, fileName + ".jpeg"));
-        //    Console.WriteLine("Bytes Length " + bytes.Length);
-        //    string base64String = System.Convert.ToBase64String(bytes);
 
-        //    //serialize the json so that the server will know what values we sent
-        //    string json = new JavaScriptSerializer().Serialize(new
-        //    {
-        //       // base64 = base64String,                  //the picture after transfoming into base64 string
-        //        filename = fileName,                 //the name of the pic-->need to be changed according to each pic
-        //        course_id = courseID,
-        //        date = date
-        //    });
-        //    //opening a connection with the server
-        //    var baseAddress = "https://boardcast-ws.herokuapp.com/testchannel/";
-        //    //deffine the request methood
-        //    //var http = HttpWebRequest.Create(new Uri(baseAddress));
-        //    var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
-        //    http.Accept = "application/json";
-        //    http.ContentType = "application/json";
-        //    http.Method = "POST";
-
-        //    string parsedContent = json;
-        //    ASCIIEncoding encoding = new ASCIIEncoding();
-        //    Byte[] bytes1 = encoding.GetBytes(parsedContent);
-
-        //    Stream newStream = http.GetRequestStream();
-        //    newStream.Write(bytes1, 0, bytes1.Length);
-        //    newStream.Close();
-
-        //    var response2 = http.GetResponse();
-
-        //    var stream = response2.GetResponseStream();
-        //    var sr = new StreamReader(stream);
-        //    var content = sr.ReadToEnd();
-        //    Console.WriteLine(content);
-        //    Console.WriteLine(DateTime.Now);
-        //}
-#endregion
-        #region PPT Handler
+#region PPT Handler
 
         /// <summary>
         /// Open Microsoft office Power point 
@@ -468,14 +461,8 @@ namespace BoardCast
             oSlideShowView.Exit();
             objPres.Close();
             PowerPointPanel.Visibility=Visibility.Hidden;
-            Process[] pros = Process.GetProcesses();
-            for (int i = 0; i < pros.Count(); i++)
-            {
-                if (pros[i].ProcessName.ToLower().Contains("powerpnt"))
-                {
-                    pros[i].Kill();
-                }
-            }
+            
+
         }
 #endregion
 
@@ -488,11 +475,7 @@ namespace BoardCast
 
         private void OnOpenFileClicked(object sender, RoutedEventArgs e)
         {
-            /*if(OpenPanel.IsVisible)
-                OpenPanel.Visibility = Visibility.Hidden;
-            else
-                OpenPanel.Visibility = Visibility.Visible;*/
-             OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "All files (*.*)|*.*";
 
             // Get the selected file name and display in a TextBox 
@@ -513,8 +496,6 @@ namespace BoardCast
         {
             courseID = cID;
         }
-
-        
 
         void OnOpenImageClicked(object sender, RoutedEventArgs e)
         {
@@ -552,6 +533,49 @@ namespace BoardCast
                 (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
                 (sender as Button).ContextMenu.IsOpen = true;
             }
+        }
+        
+        /// <summary>
+        /// open last screenshots thumbnail button listener
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnLoadLastShotsClicked(object sender, RoutedEventArgs e)
+        {
+            if (LastShotsScrollViewer.Visibility == Visibility.Visible)
+            {
+                LastShotsScrollViewer.Visibility = Visibility.Hidden;
+            }
+            else
+                LastShotsScrollViewer.Visibility = Visibility.Visible;
+        }
+
+        public event EventHandler CreateBlankCanvasClick;
+
+        /// <summary>
+        /// Create blank background on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void onCreateBlankCanvasClicked(object sender, RoutedEventArgs e)
+        {
+            //Check if the transparent canvas is not blank
+            if (inkCanvas.Strokes.Count > 0)
+                onCaptureClick(sender, e);
+            if (!isTempCanvasOpen)
+            {
+                isTempCanvasOpen = true;
+                createBlankBackground.Style = (Style) FindResource("highlightedButtonStyle");
+            }
+            else
+            {
+                isTempCanvasOpen = false;
+                createBlankBackground.Style = defaultButtonStyle;
+            }
+
+            //Fire event to create blank background window
+            if (CreateBlankCanvasClick != null)
+                CreateBlankCanvasClick.Invoke(new object(), new EventArgs());
         }
     }
 }
