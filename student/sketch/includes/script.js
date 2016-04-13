@@ -49,20 +49,121 @@ class LessonContent {
     }
 }
 
-"undefined" === typeof boardCastObj && (boardCastObj = {});
-(function(boardCastObj) {
-    boardCastObj.test = boardCastObj.test || {};
-    var test = boardCastObj.test;
-    test.student = {
-        type: "Test",
-        name: "Test ForNow",
-        id: "1123",
-        coursesList: {
+class Student {
+    constructor(id,name) {
+        this.id = id;
+        this.name = name || "No name";
+        this.coursesList = {
             add: function(courseName, courseId) {
+                console.log(this);
+                console.log(courseName);
+                console.log(courseId);
                 var newCourse = new Course(courseName, courseId);
-                test.coursesList[courseId] = newCourse;
+                this[courseId] = newCourse;
+            }
+        };
+    }
+}
+
+"undefined" === typeof boardCastObj && (boardCastObj = {});
+"undefined" === typeof student && (student = {});
+(function(boardCastObj) {
+    boardCastObj.urlParse = boardCastObj.urlParse || {};
+    var app = document.URL.split('.html')[0];
+    var getQuery = document.URL.split('?')[1] || "student=0000&course=00000&date=000000";
+    var queryVariable = getQuery.split("&");
+    boardCastObj.urlParse.variable =  {
+        student: queryVariable[0].split("=")[1],
+        course: queryVariable[1].split("=")[1],
+        date: queryVariable[2].split("=")[1]
+    };
+    
+    localStorage.clear();
+    var jsonVar = {
+        "pages" : [
+            { "filename" : "033042", "source" : "http://www.board-cast.com/images/courses/99999/033042.png", "image" : "", "timestamp" : ""},
+            { "filename" : "033129", "source" : "http://www.board-cast.com/images/courses/99999/033129.png", "image" : "", "timestamp" : ""}
+        ]
+    };
+    localStorage.setItem(boardCastObj.urlParse.variable.course, JSON.stringify(jsonVar)) || {
+        pages: new Array()
+    };
+    
+    boardCastObj.student = new Student(boardCastObj.urlParse.variable.student);
+    student = boardCastObj.student
+    var canvas = boardCastObj.canvas = $('#note-canvas');
+    boardCastObj.canvas.preview = boardCastObj.canvas.preview || {};
+    boardCastObj.canvas.changeBackground = function(backgroundImage) {
+        console.log("[setCanvasBackground] Start Function");
+        console.debug(backgroundImage);
+        //console.log("[setCanvasBackground] Path to set as background is ["+ path +"]");
+        canvas.clearCanvas().drawLayers();
+        /*
+        var image = localStorage.getItem(path);
+        if(image == null) {
+            throw "No page named ["+ path +"] could be found";
+        }
+        else {
+            console.log("[setCanvasBackground] Found key ["+ path +"] with value ["+ image +"]");
+            if (image.indexOf("data:image")==-1) {
+                console.log('Not base64 format');
+                image = folderPath+courseName+'/'+image+imageFormat;
             }
         }
+        */
+        //console.debug(background);
+        canvas.drawImage({
+            layer: true,
+            source: backgroundImage,
+            width: canvas.width(),
+            height: canvas.height(),
+            fromCenter: false
+        });
+        canvas.addLayer({
+            type: 'rectangle',
+            width: canvas.width(),
+            height: canvas.height()
+        })
+        .drawLayers();
+        console.log("[setCanvasBackground] End Function");
+    };
+    //var notebook = boardCastObj.notebook = boardCastObj.notebook || {};
+    var notebook = boardCastObj.notebook = JSON.parse(localStorage.getItem(boardCastObj.urlParse.variable.course));
+    notebook.loadNotebook = function() {
+        $.each(notebook.pages, function(key, value) {
+            var background = value.image == "" ? value.source : value.image;
+            var li = $('<li/>')
+                .addClass('board-content')
+                .css("background-image", "url("+ background +")")
+                .css("background-size","100% 140px")
+                .click(function() {
+                    notebook.savePageAs64Base(key);
+                    boardCastObj.canvas.changeBackground(background);
+                    var background = value.image == "" ? value.source : value.image;
+                    $(this).css("background-image",background);
+                    //notebook.refreshList();
+                    notebook.preview = {
+                        tab: "notebook",
+                        page: key
+                    };
+                    console.debug(notebook);
+                });
+            li.appendTo('#gallery-content');
+        })
+    };
+    notebook.refreshList = function() {
+
+    };
+    notebook.savePageAs64Base = function(page) {
+        console.log('[saveImageAsBase64] function called with ');
+        console.log(page);
+        var imgAsBase64 = $('#note-canvas').getCanvasImage('jpeg');
+        console.log('Canvas as 64: ' + imgAsBase64);
+        console.log(imgAsBase64);
+        notebook.pages[page].image = imgAsBase64;
+        console.debug('[Json] new json');
+        console.debug(JSON.stringify(notebook));
+        localStorage.setItem(boardCastObj.urlParse.variable.course, JSON.stringify(notebook));
     };
 })(boardCastObj);
 
@@ -107,6 +208,7 @@ class LessonContent {
         else {
             $("#side-course-gallery").show();
         }
+        eventJs.resize();
     });
 
     $('#board-tab').click(function() {
@@ -116,8 +218,11 @@ class LessonContent {
     });
 
     $('#notebook-tab').click(function() {
+        var notebook = boardCastObj.notebook;
         console.debug('[EventClick] notebook tab');
         $('#gallery-content').empty();
+        console.debug(notebook);
+        notebook.loadNotebook();
     });
 
     $(window).resize(function() {
@@ -131,44 +236,49 @@ class LessonContent {
 //Fit height 
 (function(eventJs) {
     eventJs.resize = function() { 
+        var galleryMenuWidth = $("#side-course-gallery").outerWidth();
         $('main').height((window.innerHeight - $('.nav-bar').outerHeight()) + "px");
+        if($("#side-course-gallery").is(':visible')) {
+            $(".canvas").width((window.innerWidth - galleryMenuWidth) + "px");
+            $(".canvas").css( { marginLeft : galleryMenuWidth + "px" } );
+        }
+        else {
+            $(".canvas").width(window.innerWidth + "px");
+            $(".canvas").css( { marginLeft : "0px" } );
+        }
     };
     eventJs.resize();
 })(eventJs);
 
-//Generate student info
-"undefined" === typeof student && (student = {});
-(function(student) {
-    student.type = "Student";
-    student.name = "Test ForNow";
-    student.id = "1123";
-    student.coursesList = {};
-})(student);
 
 //Generate queries
 "undefined" === typeof query && (query = {});
 (function(query) {
-    query.getStudentCoursesList = function(student, callback) {
-        console.log(student);
-        console.log(callback);
+    //boardCastObj.urlParse.variable = boardCastObj.urlParse.variable || {};
+    var appParameters = boardCastObj.urlParse.variable;
+    query.getStudentCoursesList = function(studentId, callback) {
         $.post('http://52.34.153.216:3000/studentFullCourses', { 
-                student_id: student.id 
+                student_id: studentId
             }, function(data) {
-                var coursesList = $.parseJSON(JSON.stringify(data));
-                $.each(coursesList, function(key, value) {
+                var courseList = $.parseJSON(JSON.stringify(data));
+                console.log(courseList);
+                $.each(courseList, function(key, value) {
+                    console.log(value);
+                    console.log(student);
                     student.coursesList.add(value.course_name, value.course_id);
                 });
                 "undefined" !== typeof callback ? callback() : {} ;
             }
         );
     };
-    query.getCourseContent = function(course, callback) {
-        console.log(course);
+    query.getCourseContent = function(courseId, callback) {
+        console.log(courseId);
         console.log(callback);
-        $.post('http://52.34.153.216:3000/getCourseContent', {
-            course_id: course.id
+        $.post('http://52.34.153.216:3000/getCoursesContentDates', {
+            course_id: courseId//course.id
         }, function(data) {
             console.log(data);
+            var course = student.coursesList[courseId];
             var lessonDates = $.parseJSON(JSON.stringify(data));
             $.each(lessonDates, function(key, value) {
                 course.addLesson(value);
@@ -176,12 +286,13 @@ class LessonContent {
             "undefined" !== typeof callback ? callback() : {} ;
         });
     };
-    query.getCourseContentInDate = function(course, courseDate, callback) {
+    query.getCourseContentInDate = function(courseId, courseDate, callback) {
         $.post('http://52.34.153.216:3000/getDateImages', { 
-            course_id: course.id,
+            course_id: courseId,//course.id,
             date: courseDate
         }, function(data) {
             console.log(data);
+            var course = student.coursesList[courseId];
             console.log(course);
             var lesson = course.getLesson(courseDate);
             console.log(lesson);
@@ -198,9 +309,9 @@ class LessonContent {
         console.log(student);
         var courses = student.coursesList;
         console.log(courses);
-        query.getStudentCoursesList(student, function() {
-            query.getCourseContent(courses[99999], function() {
-                query.getCourseContentInDate(courses[99999], courses[99999].lessons[31032016].date, function() {
+        query.getStudentCoursesList(student.id, function() {
+            query.getCourseContent(appParameters.course, function() {
+                query.getCourseContentInDate(appParameters.course, appParameters.date, function() {
                     createBoardList();
                 });
             });
@@ -208,113 +319,32 @@ class LessonContent {
         var createBoardList = function() {
             query.createBoardList();
         };
+        eventJs.resize();
     };
     query.createBoardList = function() {
         var courses = courses || student.coursesList || {};
         console.log(student);
-        $.each(courses[99999].lessons[31032016].content, function(key, value) {
+        $.each(courses[appParameters.course].lessons[appParameters.date].content, function(key, value) {
             console.debug('[AddContentGallery] add content to gallery');
             console.debug(value);
             var li = $('<li/>')
                 .addClass('board-content')
                 .css("background-image", "url("+ value.src +")")
-                .css("background-size","100% 140px");
+                .css("background-size","100% 140px")
+                .click(function() {
+                    console.debug("[Gallery] board Click object " );
+                    console.debug(value);
+                    boardCastObj.canvas.changeBackground(value.src);
+                });
             li.appendTo('#gallery-content');
         });
     };
 })(query);
 
-//Generate student courses
-"undefined" === typeof student && (student = {});
-(function(student) {
-    var studentCourses = student.coursesList || {};
-    studentCourses.add = function(courseName, courseId) {
-        var newCourse = new Course(courseName, courseId);
-        studentCourses[courseId] = newCourse;
-    }
-})(student);
-
 "undefined" === typeof notebook && (notebook = {});
 //Generate notebook object
 (function(notebook) {
     var courses = student.coursesList;
-
     console.log(student);
     query.initializeApp();
-
-
-
 })(notebook);
-
-/*
-"undefined" === typeof boardCastObj && (boardCastObj || {});
-(function(boardCastObj) {
-    /*boardCastObj.canvas = {
-        paint: false,
-        addClick: {},
-        clickX: new Array(),
-        clickY: new Array(),
-        clickDrag: new Array(),
-        redraw: {},
-        context: 
-    }*//*
-    var bcCanvas = boardCastObj.canvas = boardCastObj.canvas || {};
-    var paint = bcCanvas.paint = bcCanvas.paint || false;
-    var addClick = bcCanvas.addClick = bcCanvas.addClick || {};
-    var clickX = bcCanvas.clickX = bcCanvas.clickX || new Array();
-    var clickY = bcCanvas.clickY = bcCanvas.clickY || new Array();
-    var clickDrag = bcCanvas.clickDrag = bcCanvas.clickDrag || new Array();
-    var redraw = bcCanvas.redraw = bcCanvas.redraw || {};
-    var context = boardCastObj.canvas.context = document.getElementById('canvas').getContext("2d");
-    boardCastObj.canvas.dom = $('#canvas');
-    var canvas = boardCastObj.canvas.dom;
-    console.debug($("#canvas"));
-    addClick = function(x, y, dragging) {
-        clickX.push(x);
-        clickY.push(y);
-        clickDrag.push(dragging);
-    };
-    $('#canvas').onmousedown(function(e) {
-        console.debug('Canvas mousedown');
-        var mouseX = e.pageX - this.offsetLeft;
-        var mouseY = e.pageY - this.offsetTop;     
-        paint = true;
-        addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-        redraw();
-    });
-    $('#canvas').on("mousemove", function(e) {
-        console.debug('Canvas mousemouve');
-        if(paint) {
-            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-            redraw();
-        }
-    });
-    $('#canvas').on("mouseup", function(e) {
-        console.debug('Canvas mouseup');
-        paint = false;
-    });
-    $('#canvas').on("mouseleave", function(e) {
-        console.debug('Canvas mouseleave');
-        paint = false; 
-    });
-    redraw = function() {
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-  
-        context.strokeStyle = "#df4b26";
-        context.lineJoin = "round";
-        context.lineWidth = 5;
-                
-        for(var i=0; i < clickX.length; i++) {        
-            context.beginPath();
-            if(clickDrag[i] && i){
-                context.moveTo(clickX[i-1], clickY[i-1]);
-            }
-            else {
-                context.moveTo(clickX[i]-1, clickY[i]);
-            }
-            context.lineTo(clickX[i], clickY[i]);
-            context.closePath();
-            context.stroke();
-        }
-    };
-})(boardCastObj);*/
