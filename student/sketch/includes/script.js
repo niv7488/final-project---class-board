@@ -34,9 +34,11 @@ class Lesson {
     }
 
     addContent(content) {
-        console.debug('[AddContent] add content to lesson')
+        console.debug('[AddContent] add content to lesson');
         console.log(content);
-        this.content[content.name] = new LessonContent(content.name, content.src);
+        var source = content.src.indexOf(".com") == -1 ? content.src : content.src.split(".com")[1];
+        console.debug('source = ' + source);
+        this.content[content.name] = new LessonContent(content.name, source);
     }
 }
 
@@ -81,8 +83,8 @@ class Student {
     localStorage.clear();
     var jsonVar = {
         "pages" : [
-            { "filename" : "033042", "source" : "http://www.board-cast.com/images/courses/99999/033042.png", "image" : "", "timestamp" : ""},
-            { "filename" : "033129", "source" : "http://www.board-cast.com/images/courses/99999/033129.png", "image" : "", "timestamp" : ""}
+            { "filename" : "033042", "source" : "images/courses/99999/033042.png", "image" : "", "timestamp" : ""},
+            { "filename" : "033129", "source" : "images/courses/99999/033129.png", "image" : "", "timestamp" : ""}
         ]
     };
     localStorage.setItem(boardCastObj.urlParse.variable.course, JSON.stringify(jsonVar)) || {
@@ -90,28 +92,23 @@ class Student {
     };
     
     boardCastObj.student = new Student(boardCastObj.urlParse.variable.student);
-    student = boardCastObj.student
+    student = boardCastObj.student;
     var canvas = boardCastObj.canvas = $('#note-canvas');
-    boardCastObj.canvas.preview = boardCastObj.canvas.preview || {};
+    boardCastObj.preview = {
+        tab: "none",
+        page: "none"
+    };
     boardCastObj.canvas.changeBackground = function(backgroundImage) {
         console.log("[setCanvasBackground] Start Function");
-        console.debug(backgroundImage);
-        //console.log("[setCanvasBackground] Path to set as background is ["+ path +"]");
-        canvas.clearCanvas().drawLayers();
-        /*
-        var image = localStorage.getItem(path);
-        if(image == null) {
-            throw "No page named ["+ path +"] could be found";
+        if(backgroundImage.indexOf("data:image")==-1) {
+            console.debug(backgroundImage);
         }
         else {
-            console.log("[setCanvasBackground] Found key ["+ path +"] with value ["+ image +"]");
-            if (image.indexOf("data:image")==-1) {
-                console.log('Not base64 format');
-                image = folderPath+courseName+'/'+image+imageFormat;
-            }
+            console.debug(boardCastObj.notebook.pages[boardCastObj.preview.page]);
         }
-        */
-        //console.debug(background);
+        //console.log("[setCanvasBackground] Path to set as background is ["+ path +"]");
+        $('#note-canvas').clearCanvas();
+        //canvas.clearCanvas().drawLayers();
         canvas.drawImage({
             layer: true,
             source: backgroundImage,
@@ -125,11 +122,14 @@ class Student {
             height: canvas.height()
         })
         .drawLayers();
+
         console.log("[setCanvasBackground] End Function");
     };
     //var notebook = boardCastObj.notebook = boardCastObj.notebook || {};
     var notebook = boardCastObj.notebook = JSON.parse(localStorage.getItem(boardCastObj.urlParse.variable.course));
     notebook.loadNotebook = function() {
+        console.debug('[Load notebook]');
+        console.debug(notebook.pages);
         $.each(notebook.pages, function(key, value) {
             var background = value.image == "" ? value.source : value.image;
             var li = $('<li/>')
@@ -137,12 +137,17 @@ class Student {
                 .css("background-image", "url("+ background +")")
                 .css("background-size","100% 140px")
                 .click(function() {
-                    notebook.savePageAs64Base(key);
+                    var background = value.image == "" ? value.source : value.image;
+                    if(boardCastObj.preview.tab == "notebook") {
+                        notebook.savePageAs64Base(boardCastObj.preview.page);
+                    }
+                    console.debug('[notebook] click tab');
+                    //console.debug(background);
                     boardCastObj.canvas.changeBackground(background);
                     var background = value.image == "" ? value.source : value.image;
                     $(this).css("background-image",background);
                     //notebook.refreshList();
-                    notebook.preview = {
+                    boardCastObj.preview = {
                         tab: "notebook",
                         page: key
                     };
@@ -151,18 +156,15 @@ class Student {
             li.appendTo('#gallery-content');
         })
     };
-    notebook.refreshList = function() {
-
-    };
     notebook.savePageAs64Base = function(page) {
         console.log('[saveImageAsBase64] function called with ');
         console.log(page);
         var imgAsBase64 = $('#note-canvas').getCanvasImage('jpeg');
-        console.log('Canvas as 64: ' + imgAsBase64);
-        console.log(imgAsBase64);
+        //console.log('Canvas as 64: ' + imgAsBase64);
+        //console.log(imgAsBase64);
         notebook.pages[page].image = imgAsBase64;
         console.debug('[Json] new json');
-        console.debug(JSON.stringify(notebook));
+        console.debug(notebook.pages);
         localStorage.setItem(boardCastObj.urlParse.variable.course, JSON.stringify(notebook));
     };
 })(boardCastObj);
@@ -193,10 +195,15 @@ class Student {
         if($(".bc-boardcontent").is(':visible')) {
             $(".bc-boardcontent").hide();
             $('#bc-iframe').attr('src', '');
+            $('section.canvas').show();
         }
         else {
-            $('#bc-iframe').attr('src','http:\\\\192.168.2.107:7070');
-            $(".bc-boardcontent").show();
+            query.getStreamingChanel(function(source) {
+                $('section.canvas').hide();
+                $('#bc-iframe').attr('src',source);
+                $(".bc-boardcontent").show();
+            });
+            
         }
     });
 
@@ -335,10 +342,24 @@ class Student {
                     console.debug("[Gallery] board Click object " );
                     console.debug(value);
                     boardCastObj.canvas.changeBackground(value.src);
+                    boardCastObj.preview = {
+                        tab: "board",
+                        page: key
+                    };
                 });
             li.appendTo('#gallery-content');
         });
     };
+    query.getStreamingChanel = function(callback) {
+        $.post('http://52.34.153.216:3000/getCourseStreaming', { 
+                course_id: boardCastObj.urlParse.variable.course
+            }, function(data) {
+                var streaming = $.parseJSON(JSON.stringify(data));
+                console.log(streaming);
+                "undefined" !== typeof callback ? callback(streaming.src) : {} ;
+            }
+        );
+    }
 })(query);
 
 "undefined" === typeof notebook && (notebook = {});
