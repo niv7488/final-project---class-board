@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ScreenCast;
 
 namespace BoardCast
 {
@@ -139,14 +140,12 @@ namespace BoardCast
                 date = ToolsWindow.date
             });
             //opening a connection with the server
-            var baseAddress = "https://boardcast-ws.herokuapp.com/decode64/";
             //deffine the request methood
             //var http = HttpWebRequest.Create(new Uri(baseAddress));
-            var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
+            var http = (HttpWebRequest)WebRequest.Create(new Uri(Variables.uploadFileAddress));
             http.Accept = "application/json";
             http.ContentType = "application/json";
             http.Method = "POST";
-
             string parsedContent = json;
             ASCIIEncoding encoding = new ASCIIEncoding();
             Byte[] bytes1 = encoding.GetBytes(parsedContent);

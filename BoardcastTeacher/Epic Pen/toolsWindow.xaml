@@ -339,36 +339,41 @@
                                         </ItemsControl.ItemsPanel>
                                     </ItemsControl>
                                 </ScrollViewer>
+                                <ListBox Name="WinApplications" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Hidden">
+                                <ListBoxItem Name="BrowserOpen" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="icons/web.png" Height="30"></Image>
+                                        <TextBlock Text="Browser" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                    <ListBoxItem Name="FileOpen" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenFileClicked">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/openfile.png" Height="30"></Image>
+                                            <TextBlock Text="Open file" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="OpenImge" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenImageClicked">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/gallery.png" Height="30"/>
+                                            <TextBlock Text="Open Image" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="PowerPointOpen" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenPPT">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/ppt.png" Height="30"/>
+                                            <TextBlock Text="Power Point" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                </ListBox>
+                                    
                             </Grid >
                             <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4">
                                 <Grid.Background>
                                     <ImageBrush ImageSource="Images/toolbar.png"/>
                                 </Grid.Background>
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="toolsStackPanel" Width="Auto"  HorizontalAlignment="Left" Height="36" >
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="openWinAppsPannel" Width="Auto"  HorizontalAlignment="Left" Height="36" >
                                     <Button  Cursor="Hand" Height="31" HorizontalAlignment="Left"  Name="openFiles" VerticalAlignment="Center" Width="35" Click="openFiles_Click" RenderTransformOrigin="0.5,0.5" Margin="2,0,0,0" >
-
-                                        <Image Source="icons/openfile.png" Width="25" Height="25"/>
-                                        <Button.ContextMenu>
-                                            <ContextMenu >
-                                                <Button Cursor="Hand" VerticalAlignment="Top" Click="OnOpenFileClicked" x:Name="OpenButtosn" Height="31" Width="35" ToolTip="Open file" >
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
-                                                        <TextBlock Text="Blablabla" VerticalAlignment="Center" />
-                                                    </StackPanel>
-
-
-                                                </Button>
-                                                <Button Cursor="Hand" VerticalAlignment="Top" Click="OnOpenFileClicked" x:Name="OpenButtossn" Height="31" Width="35" ToolTip="Open file" >
-                                                    <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
-                                                </Button>
-                                                <Button Cursor="Hand" VerticalAlignment="Top" Click="OnOpenFileClicked" x:Name="OpenButtosssn" Height="31" Width="35" ToolTip="Open file" >
-                                                    <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
-                                                </Button>
-                                                <Button Cursor="Hand" VerticalAlignment="Top" Click="OnOpenFileClicked" x:Name="OpenButtossssn" Height="31" Width="35" ToolTip="Open file" >
-                                                    <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
-                                                </Button>
-                                            </ContextMenu>
-                                        </Button.ContextMenu>
+                                        <Image Source="icons/openApp.png" Width="25" Height="25"/>
                                     </Button>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="toolStackPanel" Width="Auto"  HorizontalAlignment="Center" Height="36" >
@@ -416,7 +421,7 @@
                                     <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="onCaptureClick" x:Name="CaptureButton" ToolTip="Screen Capture" Height="31" Width="35">
                                         <Image Source="icons/camera.png" Height="22" Width="26"/>
                                     </Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenPPT" x:Name="PPTButton" Height="31" Width="35" ToolTip="Open Power Point" >
+                                    <!--<Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenPPT" x:Name="PPTButton" Height="31" Width="35" ToolTip="Open Power Point" >
                                         <TextBlock FontSize="24" Text="P" Height="30" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" TextAlignment="Center" MouseDown="OpenPPT" >
                                             <TextBlock.RenderTransform>
                                                 <TransformGroup>
@@ -425,16 +430,16 @@
                                                     <RotateTransform/>
                                                 </TransformGroup>
                                             </TextBlock.RenderTransform></TextBlock>
-                                    </Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenBrowser" x:Name="WebButton" Height="31" Width="35" ToolTip="Open web browser" >
+                                    </Button> -->
+                                    <!--<Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenBrowser" x:Name="WebButton" Height="31" Width="35" ToolTip="Open web browser" >
                                         <Image Source="icons/web.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
-                                    </Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnOpenImageClicked" x:Name="ImageOpen" Height="31" Width="35" ToolTip="Open image" >
+                                    </Button>-->
+                                   <!-- <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnOpenImageClicked" x:Name="ImageOpen" Height="31" Width="35" ToolTip="Open image" >
                                         <Image Source="icons/gallery.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
-                                    </Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnOpenFileClicked" x:Name="OpenButton" Height="31" Width="35" ToolTip="Open file"  >
+                                    </Button>-->
+                                   <!-- <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnOpenFileClicked" x:Name="OpenButton" Height="31" Width="35" ToolTip="Open file"  >
                                         <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
-                                    </Button>
+                                    </Button>-->
                                     <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnLoadLastShotsClicked" x:Name="LoadLastShotsButton" Height="31" Width="35" ToolTip="Load last screenshots"  Margin="2,2.5"  >
                                         <Image Source="icons/oldShots.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
                                     </Button>

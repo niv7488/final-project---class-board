@@ -19,7 +19,7 @@
 //THE SOFTWARE.
 
 using System;
-
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -37,7 +37,13 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.IO;
+using System.Net;
+using System.Threading;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ScreenCast;
+using Path = System.IO.Path;
 
 namespace BoardCast
 {
@@ -49,6 +55,7 @@ namespace BoardCast
         private backgroundWindow bgwn;
         public static int courseID;
         private ScreenShareServer realTimeCasting;
+        private Thread updateCastingDataThread;
         backgroundWindow blankBackground = new backgroundWindow();
         
         public string AssemblyTitle
@@ -89,6 +96,7 @@ namespace BoardCast
             realTimeCasting = new ScreenShareServer();
             realTimeCasting.InitServer();
             toolsWindow.setCourseID(cID);
+            courseID = cID;
             InitializeComponent();
             bgwn = new backgroundWindow();
             bgwn.Show();
@@ -254,7 +262,7 @@ namespace BoardCast
             inkCanvas.Cursor = Cursors.Pen;
             inkCanvas.UseCustomCursor = true;
             inkCanvas.DefaultDrawingAttributes.IgnorePressure = false;
-
+            realTimeCasting.SetCastingAddress += new EventHandler(setCastingAddress);
             toolsWindow.setInkCanvas(inkCanvas);
             toolsWindow.Owner = this;
             toolsWindow.CloseButtonClick += new EventHandler(toolsWindow_CloseButtonClick);
@@ -267,6 +275,59 @@ namespace BoardCast
             toolsWindow.eraserButton.Click += new RoutedEventHandler(drawButton_Click);
             cursorButton_Click(new object(), new RoutedEventArgs());
             toolsWindow.Show();
+        }
+
+        private void setCastingAddress(object sender, EventArgs e)
+        {
+            updateCastingDataThread = new Thread(updateCastingUrlInDB);
+            updateCastingDataThread.Start();
+        }
+
+        private void updateCastingUrlInDB()
+        {
+            //serialize the json so that the server will know what values we sent
+            string json = new JavaScriptSerializer().Serialize(new
+            {
+                course_id = courseID,
+                url = Variables.castingAddress
+            });
+            //opening a connection with the server
+            //deffine the request methood
+            var http = (HttpWebRequest)WebRequest.Create(new Uri(Variables.updateCastingAddressUrl));
+            http.Accept = "application/json";
+            http.ContentType = "application/json";
+            http.Method = "POST";
+            string parsedContent = json;
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            Byte[] bytes1 = encoding.GetBytes(parsedContent);
+
+            Stream newStream = http.GetRequestStream();
+            newStream.Write(bytes1, 0, bytes1.Length);
+            newStream.Close();
+            try
+            {
+                var response2 = http.GetResponse();
+                var stream = response2.GetResponseStream();
+                var sr = new StreamReader(stream);
+                var responeContent = sr.ReadToEnd();
+                //Console.WriteLine(content);
+                var contentToObject = (JObject)JsonConvert.DeserializeObject(responeContent);
+
+                var responeStatus = (string)contentToObject["status"];
+                if (responeStatus.Equals("Success"))
+                {
+                    Console.WriteLine("Screen share url updated on server succesfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Unable to set screen cast address on DB");
+                }
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show("Error from server: " + e.Message);
+            }
+        
         }
 
         void drawButton_Click(object sender, RoutedEventArgs e)

@@ -80,6 +80,7 @@ namespace BoardCast
             isTempCanvasOpen = false;
         }
 
+
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ((Border) Color).Background = ((Border) sender).Background;
@@ -388,7 +389,7 @@ namespace BoardCast
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OpenPPT(object sender, RoutedEventArgs e)
+        private void OpenPPT(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -466,14 +467,14 @@ namespace BoardCast
         }
 #endregion
 
-        private void OpenBrowser(object sender, RoutedEventArgs e)
+       /* private void OpenBrowser(object sender, RoutedEventArgs e)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo("http://google.com");
             startInfo.WindowStyle = ProcessWindowStyle.Maximized;
             Process.Start(startInfo);
-        }
+        }*/
 
-        private void OnOpenFileClicked(object sender, RoutedEventArgs e)
+        private void OnOpenFileClicked(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "All files (*.*)|*.*";
@@ -497,7 +498,7 @@ namespace BoardCast
             courseID = cID;
         }
 
-        void OnOpenImageClicked(object sender, RoutedEventArgs e)
+        void OnOpenImageClicked(object sender, MouseButtonEventArgs e)
         {
             FormOpenFileDialog controlex = new FormOpenFileDialog();
             controlex.StartLocation = AddonWindowLocation.Right;
@@ -521,17 +522,13 @@ namespace BoardCast
 
         private void openFiles_Click(object sender, RoutedEventArgs e)
         {
-            if ((sender as Button).ContextMenu.IsEnabled)
+            if (WinApplications.Visibility == Visibility.Visible)
             {
-                (sender as Button).ContextMenu.IsEnabled = false;
-                (sender as Button).ContextMenu.IsOpen = false;
+                WinApplications.Visibility  = Visibility.Hidden;
             }
             else
             {
-                (sender as Button).ContextMenu.IsEnabled = true;
-                (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
-                (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
-                (sender as Button).ContextMenu.IsOpen = true;
+                WinApplications.Visibility = Visibility.Visible;
             }
         }
         
@@ -576,6 +573,13 @@ namespace BoardCast
             //Fire event to create blank background window
             if (CreateBlankCanvasClick != null)
                 CreateBlankCanvasClick.Invoke(new object(), new EventArgs());
+        }
+
+        private void OpenBrowser(object sender, MouseButtonEventArgs e)
+        {
+                ProcessStartInfo startInfo = new ProcessStartInfo("http://google.com");
+                startInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                Process.Start(startInfo);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace CustomControls
             controlex.DefaultViewMode = FolderViewMode.Thumbnails;
             controlex.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
             controlex.OpenDialog.AddExtension = true;
-            controlex.OpenDialog.Filter = "Image Files(*.bmp;*.jpg;*.gif;*.png)|*.bmp;*.jpg;*.gif;*.png";
+            controlex.OpenDialog.Filter = "Image Files(*.bmp;*.jpg;*.jpeg;*.gif;*.png)|*.bmp;*.jpg;*jpeg;*.gif;*.png";
             controlex.ShowDialog(this);
             controlex.Dispose();
         }
