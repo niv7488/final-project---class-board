@@ -40,6 +40,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Web.Script.Serialization;
+using System.Windows.Markup;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ScreenCast;
@@ -57,6 +58,8 @@ namespace BoardCast
         private ScreenShareServer realTimeCasting;
         private Thread updateCastingDataThread;
         backgroundWindow blankBackground = new backgroundWindow();
+        UIElement lastCanvas;
+        private bool isInkVisible = true;
         
         public string AssemblyTitle
        {
@@ -127,7 +130,6 @@ namespace BoardCast
             RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._6);
         }
 
-        
 
         void ComponentDispatcher_ThreadPreprocessMessage(ref MSG msg, ref bool handled)
         {
@@ -265,6 +267,7 @@ namespace BoardCast
             realTimeCasting.SetCastingAddress += new EventHandler(setCastingAddress);
             toolsWindow.setInkCanvas(inkCanvas);
             toolsWindow.Owner = this;
+            toolsWindow.HideInkCanvas += new EventHandler(HideInkCanvas);
             toolsWindow.CloseButtonClick += new EventHandler(toolsWindow_CloseButtonClick);
             toolsWindow.CreateBlankCanvasClick += new EventHandler(toolsWindow_CreateBlankCanvasClick);
             toolsWindow.hideInkCheckBox.Checked += new RoutedEventHandler(hideInkCheckBox_Checked);
@@ -275,6 +278,21 @@ namespace BoardCast
             toolsWindow.eraserButton.Click += new RoutedEventHandler(drawButton_Click);
             cursorButton_Click(new object(), new RoutedEventArgs());
             toolsWindow.Show();
+        }
+
+        private void HideInkCanvas(object sender, EventArgs e)
+        {
+            if (isInkVisible)
+            {
+                isInkVisible = false;
+                this.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                isInkVisible = true;
+                this.Visibility = System.Windows.Visibility.Visible;
+            }
+
         }
 
         private void setCastingAddress(object sender, EventArgs e)
@@ -428,6 +446,15 @@ namespace BoardCast
             }
             else
             {
+                if (!string.IsNullOrEmpty(toolsWindow.lastSavedCanvasName))
+                {
+                    
+                    FileStream lastCanvasStream = new FileStream(toolsWindow.lastSavedCanvasName, FileMode.Open);
+                    lastCanvas = (UIElement)XamlReader.Load(lastCanvasStream);
+                    lastCanvasStream.Close();
+                    inkCanvas.Children.Add(lastCanvas);
+                    toolsWindow.lastSavedCanvasName = "";
+                }
                 blankBackground.Hide();
             }
         }
@@ -440,5 +467,6 @@ namespace BoardCast
                 this.Visibility = System.Windows.Visibility.Visible;
         }
 
+        
     }
 }

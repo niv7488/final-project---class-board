@@ -25,14 +25,21 @@ using CustomControls;
 using CustomControls.Controls;
 using CustomControls.OS;
 using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 using Application = System.Windows.Forms.Application;
+using Brushes = System.Windows.Media.Brushes;
 using Button = System.Windows.Controls.Button;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
 using Cursors = System.Windows.Input.Cursors;
+using GradientStop = System.Windows.Media.GradientStop;
 using Image = System.Windows.Controls.Image;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using Orientation = System.Windows.Controls.Orientation;
 using Path = System.IO.Path;
+using Rectangle = System.Windows.Shapes.Rectangle;
+using Shape = System.Windows.Shapes.Shape;
 
 
 namespace BoardCast
@@ -44,8 +51,8 @@ namespace BoardCast
     {
         private int courseID;
         public static string date;
-        private string screenshotFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
-        private string canvasFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
+        private string screenshotFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
+        public string canvasFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
         private string backgroundFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Backgrounds");
         public string fileName;
         InkCanvas inkCanvas;
@@ -53,6 +60,8 @@ namespace BoardCast
         private Thread FileUploadThread;
         private Thickness toolsDockMargin;
         public bool isTempCanvasOpen { get; set; }
+        private bool isLastCanvasSaved = false;
+        public string lastSavedCanvasName = "";
         public ToolsWindow()
         {
             InitializeComponent();
@@ -63,6 +72,9 @@ namespace BoardCast
         Microsoft.Office.Interop.PowerPoint.Presentations objPresSet;
         Microsoft.Office.Interop.PowerPoint.Presentation objPres;
         Microsoft.Office.Interop.PowerPoint.SlideShowView oSlideShowView;
+        public enum SelectedShape
+        { None, Circle, Rectangle }
+        public SelectedShape Shape1 = SelectedShape.None;
 
         public void setInkCanvas(InkCanvas _inkCanvas)
         { inkCanvas = _inkCanvas; }
@@ -83,7 +95,8 @@ namespace BoardCast
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ((Border) Color).Background = ((Border) sender).Background;
+            //((Border)Color).Background = ((Border) sender).Background;
+            SelectedColorRect.Fill = ((Border) sender).Background;
             colorPanel.Visibility = Visibility.Hidden;
             selectedColourBorder.Background = ((Border)sender).Background;
             inkCanvas.DefaultDrawingAttributes.Color = ((SolidColorBrush)((Border)sender).Background).Color;
@@ -91,9 +104,10 @@ namespace BoardCast
 
         private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            
             //System.Media.SystemSounds.Asterisk.Play();
-            if (e.LeftButton == MouseButtonState.Pressed)
-                DragMove();
+            /*if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();*/
         }
 
         public event EventHandler CloseButtonClick;
@@ -122,6 +136,7 @@ namespace BoardCast
             resetAllToolBackgrounds();
             cursorButton.Style = (Style)FindResource("highlightedButtonStyle");
         }
+
         public void penButton_Click(object sender, RoutedEventArgs e)
         {
             
@@ -157,6 +172,8 @@ namespace BoardCast
         public void eraseAllButton_Click(object sender, RoutedEventArgs e)
         {
             inkCanvas.Strokes.Clear();
+            inkCanvas.Children.Clear();
+
         }
         double penSize=3;
         private void penSizeButton_MouseDown(object sender, RoutedEventArgs e)
@@ -236,7 +253,7 @@ namespace BoardCast
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onColorClick(object sender, MouseButtonEventArgs e)
+        private void onColorClick(object sender, RoutedEventArgs routedEventArgs)
         {
             if (colorPanel.IsVisible)
                 colorPanel.Visibility = Visibility.Hidden;
@@ -248,10 +265,6 @@ namespace BoardCast
             }
         }
 
-        private void onPPTClick(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("ppt clicked");
-        }
 #region imageCapture
         /// <summary>
         /// Capture screenshot, saves it locally and add to upload manager stack
@@ -349,16 +362,28 @@ namespace BoardCast
                 Directory.CreateDirectory(canvasFolderPath);
                 File.WriteAllText(Path.Combine(canvasFolderPath, fileName + ".xaml"), xaml);
             }
+
+            if (isLastCanvasSaved)
+            {
+                lastSavedCanvasName = Path.Combine(canvasFolderPath, fileName + ".xaml");
+                isLastCanvasSaved = false;
+            }
             inkCanvas.Strokes.Clear();
-            
+            inkCanvas.Children.Clear();
+            if (HideInkCanvas != null)
+            {
+                HideInkCanvas.Invoke(new object(), new EventArgs());
+            }
             ExportBgAsImage();
         }
 
+        public event EventHandler HideInkCanvas;
         /// <summary>
         /// Export Background image withouth the canvas layer
         /// </summary>
         public void ExportBgAsImage()
         {
+            
             int ix, iy, iw, ih;
             ix = Convert.ToInt32(Screen.PrimaryScreen.Bounds.X);
             iy = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Y);
@@ -377,7 +402,10 @@ namespace BoardCast
                 Directory.CreateDirectory(backgroundFolderPath);
                 image.Save(Path.Combine(backgroundFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
             }
-            hideInkCheckBox.IsChecked = false;
+            if (HideInkCanvas != null)
+            {
+                HideInkCanvas.Invoke(new object(), new EventArgs());
+            }
             this.Show();
         }
 #endregion
@@ -391,6 +419,8 @@ namespace BoardCast
         /// <param name="e"></param>
         private void OpenPPT(object sender, MouseButtonEventArgs e)
         {
+            WinApplicationsLeft.Visibility = Visibility.Hidden;
+            WinApplicationsRight.Visibility = Visibility.Hidden;
             try
             {
                 //Create an instance of PowerPoint.
@@ -398,7 +428,7 @@ namespace BoardCast
                 // Show PowerPoint to the user.
                 oPPT.Visible = Microsoft.Office.Core.MsoTriState.msoTrue;
                 objPresSet = oPPT.Presentations;
-
+                //oPPT.SlideShowNextClick += this.SlideShowNextClick;
 
                 OpenFileDialog Opendlg = new OpenFileDialog();
 
@@ -426,12 +456,13 @@ namespace BoardCast
             }
         }
 
+
         /// <summary>
         /// Forward to next slide in presentation, save screenshot if notation canvas detect as not empty
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnNextClicked(object sender, RoutedEventArgs e)
+        public void OnNextClicked(object sender, RoutedEventArgs e)
         {
             string lastSlide = oSlideShowView.Slide.SlideNumber.ToString();
             string currentSlide;
@@ -439,6 +470,7 @@ namespace BoardCast
             if (inkCanvas.Strokes.Count > 0)
                 onCaptureClick(sender,e);
             oSlideShowView.Next();
+            
         }
 
         /// <summary>
@@ -476,6 +508,8 @@ namespace BoardCast
 
         private void OnOpenFileClicked(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
+            WinApplicationsLeft.Visibility = Visibility.Hidden;
+            WinApplicationsRight.Visibility = Visibility.Hidden;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "All files (*.*)|*.*";
 
@@ -500,6 +534,8 @@ namespace BoardCast
 
         void OnOpenImageClicked(object sender, MouseButtonEventArgs e)
         {
+            WinApplicationsLeft.Visibility = Visibility.Hidden;
+            WinApplicationsRight.Visibility = Visibility.Hidden;
             FormOpenFileDialog controlex = new FormOpenFileDialog();
             controlex.StartLocation = AddonWindowLocation.Right;
             controlex.DefaultViewMode = FolderViewMode.Thumbnails;
@@ -520,18 +556,40 @@ namespace BoardCast
             }
         }
 
-        private void openFiles_Click(object sender, RoutedEventArgs e)
+        private void openFilesLeft_Click(object sender, RoutedEventArgs e)
         {
-            if (WinApplications.Visibility == Visibility.Visible)
+            WinApplicationsRight.Visibility = Visibility.Hidden;
+            if (WinApplicationsLeft.Visibility == Visibility.Visible)
             {
-                WinApplications.Visibility  = Visibility.Hidden;
+                DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5f));
+                WinApplicationsLeft.BeginAnimation(Grid.OpacityProperty, animation);
+                WinApplicationsLeft.Visibility = Visibility.Hidden;
+
             }
             else
             {
-                WinApplications.Visibility = Visibility.Visible;
+                DoubleAnimation animation = new DoubleAnimation(1,TimeSpan.FromSeconds(0.5f));
+                WinApplicationsLeft.Visibility = Visibility.Visible;
+                WinApplicationsLeft.BeginAnimation(Grid.OpacityProperty,animation);
             }
         }
-        
+
+        private void openFilesRight_Click(object sender, RoutedEventArgs e)
+        {
+            WinApplicationsLeft.Visibility = Visibility.Hidden;
+            if (WinApplicationsRight.Visibility == Visibility.Visible)
+            {
+                DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5f));
+                WinApplicationsRight.BeginAnimation(Grid.OpacityProperty, animation);
+                WinApplicationsRight.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.5f));
+                WinApplicationsRight.Visibility = Visibility.Visible;
+                WinApplicationsRight.BeginAnimation(Grid.OpacityProperty, animation);
+            }
+        }
         /// <summary>
         /// open last screenshots thumbnail button listener
         /// </summary>
@@ -558,7 +616,12 @@ namespace BoardCast
         {
             //Check if the transparent canvas is not blank
             if (inkCanvas.Strokes.Count > 0)
+            {
+                if (!isTempCanvasOpen)
+                    isLastCanvasSaved = true;
+
                 onCaptureClick(sender, e);
+            }
             if (!isTempCanvasOpen)
             {
                 isTempCanvasOpen = true;
@@ -577,9 +640,54 @@ namespace BoardCast
 
         private void OpenBrowser(object sender, MouseButtonEventArgs e)
         {
-                ProcessStartInfo startInfo = new ProcessStartInfo("http://google.com");
-                startInfo.WindowStyle = ProcessWindowStyle.Maximized;
-                Process.Start(startInfo);
+            WinApplicationsLeft.Visibility = Visibility.Hidden;
+            WinApplicationsRight.Visibility = Visibility.Hidden;
+            ProcessStartInfo startInfo = new ProcessStartInfo("http://google.com");
+            startInfo.WindowStyle = ProcessWindowStyle.Maximized;
+            Process.Start(startInfo);
         }
+
+        private void onShapeDraw(object sender, RoutedEventArgs e)
+        {
+            if (shapesStackPanel.IsVisible)
+            {
+                shapesStackPanel.Visibility= Visibility.Hidden;
+            }
+            else
+                shapesStackPanel.Visibility = Visibility.Visible;
+        }
+
+        private void onShapeSelected(object sender, RoutedEventArgs e)
+        {
+            Shape1 = SelectedShape.Circle;
+            InkCanvasOnMouseDown();
+        }
+
+        private void InkCanvasOnMouseDown()
+        {
+            Shape Rendershape = null;
+            switch (Shape1)
+            {
+                case SelectedShape.Circle:
+                    Rendershape = new Ellipse() { Height = 100, Width = 100 };
+                    RadialGradientBrush brush = new RadialGradientBrush();
+                    brush.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FF7689"), 0.250));
+                    brush.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FF7689"), 0.100));
+                    brush.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FF7689"), 8));
+                    Rendershape.Fill = brush;
+                    break;
+                case SelectedShape.Rectangle:
+                    Rendershape = new Rectangle() { Fill = Brushes.Blue, Height = 45, Width = 45, RadiusX = 12, RadiusY = 12 };
+                    break;
+                default:
+                    return;
+            }
+
+            Canvas.SetLeft(Rendershape, -500);
+            Canvas.SetTop(Rendershape, -500);
+ 
+            inkCanvas.Children.Add(Rendershape);
+        }
+
     }
 }

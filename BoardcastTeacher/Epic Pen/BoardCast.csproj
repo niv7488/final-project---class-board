@@ -206,16 +206,12 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\erase all.png" />
-    <Resource Include="icons\eraser.png" />
-    <Resource Include="icons\highlighter.png" />
+    <Resource Include="icons\camera.png" />
+    <Resource Include="icons\marker.png" />
     <Resource Include="icons\pencil.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="pencilIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icons\camera.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -279,16 +275,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\gallery.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icons\ui_pointer-512.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icons\clearall.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icons\Eraser-.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\toolbar.png" />
@@ -316,16 +303,43 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\oldShots.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icons\bIankmage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icons\openApp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icons\ppt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\board.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\apps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\gallery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\pen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\erease.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\shape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\clean.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\chrome.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\gallery-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\powerpoint.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
