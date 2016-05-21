@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Boardcast.exe.manifest" size="5930">
+    <dependentAssembly dependencyType="install" codebase="Boardcast.exe.manifest" size="5918">
       <assemblyIdentity name="Boardcast.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HUbw1MVdJDjU9/TwzPuLUm2bqfOK+bHiPsCPvmA/gxQ=</dsig:DigestValue>
+        <dsig:DigestValue>EUZPK1mz2gqbhPdOPmO4sQlsuHfi8+OSMz7X06LpWlg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

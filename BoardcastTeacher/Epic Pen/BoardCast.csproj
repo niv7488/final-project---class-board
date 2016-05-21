@@ -100,7 +100,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>pencilIcon.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>267C4DD99734B03B2DEC6CA0B4C87513B1869771</ManifestCertificateThumbprint>
@@ -140,9 +140,13 @@
     <Compile Include="backgrounWindow.xaml.cs">
       <DependentUpon>backgrounWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalContants.cs" />
+    <Compile Include="ImageCaptureManager.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PowerPointManager.cs" />
+    <Compile Include="ProcessManager.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -340,6 +344,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icons\powerpoint.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

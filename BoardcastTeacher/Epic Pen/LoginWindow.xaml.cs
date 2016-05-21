@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Threading;
+using System.Web.Script.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ScreenCast;
 
 
 namespace BoardCast
@@ -19,14 +26,14 @@ namespace BoardCast
     {
        public BackgroundWorker bw = new BackgroundWorker();
        public int selectedCours;
-       private string screenshotFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
-       private string canvasFolderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
+       private string screenshotFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
+       private string canvasFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
        public LoginWindow()
        {
            try
            {
                InitializeComponent();
-               fillCoursesList();
+               //fillCoursesList();
                bw.WorkerReportsProgress = true;
                bw.WorkerSupportsCancellation = true;
                bw.DoWork += new DoWorkEventHandler(bw_DoWork);
@@ -34,17 +41,38 @@ namespace BoardCast
                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
                if (!UploadManager.Instance.isUploading)
                {
-                   if (!Directory.Exists(screenshotFolderPath))
+                   if (!Directory.Exists(GlobalContants.screenshotFolderPath))
                    {
-                       Directory.CreateDirectory(screenshotFolderPath);
+                       Directory.CreateDirectory(GlobalContants.screenshotFolderPath);
                    }
-                   else if (Directory.EnumerateFileSystemEntries(screenshotFolderPath).Any())
+                   else if (Directory.EnumerateFileSystemEntries(GlobalContants.screenshotFolderPath).Any())
                    {
-                       System.IO.DirectoryInfo dir = new DirectoryInfo(screenshotFolderPath);
-
+                       System.IO.DirectoryInfo dir = new DirectoryInfo(GlobalContants.screenshotFolderPath);
                        foreach (FileInfo file in dir.GetFiles())
                        {
-                           file.Delete();
+                           try
+                           {
+                               file.Delete();
+                           }
+                           catch (Exception e)
+                           {}
+                       }
+                   }
+                   if (!Directory.Exists(GlobalContants.canvasFolderPath))
+                   {
+                       Directory.CreateDirectory(GlobalContants.canvasFolderPath);
+                   }
+                   else if (Directory.EnumerateFileSystemEntries(GlobalContants.canvasFolderPath).Any())
+                   {
+                       System.IO.DirectoryInfo dir = new DirectoryInfo(GlobalContants.canvasFolderPath);
+                       foreach (FileInfo file in dir.GetFiles())
+                       {
+                           try
+                           {
+                               file.Delete();
+                           }
+                           catch (Exception e)
+                           { }
                        }
                    }
                }
@@ -62,7 +90,7 @@ namespace BoardCast
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            String userName = txtBxuserName.Text.ToLower();
+            string userName = txtBxuserName.Text.ToLower();
             string pass = passBxPassword.Password;
             lblfrgtPass.Visibility = Visibility.Hidden;
             lblLoading.Visibility = Visibility.Visible;
@@ -70,7 +98,71 @@ namespace BoardCast
             txtBxuserName.IsEnabled = false;
             passBxPassword.IsEnabled = false;
             btnLogin.IsEnabled = false;
-            if (userName == "admin" && pass == "123")
+            string json = new JavaScriptSerializer().Serialize(new
+            {
+                teacher_id = userName,                  //the picture after transfoming into base64 string
+                teacher_pass = pass
+            });
+            //opening a connection with the server
+            //deffine the request methood
+            //var http = HttpWebRequest.Create(new Uri(baseAddress));
+            var http = (HttpWebRequest)WebRequest.Create(new Uri(GlobalContants.loginServerAddress));
+            http.Accept = "application/json";
+            http.ContentType = "application/json";
+            http.Method = "POST";
+            string parsedContent = json;
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            Byte[] bytes1 = encoding.GetBytes(parsedContent);
+
+            Stream newStream = http.GetRequestStream();
+            newStream.Write(bytes1, 0, bytes1.Length);
+            newStream.Close();
+            try
+            {
+                var response2 = http.GetResponse();
+                var stream = response2.GetResponseStream();
+                var sr = new StreamReader(stream);
+                var responeContent = sr.ReadToEnd();
+                JObject contentToObject = (JObject)JsonConvert.DeserializeObject(responeContent);
+                
+                var responeStatus = (string) contentToObject["status"];
+                if (responeStatus != "success")
+                {
+                    lblLoading.Visibility = Visibility.Hidden;
+                    lblfrgtPass.Visibility = Visibility.Visible;
+                    wrongeDetails.Content = (string) contentToObject["msg"];
+                    wrongeDetails.Visibility = Visibility.Visible;
+                    lblfrgtPass.Content = "Forgot Password ?";
+                    txtBxuserName.IsEnabled = true;
+                    txtBxuserName.BorderBrush = Brushes.Red;
+                    passBxPassword.IsEnabled = true;
+                    passBxPassword.BorderBrush = Brushes.Red;
+                    btnLogin.IsEnabled = true;
+                    Mouse.OverrideCursor = null;
+                }
+                else
+                {
+                    var JsonCoursesList = contentToObject["CoursesList"];
+                    foreach (var course in JsonCoursesList)
+                    {
+                        CoursesList.Items.Add(course["course_id"]+":"+course["course_name"]);
+                    }
+                    if (bw.IsBusy == false)
+                    {
+                        bw.RunWorkerAsync();
+                    } 
+                }
+                
+            }
+            catch (Exception er)
+            {
+                if (bw.IsBusy == false)
+                {
+                    bw.RunWorkerAsync();
+                }  
+                
+            }
+             /*if (userName == "admin" && pass == "123")
             {
                 if (bw.IsBusy == false)
                 {
@@ -81,6 +173,7 @@ namespace BoardCast
             {                             
                 lblLoading.Visibility = Visibility.Hidden;
                 lblfrgtPass.Visibility = Visibility.Visible;
+                wrongeDetails.Visibility = Visibility.Visible;
                 lblfrgtPass.Content = "Forgot Password ?";
                 txtBxuserName.IsEnabled = true;
                 txtBxuserName.BorderBrush = Brushes.Red;
@@ -88,7 +181,7 @@ namespace BoardCast
                 passBxPassword.BorderBrush = Brushes.Red;
                 btnLogin.IsEnabled = true;
                 Mouse.OverrideCursor = null;
-            }
+            }*/
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)

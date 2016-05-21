@@ -282,21 +282,21 @@
 
                         <Border DockPanel.Dock="Right" Background="Black" Width="0" Name="selectedColourBorder" Height="36" VerticalAlignment="Bottom" />
                         <StackPanel  HorizontalAlignment="Stretch" Width="Auto" Margin="0,0,0,0">
-                            <StackPanel x:Name="PowerPointPanel" Orientation="Horizontal" Visibility="Hidden" >
-                                <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnBackClicked" x:Name="backPPTBtn" >
-                                    <Image Source="icons/arrow_left.png" Height="22" Width="17" MouseDown="OnBackClicked"/>
-
-                                </Button>
-                                <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnNextClicked" x:Name="forwardPPTBtn_Copy" >
-                                    <Image Source="icons/arrow_right_inv.png" Height="22" Width="17" MouseDown="OnNextClicked"/>
-
-                                </Button>
-                                <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnExitPowerPoint" x:Name="exitPPTBtn_Copy1" >
-                                    <Image Source="icons/closebar.png" Height="22" Width="17" MouseDown="OnExitPowerPoint" HorizontalAlignment="Center"/>
-
-                                </Button>
-                            </StackPanel>
                             <Grid Height="150"  >
+                                <StackPanel x:Name="PowerPointPanel" Orientation="Horizontal"  VerticalAlignment="Bottom" Margin="0,0,0,40" HorizontalAlignment="Center" Visibility="Hidden">
+                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnBackClicked" x:Name="backPPTBtn" >
+                                        <Image Source="icons/arrow_left.png" Height="22" Width="17" MouseDown="OnBackClicked"/>
+
+                                    </Button>
+                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnNextClicked" x:Name="forwardPPTBtn_Copy" >
+                                        <Image Source="icons/arrow_right_inv.png" Height="22" Width="17" MouseDown="OnNextClicked"/>
+
+                                    </Button>
+                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnExitPowerPoint" x:Name="exitPPTBtn_Copy1" >
+                                        <Image Source="icons/closebar.png" Height="22" Width="17" MouseDown="OnExitPowerPoint" HorizontalAlignment="Center"/>
+
+                                    </Button>
+                                </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" x:Name="colorPanel"  Height="20"  Width="284" VerticalAlignment="Bottom" Visibility="Hidden">
                                     <Border Width="18" Height="18" Background="Black" Margin="0,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
                                     <Border Width="18" Height="18" Background="Red" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
@@ -342,17 +342,17 @@
                                         </ItemsControl.ItemsPanel>
                                     </ItemsControl>
                                 </ScrollViewer>
-                                <ListBox Name="WinApplicationsLeft" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Opacity="0" Visibility="Hidden">
-                                    <ListBoxItem Name="BrowserOpen" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
+                                <ListBox x:Name="WinApplicationsLeft" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Opacity="0" Visibility="Hidden">
+                                    <ListBoxItem x:Name="BrowserOpen" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="icons/chrome.png" Height="30"></Image>
-                                            <TextBlock Text="Browser" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0"></TextBlock>
+                                            <Image Source="icons/chrome.png" Height="30"/>
+                                            <TextBlock Text="Browser" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0"/>
                                         </StackPanel>
                                     </ListBoxItem>
-                                    <ListBoxItem Name="FileOpen" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenFileClicked">
+                                    <ListBoxItem x:Name="FileOpen" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenFileClicked">
                                         <StackPanel Orientation="Horizontal" >
-                                            <Image Source="icons/file.png" Height="30" Width="27"></Image>
-                                            <TextBlock Text="Open file" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                                            <Image Source="icons/file.png" Height="30" Width="27"/>
+                                            <TextBlock Text="Open file" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
                                         </StackPanel>
                                     </ListBoxItem>
                                     <ListBoxItem x:Name="OpenImge" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenImageClicked">

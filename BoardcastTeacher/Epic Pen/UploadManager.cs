@@ -137,7 +137,7 @@ namespace BoardCast
                 base64 = base64String,                  //the picture after transfoming into base64 string
                 filename = Path.GetFileNameWithoutExtension(uploadedFileName),                 //the name of the pic-->need to be changed according to each pic
                 course_id = courseID,
-                date = ToolsWindow.date
+                date = ImageCaptureManager.date
             });
             //opening a connection with the server
             //deffine the request methood
