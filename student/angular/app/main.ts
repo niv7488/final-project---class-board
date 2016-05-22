@@ -1,6 +1,8 @@
 import { bootstrap }    from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
 
+import { NavElementService } from './nav-element.service';
+
 // Imports for loading & configuring the in-memory web api
 //import { provide }    from '@angular/core';
 //import { XHRBackend } from '@angular/http';
@@ -10,7 +12,9 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { AppComponent } from './app.component';
 
 
-bootstrap(AppComponent);
+bootstrap(AppComponent, [
+    NavElementService
+]);
 /*
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,

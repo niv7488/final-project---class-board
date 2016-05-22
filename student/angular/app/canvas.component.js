@@ -9,26 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_deprecated_1 = require('@angular/router-deprecated');
-var nav_element_component_1 = require('./nav-element.component');
-var canvas_component_1 = require('./canvas.component');
 var nav_element_service_1 = require('./nav-element.service');
-var AppComponent = (function () {
-    function AppComponent() {
+var canvas_directive_1 = require('./canvas.directive');
+var CanvasComponent = (function () {
+    function CanvasComponent() {
     }
-    AppComponent = __decorate([
+    CanvasComponent = __decorate([
         core_1.Component({
-            selector: 'bc-app',
-            templateUrl: 'app/app.component.html',
-            styleUrls: ['app/app.component.css'],
-            directives: [nav_element_component_1.NavElementsComponent, canvas_component_1.CanvasComponent, router_deprecated_1.ROUTER_DIRECTIVES],
-            providers: [
-                router_deprecated_1.ROUTER_PROVIDERS, nav_element_service_1.NavElementService
-            ]
+            selector: 'bc-canvas',
+            templateUrl: 'app/canvas.component.html',
+            styleUrls: ['app/canvas.component.css'],
+            providers: [nav_element_service_1.NavElementService],
+            directives: [canvas_directive_1.CanvasDirective]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], CanvasComponent);
+    return CanvasComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.CanvasComponent = CanvasComponent;
+//# sourceMappingURL=canvas.component.js.map

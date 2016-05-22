@@ -5,19 +5,19 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS }
 import { NavElementsComponent } from './nav-element.component';
 import { NotebookComponent } from './notebook.component';
 import { StreamingComponent } from './streaming.component';
+import { CanvasComponent } from './canvas.component';
 import { NavElementService } from './nav-element.service';
 
 @Component({
   selector: 'bc-app',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
-  directives: [NavElementsComponent, ROUTER_DIRECTIVES],
+  directives: [NavElementsComponent, CanvasComponent, ROUTER_DIRECTIVES],
     providers: [
-        ROUTER_PROVIDERS
+        ROUTER_PROVIDERS, NavElementService
     ]
 })
-
-
+/*
 @RouteConfig([
   {
     path:'/notebook',
@@ -30,8 +30,7 @@ import { NavElementService } from './nav-element.service';
   	name: 'Streaming',
   	component: StreamingComponent
   }
-])
+])*/
 
 export class AppComponent { 
-	title: string = "BoardCast";
 }

@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var nav_element_1 = require('./nav-element');
 var nav_element_list_1 = require('./nav-element-list');
 var NavElementService = (function () {
     function NavElementService() {
@@ -17,6 +18,7 @@ var NavElementService = (function () {
     }
     NavElementService.prototype.selectAnother = function (navElement) {
         this.selectedNavElement = navElement;
+        console.log("Event Emitted");
         this.changeSelected.emit(navElement);
     };
     NavElementService.prototype.getSelectedNavElement = function () {
@@ -33,13 +35,21 @@ var NavElementService = (function () {
         menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "cursor"; })[0]);
         menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "pen"; })[0]);
         menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "circle"; })[0]);
+        menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "text"; })[0]);
         menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "picture"; })[0]);
         menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "eraser"; })[0]);
         menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "undo"; })[0]);
         menuNavComponent.push(this._allNavElements.filter(function (element) { return element.name == "redo"; })[0]);
-        console.log(menuNavComponent);
         return menuNavComponent;
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', nav_element_1.NavElement)
+    ], NavElementService.prototype, "selectedNavElement", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], NavElementService.prototype, "changeSelected", void 0);
     NavElementService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

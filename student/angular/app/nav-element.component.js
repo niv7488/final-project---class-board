@@ -16,10 +16,12 @@ var NavElementsComponent = (function () {
         this._navElementService = _navElementService;
         _navElementService.changeSelected.subscribe(function (navElement) { return _this.changeSelect(navElement); });
     }
-    NavElementsComponent.prototype.onSelect = function (navElement) {
-        this._navElementService.selectAnother(navElement);
-    };
+    /*
+        onSelect(navElement: NavElement) {
+            this._navElementService.selectAnother(navElement);
+        }*/
     NavElementsComponent.prototype.changeSelect = function (navElement) {
+        console.log("Got " + navElement.name);
         this.selectedNavElement = navElement;
     };
     NavElementsComponent.prototype.ngOnInit = function () {
@@ -29,8 +31,7 @@ var NavElementsComponent = (function () {
         core_1.Component({
             selector: 'bc-nav-elements',
             templateUrl: 'app/nav-element.component.html',
-            styleUrls: ['app/nav-element.component.css'],
-            providers: [nav_element_service_1.NavElementService]
+            styleUrls: ['app/nav-element.component.css']
         }), 
         __metadata('design:paramtypes', [nav_element_service_1.NavElementService])
     ], NavElementsComponent);

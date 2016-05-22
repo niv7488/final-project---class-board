@@ -1,5 +1,5 @@
 <ul>
-    <li *ngFor="let navElement of navElements" (click)="onSelect(navElement)" [class.selected]="navElement === selectedNavElement">
+    <li *ngFor="let navElement of navElements" (click)="_navElementService.selectAnother(navElement)" [class.selected]="navElement === selectedNavElement">
         {{navElement.symbol}}
     </li>
 </ul>
