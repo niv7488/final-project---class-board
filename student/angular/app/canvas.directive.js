@@ -1,3 +1,63 @@
+/*import { Directive, ElementRef, OnInit } from '@angular/core';
+
+import { NavElementService } from './nav-element.service';
+import { NavElement } from './nav-element';
+
+@Directive({
+    selector: '[myCanvas]',
+    host: {
+        '(mouseenter)': 'onMouseEnter()',
+        '(mouseleave)': 'onMouseLeave()',
+        '(mousedown)' : 'onClick($event)',
+        '(mouseup)' : 'onUnclick()'
+    }
+})
+
+export class CanvasDirective implements OnInit {
+    navElements: NavElement[];
+    private el:HTMLElement;
+    private draw: boolean;
+    canvas:CanvasRenderingContext2D;
+    currentNavElement: NavElement;
+
+    constructor(el: ElementRef, public _navElementService: NavElementService) {
+        this.el = el.nativeElement;
+        this.draw = false;
+        this.canvas = (<HTMLCanvasElement>this.el).getContext("2d");
+        _navElementService.changeSelected.subscribe((navElement) => {
+            this.currentNavElement = navElement;
+            console.log("Catch it on canvas");
+        });
+    }
+
+    onMouseEnter() {
+        this.highlight("yellow");
+    }
+    onMouseLeave() {
+        this.highlight(null);
+    }
+
+    onClick(event: any) {
+        this.canvasAction(event.clientX, event.clientY);
+        this.draw = true;
+    }
+    onUnclick() {
+        this.draw = false;
+        this.highlight(null);
+    }
+    private highlight(color: string) {
+        this.el.style.backgroundColor = color;
+    }
+
+    private canvasAction(eventX: number, eventY: number) {
+        console.log("Current selected is ");
+        console.log(this._navElementService.getSelectedNavElement());
+        if(this._navElementService.getSelectedNavElement().name === "circle") {
+            this.canvas.fillStyle = "red";
+            this.canvas.arc(eventX, eventY, 50, 0, Math.PI * 2);
+        }
+    }
+}*/
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -11,44 +71,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var nav_element_service_1 = require('./nav-element.service');
 var CanvasDirective = (function () {
-    function CanvasDirective(el, _navElementService) {
+    function CanvasDirective(el, navElementService) {
         var _this = this;
-        this._navElementService = _navElementService;
-        this.el = el.nativeElement;
-        this.draw = false;
-        this.canvas = this.el.getContext("2d");
-        _navElementService.changeSelected.subscribe(function (navElement) {
+        this.navElementService = navElementService;
+        this.subscription = navElementService.changedSelected$.subscribe(function (navElement) {
+            console.log("Canvas got it!");
             _this.currentNavElement = navElement;
-            console.log("Catch it on canvas");
+            if (navElement.name === "eraser")
+                _this.makeAction(0, 0);
         });
+        this.el = el.nativeElement;
+        this.canvas = this.el.getContext('2d');
     }
     CanvasDirective.prototype.onMouseEnter = function () {
-        this.highlight("yellow");
     };
     CanvasDirective.prototype.onMouseLeave = function () {
-        this.highlight(null);
     };
     CanvasDirective.prototype.onClick = function (event) {
-        this.canvasAction(event.clientX, event.clientY);
-        this.draw = true;
+        console.log("Click on canvas");
+        this.makeAction(event.clientX, event.clientY);
     };
     CanvasDirective.prototype.onUnclick = function () {
-        this.draw = false;
-        this.highlight(null);
+        //this.draw = false;
+        //this.highlight(null);
     };
-    CanvasDirective.prototype.highlight = function (color) {
-        this.el.style.backgroundColor = color;
-    };
-    CanvasDirective.prototype.canvasAction = function (eventX, eventY) {
-        console.log("Current selected is ");
-        console.log(this._navElementService.getSelectedNavElement());
-        if (this._navElementService.getSelectedNavElement().name === "circle") {
+    CanvasDirective.prototype.makeAction = function (x, y) {
+        if (this.currentNavElement.name === "circle") {
             this.canvas.fillStyle = "red";
-            this.canvas.arc(eventX, eventY, 50, 0, Math.PI * 2);
+            this.canvas.arc(x, y, 10, 0, Math.PI * 2);
+            this.canvas.fill();
+        }
+        if (this.currentNavElement.name === "eraser") {
+            this.canvas.clearRect(0, 0, 400, 400);
         }
     };
-    CanvasDirective.prototype.ngOnInit = function () {
-        this.navElements = this._navElementService.getMenuNavElements();
+    CanvasDirective.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
     };
     CanvasDirective = __decorate([
         core_1.Directive({

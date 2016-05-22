@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
-var nav_element_component_1 = require('./nav-element.component');
+var notebook_control_component_1 = require('./notebook-control.component');
 var canvas_component_1 = require('./canvas.component');
 var nav_element_service_1 = require('./nav-element.service');
 var AppComponent = (function () {
@@ -21,7 +21,7 @@ var AppComponent = (function () {
             selector: 'bc-app',
             templateUrl: 'app/app.component.html',
             styleUrls: ['app/app.component.css'],
-            directives: [nav_element_component_1.NavElementsComponent, canvas_component_1.CanvasComponent, router_deprecated_1.ROUTER_DIRECTIVES],
+            directives: [notebook_control_component_1.NotebookControlComponent, canvas_component_1.CanvasComponent, router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [
                 router_deprecated_1.ROUTER_PROVIDERS, nav_element_service_1.NavElementService
             ]

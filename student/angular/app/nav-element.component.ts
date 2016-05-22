@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 
 import { NavElement } from './nav-element';
 import { NavElementService } from './nav-element.service';
@@ -19,7 +19,7 @@ export class NavElementsComponent implements OnInit {
 /*
     onSelect(navElement: NavElement) {
         this._navElementService.selectAnother(navElement);
-    }*/
+    }*//*
 
     changeSelect(navElement: NavElement) {
         console.log("Got " + navElement.name);
@@ -29,4 +29,4 @@ export class NavElementsComponent implements OnInit {
     ngOnInit() {
         this.navElements = this._navElementService.getMenuNavElements();
     }
-}
+}*/

@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)" [class.selected]="navElement === selectedNavElement">
+        {{navElement.symbol}}
+    </li>
+</ul>
+<bc-canvas></bc-canvas>
