@@ -1,0 +1,509 @@
+﻿<Window x:Class="BoardCast.ToolsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="Manual" 
+    Left="0" Top="0"
+        Title="toolsWindow" WindowStyle="None" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" Topmost="True" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  Loaded="Window_Loaded" Width="Auto" Height="400" >
+
+    <Window.Resources>
+
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+            <SolidColorBrush x:Key="DarkBrush" Color="#050505" />
+            <SolidColorBrush x:Key="LightBrush" Color="#FDFDFD" />
+            <SolidColorBrush x:Key="ColourBrush" Color="#1ba1e2" />
+
+            <!--checkbox styling-->
+
+            <LinearGradientBrush x:Key="LinearGradient_Orange_H" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#FFF9FF09" Offset="0"/>
+                <GradientStop Color="#FFF7DE25" Offset="0.959"/>
+                <GradientStop Color="#FFFF7000" Offset="0.033"/>
+                <GradientStop Color="#FFFF7200" Offset="1"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="Horizontal_Gradient" EndPoint="1,0" StartPoint="0,0">
+                <GradientStop Color="#CCC" Offset="0.0"/>
+                <GradientStop Color="#444" Offset="1.0"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="Vertical_Gradient" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#CCC" Offset="0.0"/>
+                <GradientStop Color="#444" Offset="1.0"/>
+            </LinearGradientBrush>
+            <!-- MouseOverBrush is used for MouseOver in Button, Radio Button, CheckBox -->
+            <LinearGradientBrush x:Key="MouseOverBrush" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#FFF" Offset="0.0"/>
+                <GradientStop Color="#AAA" Offset="1.0"/>
+            </LinearGradientBrush>
+            <!-- LightBrush is used for content areas such as Menu, Tab Control background -->
+            <!--<LinearGradientBrush EndPoint="0,1" StartPoint="0,0" x:Key="LightBrush">
+                <GradientStop Color="#FFF" Offset="0.0"/>
+                <GradientStop Color="#EEE" Offset="1.0"/>
+            </LinearGradientBrush>-->
+            <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="Background" Value="{DynamicResource DarkBrush}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource NormalBorderBrush}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <!-- BulletDecorator is used to provide baseline alignment between the checkmark and the Content -->
+                            <BulletDecorator Background="Transparent">
+                                <BulletDecorator.Bullet>
+                                    <Grid Width="26" Height="16">
+                                        <Border x:Name="Border" Background="{DynamicResource DarkBrush}" BorderBrush="{DynamicResource LightBrush}" BorderThickness="1,1,1,1" Margin="0,2" />
+                                        <Border x:Name="ColourBorder" Width="0" Background="{DynamicResource ColourBrush}" BorderBrush="{DynamicResource LightBrush}" BorderThickness="1,1,1,1" HorizontalAlignment="Left" Margin="0,2" />
+                                        <Border x:Name="SwitchBorder" Background="{DynamicResource LightBrush}" BorderBrush="{DynamicResource DarkBrush}" BorderThickness="1,1,1,1" HorizontalAlignment="Left" Width="10">
+                                            <Border.RenderTransform>
+                                                <TranslateTransform X="0" Y="0" />
+                                            </Border.RenderTransform>
+                                        </Border>
+                                    </Grid>
+                                </BulletDecorator.Bullet>
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                            </BulletDecorator>
+                            <!-- This uses Visibility to hide and show the CheckMark on IsChecked -->
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="false">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="SwitchBorder" Duration="0:0:0.2" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="16" To="0" >
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <ExponentialEase Exponent="12" EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation Storyboard.TargetName="ColourBorder" Duration="0:0:0.2" Storyboard.TargetProperty="Width" From="26" To="0" >
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <ExponentialEase Exponent="12" EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="SwitchBorder" Duration="0:0:0.0" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" />
+                                                <DoubleAnimation Storyboard.TargetName="ColourBorder" Duration="0:0:0.0" Storyboard.TargetProperty="Width" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="SwitchBorder" Duration="0:0:0.2" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="0" To="16" >
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <ExponentialEase Exponent="12" EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation Storyboard.TargetName="ColourBorder" Duration="0:0:0.2" Storyboard.TargetProperty="Width" From="0" To="26" >
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <ExponentialEase Exponent="12" EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="SwitchBorder" Duration="0:0:0.0" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" />
+                                                <DoubleAnimation Storyboard.TargetName="ColourBorder" Duration="0:0:0.0" Storyboard.TargetProperty="Width" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+
+            <!--button styling-->
+
+            <Style x:Key="MyFocusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Control}">
+                            <Grid Margin="3,2">
+                                <Rectangle Name="r1" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 2"/>
+                                <Border Name="border" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}"  CornerRadius="2" BorderThickness="1" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="ShadowStyle">
+                <Setter Property="Control.Foreground" Value="LightGray" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Margin" Value="2"/>
+                <!--<Setter Property="FontFamily" Value="Verdana"/>-->
+                <Setter Property="FontSize" Value="11px"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
+                <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource LightBrush}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" 
+				BorderThickness="2"
+				Padding="3,1" 
+				BorderBrush="{StaticResource DarkBrush}" 
+				CornerRadius="0" 
+				Background="{TemplateBinding Background}">
+                                <Grid >
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" Name="content"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LightBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource LightBrush}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource DarkBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsDefaulted" Value="True">
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="Button" x:Key="highlightedButtonStyle">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Margin" Value="2"/>
+                <!--<Setter Property="FontFamily" Value="Verdana"/>-->
+                <Setter Property="FontSize" Value="11px"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
+                <!-- <Setter Property="Background" Value="{StaticResource ColourBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource LightBrush}"/>-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" 
+				BorderThickness="0 0 0 4"
+				 Padding="0"
+				BorderBrush="{StaticResource DarkBrush}" 
+				CornerRadius="0" 
+				Background="{TemplateBinding Background}">
+                                <Grid >
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" Name="content"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource LightBrush}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource DarkBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsDefaulted" Value="True">
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel Margin="-1,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
+        <Border DockPanel.Dock="Top" BorderThickness="1"   MouseLeftButtonDown="MouseLeftButtonDown" ClipToBounds="True" RenderTransformOrigin="0.5,1" >
+            <Grid>
+                <DockPanel HorizontalAlignment="Stretch">
+                    <DockPanel DockPanel.Dock="Bottom" Background="Black">
+                        <Grid DockPanel.Dock="Right" Width="22" Height="22" Background="Red" Cursor="Hand" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                            <!--<Label FontFamily="Wingdings 2" Content="Ò" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"></Label>-->
+                            <Viewbox>
+                                <Canvas Width="100" Height="100">
+                                    <Line
+    X1="25" Y1="25"
+    X2="75" Y2="75"
+    Stroke="White"
+    StrokeThickness="14" />
+                                    <Line
+    X1="75" Y1="25"
+    X2="25" Y2="75"
+    Stroke="White"
+    StrokeThickness="14" />
+
+                                </Canvas>
+                            </Viewbox>
+                        </Grid>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox  Name="hideInkCheckBox" ToolTip="(Ctrl + 1)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" Checked="clickThroughCheckBox_Checked" Unchecked="clickThroughCheckBox_Checked" Foreground="White" Cursor="Hand" />
+                                <TextBlock Text="Hide ink" Foreground="White" VerticalAlignment="Center" Margin="3,0,0,0" />
+                            </StackPanel>
+                            <TextBlock TextOptions.TextFormattingMode="Ideal" Text="Boardcast" Foreground="White" VerticalAlignment="Center" Margin="6,-2,6,0" TextAlignment="Right" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" FontStyle="Italic" />
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Name="toolsDockPanel" LastChildFill="True" HorizontalAlignment="Stretch" Width="Auto" Margin="0,-20,0,1">
+
+                        <Border DockPanel.Dock="Right" Background="Black" Width="0" Name="selectedColourBorder" Height="36" VerticalAlignment="Bottom" />
+                        <StackPanel  HorizontalAlignment="Stretch" Width="Auto" Margin="0,0,0,0">
+                            <Grid Height="150"  Name="SubMenusGrid">
+                                <StackPanel x:Name="PowerPointPanel" Orientation="Horizontal"  VerticalAlignment="Bottom" Margin="0,0,0,40" HorizontalAlignment="Center" Visibility="Hidden">
+                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnBackClicked" x:Name="backPPTBtn" >
+                                        <Image Source="icons/arrow_left.png" Height="22" Width="17" MouseDown="OnBackClicked"/>
+
+                                    </Button>
+                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnNextClicked" x:Name="forwardPPTBtn_Copy" >
+                                        <Image Source="icons/arrow_right_inv.png" Height="22" Width="17" MouseDown="OnNextClicked"/>
+
+                                    </Button>
+                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnExitPowerPoint" x:Name="exitPPTBtn_Copy1" >
+                                        <Image Source="icons/closebar.png" Height="22" Width="17" MouseDown="OnExitPowerPoint" HorizontalAlignment="Center"/>
+
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel x:Name="deleteStrokePanel" Orientation="Horizontal"  VerticalAlignment="Bottom"  HorizontalAlignment="Center" Margin="0,0,155,0" Visibility="Hidden">
+
+                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnDeleteStroke" x:Name="exitPPTBtn_Copy2" >
+                                        <Image Source="icons/closebar.png" Height="22" Width="17"  HorizontalAlignment="Center"/>
+
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" x:Name="colorPanel"  Height="20"  Width="284" VerticalAlignment="Bottom" Visibility="Hidden">
+                                    <Border Width="18" Height="18" Background="Black" Margin="0,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Red" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Blue" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Green" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Orange" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Brown" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Purple" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Yellow" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Firebrick" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Pink" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Snow" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="SlateGray" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="Violet" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="SpringGreen" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+                                    <Border Width="18" Height="18" Background="YellowGreen" Margin="1,0,0,0" MouseDown="Border_MouseDown" Cursor="Hand" />
+
+                                </StackPanel>
+                                <StackPanel  x:Name="brushSizeStackPanel" Orientation="Horizontal"  Width="120"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="39" Margin="324,0,323,0" Visibility="Hidden" >
+                                    <Button Style="{StaticResource highlightedButtonStyle}" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="smallestSize" >
+                                        <Ellipse Width="2" Height="2" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
+                                    </Button>
+                                    <Button Width="28" Height="28" Margin="1,0,0,0" Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="smallSize" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Ellipse Width="5" Height="5" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
+                                    </Button>
+                                    <Button Width="28" Height="28" Margin="1,0,0,0"  Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="mediumSize" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Ellipse Width="10" Height="10" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
+                                    </Button>
+                                    <Button Width="28" Height="28" Margin="1,0,0,0" Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="largeSize" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Ellipse Width="16" Height="16" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
+                                    </Button>
+                                </StackPanel>
+                                <ScrollViewer x:Name="LastShotsScrollViewer" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible" Height="Auto" VerticalAlignment="Bottom" Visibility="Hidden">
+                                    <ItemsControl x:Name="itemsControl"  Background="Black" >
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate >
+                                                <!-- Custom Panel-->
+                                                <StackPanel Orientation="Horizontal" Background="Black"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                                <ListBox x:Name="WinApplicationsLeft" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Opacity="0" Visibility="Hidden">
+                                    <ListBoxItem x:Name="BrowserOpen" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="icons/chrome.png" Height="30"/>
+                                            <TextBlock Text="Browser" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="FileOpen" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenFileClicked">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/file.png" Height="30" Width="27"/>
+                                            <TextBlock Text="Open file" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="OpenImge" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenImageClicked">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/gallery-icon.png" Height="30"/>
+                                            <TextBlock Text="Open Image" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="PowerPointOpen" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenPPT">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/powerpoint.png" Height="30"/>
+                                            <TextBlock Text="Power Point" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                </ListBox>
+                                <ListBox x:Name="WinApplicationsRight" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="right" Opacity="0" Visibility="Hidden">
+                                    <ListBoxItem x:Name="BrowserOpen1" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="icons/chrome.png" Height="30"/>
+                                            <TextBlock Text="Browser" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="FileOpen1" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenFileClicked">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/file.png" Height="30" Width="27"/>
+                                            <TextBlock Text="Open file" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="OpenImge1" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OnOpenImageClicked">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/gallery-icon.png" Height="30"/>
+                                            <TextBlock Text="Open Image" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="PowerPointOpen1" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenPPT">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="icons/powerpoint.png" Height="30"/>
+                                            <TextBlock Text="Power Point" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                </ListBox>
+                                <StackPanel  x:Name="shapesStackPanel" Orientation="Horizontal"  Width="120"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="35" Margin="220,0,0,0" Background="Transparent" Visibility="Hidden">
+                                    <Button Background="White" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnCircleDrawClick" x:Name="CircleShape" >
+                                        <Image Source="icons/oval.png" Height="28"/>
+                                    </Button>
+                                    <Button Background="White" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnRectangleDrawClick" x:Name="RectangleShape" >
+                                        <Image Source="icons/rectangle.png" Height="28"/>
+                                    </Button>
+                                    <Button Background="White" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnTriangleDrawClick" x:Name="TriangleShape" >
+                                        <Image Source="icons/triangle.png" Height="28"/>
+                                    </Button>
+                                    <Button Background="White" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnLineDrawClick" x:Name="LineShape" >
+                                        <Image Source="icons/minus.png" Height="28"/>
+                                    </Button>
+                                </StackPanel>
+
+                            </Grid >
+                            <Grid Background="#B5B5B5"  >
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="openWinAppsPannel" Width="Auto"  HorizontalAlignment="Left" Height="36" >
+                                    <Button  Cursor="Hand" Height="31" HorizontalAlignment="Left"  Name="openFiles" VerticalAlignment="Center" Width="35" Click="openFilesLeft_Click" RenderTransformOrigin="0.5,0.5" Margin="2,0,0,0" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/apps.png" Width="25" Height="25"/>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="toolStackPanel" Width="Auto"  HorizontalAlignment="Center" Height="36" >
+
+                                    <Button Cursor="Hand" Style="{StaticResource highlightedButtonStyle}" x:Name="cursorButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Cursor" Click="cursorButton_Click" Margin="0,2,2,2" IsTabStop="False" Height="32" Width="35" Background="Transparent">
+                                        <Image Source="icons/arrow.png" Height="17" Width="17"/>
+                                    </Button>
+                                    <Button Cursor="Hand" x:Name="penButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Pen" Click="penButton_Click" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Image Source="icons/pen.png" Height="22" Width="26"/>
+                                    </Button>
+                                    <Button Cursor="Hand" x:Name="highlighterButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Highlighter" Click="highlighterButton_Click" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Image Source="icons/marker.png" Height="22" Width="26"/>
+                                    </Button>
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="eraserButton_Click" x:Name="eraserButton" ToolTip="Eraser" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Image Source="icons/erease.png" Height="25" Width="25"/>
+                                    </Button>
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="EditButton_Click" x:Name="editbutton" ToolTip="Eraser" Background="Transparent" BorderThickness="0"  
+                                    	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/edit.png" Height="25" Width="25"/>
+                                    </Button>
+                                    <Button Width="35" Height="31" Margin="2" Cursor="Hand" Click="BrushSize_OnClick" x:Name="brushSize" ToolTip="Brush size" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Ellipse Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
+                                    </Button>
+                                    <Button Width="35" Height="31"  Cursor="Hand" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" x:Name="penColor" ToolTip="Pen color" Background="Transparent" Click="onColorClick">
+                                        <Rectangle Fill="Black" Stroke="Black" Height="100" Width="100" Name="SelectedColorRect"/>
+                                    </Button>
+                                    <Button Width="1" Height="30" Background="Gray" Margin="8,0,7,0"></Button>
+                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="onCreateBlankCanvasClicked" x:Name="createBlankBackground" Height="31" Width="35" ToolTip="open new blank background"  Margin="2,2.5" Background="Transparent" BorderThickness="0"  
+                                    	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/board.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                    </Button>
+                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="onShapeSelect" x:Name="drawShape" Height="31" Width="35" ToolTip="Draw shape"   Background="Transparent" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/shape.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                    </Button>
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="onCaptureClick" x:Name="CaptureButton" ToolTip="Screen Capture" Height="31" Width="35" Background="Transparent" BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Image Source="icons/camera.png" Height="22" Width="26"/>
+                                    </Button>
+                                    <Button Width="1" Height="30" Background="Gray" Margin="8,3,7,3"/>
+                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnLoadLastShotsClicked" x:Name="LoadLastShotsButton" Height="31" Width="35" ToolTip="Load last screenshots"  Margin="2,2.5" Background="Transparent" BorderThickness="0"  
+                                    	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/gallery.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                    </Button>
+                                    <!--<Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenPPT" x:Name="PPTButton" Height="31" Width="35" ToolTip="Open Power Point" >
+                                        <TextBlock FontSize="24" Text="P" Height="30" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" TextAlignment="Center" MouseDown="OpenPPT" >
+                                            <TextBlock.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                </TransformGroup>
+                                            </TextBlock.RenderTransform></TextBlock>
+                                    </Button> -->
+                                    <!--<Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenBrowser" x:Name="WebButton" Height="31" Width="35" ToolTip="Open web browser" >
+                                        <Image Source="icons/web.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                    </Button>-->
+                                    <!-- <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnOpenImageClicked" x:Name="ImageOpen" Height="31" Width="35" ToolTip="Open image" >
+                                        <Image Source="icons/gallery.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                    </Button>-->
+                                    <!-- <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnOpenFileClicked" x:Name="OpenButton" Height="31" Width="35" ToolTip="Open file"  >
+                                        <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                    </Button>-->
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="eraseAllButton_Click" x:Name="eraseAllButton" ToolTip="Erase all" Background="Transparent" BorderThickness="0"  
+                                    	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Image Source="icons/clean.png" Height="25" Width="25"/>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="openWinAppsPannel_Copy" Width="Auto"  HorizontalAlignment="Right" Height="36" >
+                                    <Button  Cursor="Hand" Height="31" HorizontalAlignment="Left"  x:Name="openFiles1" VerticalAlignment="Center" Width="35" Click="openFilesRight_Click" RenderTransformOrigin="0.5,0.5" Margin="2,0,0,0" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Image Source="icons/apps.png" Width="25" Height="25"/>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+            </Grid>
+        </Border>
+        <Grid/>
+    </DockPanel>
+</Window>

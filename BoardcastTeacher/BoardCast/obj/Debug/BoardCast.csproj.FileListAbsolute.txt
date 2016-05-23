@@ -1,0 +1,49 @@
+D:\BoardcastTeacher\Epic Pen\bin\Debug\click through wpf.exe.config
+D:\BoardcastTeacher\Epic Pen\obj\Debug\BoardCast.csproj.ResolveComReference.cache
+D:\BoardcastTeacher\Epic Pen\obj\Debug\click through wpf.exe
+D:\BoardcastTeacher\Epic Pen\obj\Debug\click through wpf.pdb
+D:\BoardcastTeacher\Epic Pen\bin\Debug\click through wpf.exe.manifest
+D:\BoardcastTeacher\Epic Pen\bin\Debug\click through wpf.application
+D:\BoardcastTeacher\Epic Pen\bin\Debug\click through wpf.exe
+D:\BoardcastTeacher\Epic Pen\bin\Debug\click through wpf.pdb
+D:\BoardcastTeacher\Epic Pen\bin\Debug\CustomOpenFileDialog.exe
+D:\BoardcastTeacher\Epic Pen\bin\Debug\Newtonsoft.Json.dll
+D:\BoardcastTeacher\Epic Pen\bin\Debug\CustomOpenFileDialog.pdb
+D:\BoardcastTeacher\Epic Pen\obj\Debug\BoardCast.csprojResolveAssemblyReference.cache
+D:\BoardcastTeacher\Epic Pen\obj\Debug\backgrounWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Debug\LoginWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Debug\MainWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Debug\SettingsWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Debug\toolsWindow.baml
+D:\BoardcastTeacher\Epic Pen\obj\Debug\App.baml
+D:\BoardcastTeacher\Epic Pen\obj\Debug\backgrounWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Debug\LoginWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Debug\MainWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Debug\SettingsWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Debug\toolsWindow.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Debug\App.g.cs
+D:\BoardcastTeacher\Epic Pen\obj\Debug\click through wpf_MarkupCompile.cache
+D:\BoardcastTeacher\Epic Pen\obj\Debug\click through wpf.g.resources
+D:\BoardcastTeacher\Epic Pen\obj\Debug\BoardCast.Properties.Resources.resources
+D:\BoardcastTeacher\Epic Pen\obj\Debug\BoardCast.csproj.GenerateResource.Cache
+D:\BoardcastTeacher\Epic Pen\obj\Debug\click through wpf.exe.manifest
+D:\BoardcastTeacher\Epic Pen\obj\Debug\click through wpf.application
+D:\BoardcastTeacher\BoardCast\bin\Debug\Boardcast.exe.config
+D:\BoardcastTeacher\BoardCast\obj\Debug\BoardCast.csproj.ResolveComReference.cache
+D:\BoardcastTeacher\BoardCast\obj\Debug\BoardCast.csprojResolveAssemblyReference.cache
+D:\BoardcastTeacher\BoardCast\obj\Debug\backgrounWindow.baml
+D:\BoardcastTeacher\BoardCast\obj\Debug\LoginWindow.baml
+D:\BoardcastTeacher\BoardCast\obj\Debug\MainWindow.baml
+D:\BoardcastTeacher\BoardCast\obj\Debug\SettingsWindow.baml
+D:\BoardcastTeacher\BoardCast\obj\Debug\toolsWindow.baml
+D:\BoardcastTeacher\BoardCast\obj\Debug\App.baml
+D:\BoardcastTeacher\BoardCast\obj\Debug\backgrounWindow.g.cs
+D:\BoardcastTeacher\BoardCast\obj\Debug\LoginWindow.g.cs
+D:\BoardcastTeacher\BoardCast\obj\Debug\MainWindow.g.cs
+D:\BoardcastTeacher\BoardCast\obj\Debug\SettingsWindow.g.cs
+D:\BoardcastTeacher\BoardCast\obj\Debug\toolsWindow.g.cs
+D:\BoardcastTeacher\BoardCast\obj\Debug\App.g.cs
+D:\BoardcastTeacher\BoardCast\obj\Debug\Boardcast_MarkupCompile.cache
+D:\BoardcastTeacher\BoardCast\obj\Debug\Boardcast.g.resources
+D:\BoardcastTeacher\BoardCast\obj\Debug\BoardCast.Properties.Resources.resources
+D:\BoardcastTeacher\BoardCast\obj\Debug\BoardCast.csproj.GenerateResource.Cache

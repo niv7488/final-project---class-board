@@ -1,0 +1,4 @@
+D:\BoardcastTeacher\BoardCast\bin\Debug\click through wpf.exe.config
+D:\BoardcastTeacher\BoardCast\obj\Debug\Epic Pen.csproj.ResolveComReference.cache
+D:\BoardcastTeacher\BoardCast\obj\Debug\click through wpf.exe
+D:\BoardcastTeacher\BoardCast\obj\Debug\click through wpf.pdb
