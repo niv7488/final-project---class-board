@@ -1,0 +1,9 @@
+<template [ngIf]="isOpen">
+    <div>
+        <button (click)="changeImportSource('External')">Board</button>
+        <button (click)="changeImportSource('Localstorage')">Notebook</button>
+        <ul reloadList (reload)="importContent()">
+            <li *ngFor="let c of contentList" (click)="changeBackground(c)"><img width="150" height="100" src="{{c.imgSrc.src}}"></li>
+        </ul>
+    </div>
+</template>

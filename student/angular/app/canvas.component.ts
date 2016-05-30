@@ -1,27 +1,10 @@
-/*import { Component } from '@angular/core';
-
-import { NavElementService } from './nav-element.service';
-import { CanvasDirective } from './canvas.directive';
-
-@Component({
-    selector: 'bc-canvas',
-    templateUrl: 'app/canvas.component.html',
-    styleUrls: ['app/canvas.component.css'],
-    providers: [NavElementService],
-    directives: [ CanvasDirective ]
-})
-
-export class CanvasComponent {
-    
-}
-*/
-
 import { Component, OnDestroy } from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
 
 import { NavElementService} from './nav-element.service';
 import {NavElement} from './nav-element';
-import {Subscription} from 'rxjs/Subscription';
 import { CanvasDirective } from './canvas.directive';
+import {CourseListService} from "./course-list.service";
 
 @Component({
     selector: 'bc-canvas',
@@ -30,20 +13,35 @@ import { CanvasDirective } from './canvas.directive';
     directives: [CanvasDirective]
 })
 
+/**
+ * Canvas Component
+ * Listen to different notebook events
+ * Canvas behavior of notebook
+ */
 export class CanvasComponent implements OnDestroy {
     current: NavElement;
-    subscription:Subscription;
+    imgBackground: string;
+    navSubscription:Subscription;
+    notebookSubscription:Subscription;
 
-    constructor(private navElementService: NavElementService) {
-        this.subscription = navElementService.changedSelected$.subscribe(
+    constructor(private navElementService: NavElementService,
+        courseListService: CourseListService) {
+        this.navSubscription = navElementService.changedSelected$.subscribe(
             current => {
                 this.current = current;
-                console.log("Canvas got it " + this.current.name);
+                console.log("Canvas component got it " + this.current.name);
             }
-        )
+        );
+        this.notebookSubscription = courseListService.changeImageBackground$.subscribe(
+            imageSrc => {
+                this.imgBackground = imageSrc;
+                console.log("Canvas component got it " + this.imgBackground);
+            }
+        );
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.navSubscription.unsubscribe();
+        this.notebookSubscription.unsubscribe();
     }
 }

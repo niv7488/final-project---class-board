@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.streaming {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left:0;
+    bottom:0;
+    display: block;
+    background: rgba(255,255,255,0.8);
+    z-index: 10;
+}
+
+.close {
+    position: fixed;
+    top:0;
+    right:0;
+    width: 30px;
+    height: 20px;
+    background: #000;
+    color: #fff;
+    display: block;
+    z-index: 11;
+}
+
+iframe {
+    border: 3px solid #000;
+    margin: 3%;
+    width: 94%;
+    background: rgba(255,255,255,1);
+}
+
+button {
+    z-index: 10000;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

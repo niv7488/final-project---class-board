@@ -8,4 +8,5 @@ canvas {
     display: block;
     background: #fff;
     cursor: crosshair;
+    float: left;
 }

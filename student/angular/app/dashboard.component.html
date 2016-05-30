@@ -1,0 +1,21 @@
+<div class="container">
+    <nav>
+        <ul class="coursesList">
+            <li *ngFor="let course of courseList" (click)="getDates(course)">{{course.name}}</li>
+        </ul>
+    </nav>
+    <section>
+        <template [ngIf]="datesList.length > 0">
+            <ul class="content">
+                <li *ngFor="let date of datesList" (click)="getImages(date)">{{date}}</li>
+            </ul>
+        </template>
+    </section>
+    <main>
+        <template [ngIf]="imageList.length > 0">
+            <ul class="content">
+                <li *ngFor="let image of imageList"><img src="{{image.imgSrc}}" width="300" height="200"></li>
+            </ul>
+        </template>
+    </main>
+</div>

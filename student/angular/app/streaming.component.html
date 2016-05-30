@@ -1,0 +1,13 @@
+<template [ngIf]="streaming.isOpen">
+    <div class="streaming">
+        <button (click)="streamingService.closeStreamingEmitter(streaming)">X</button>
+        <template [ngIf]="streaming.isAvailable">
+            <button (click)="getImage()">Screenshot</button>
+            <iframe width="700" height="500" src="http://www.w3schools.com"></iframe>
+        </template>
+        <template [ngIf]="!streaming.isAvailable">
+            No streaming available
+        </template>
+    </div>
+</template>
+<div class="show"></div>

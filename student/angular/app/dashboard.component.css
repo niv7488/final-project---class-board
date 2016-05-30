@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: absolute;
+    width: 100%;
+    height:100%;
+    display: block;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+nav {
+    float: left;
+    display: block;
+    height: 100%;
+    width: 15%;
+    background: #00cc99;
+    padding: 10px;
+}
+
+section {
+    float: left;
+    display: block;
+    width: 10%;
+    height:100%;
+    background: #00ffff;
+}
+
+main {
+    width: 70%;
+    float: left;
+}
+
+main > img {
+    margin: 5px;
+    float: left;
+}
+
+.coursesList {
+    list-style: none;
+}
+
+.content {
+    list-style: none;
+}
+
+.content > li {
+    float: left;
+    margin: 5px;
+    border: 1px solid #000;
+}
