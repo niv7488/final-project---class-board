@@ -39,10 +39,7 @@ export class LoginService {
         student.name = body.firstname;
         student.lastName = body.lastname;
         for(var course of body.courses) {
-            let temp = new Course();
-            temp.id = course;
-            temp.name = "";
-            student.courses.push(temp);
+            student.courses.push(new Course(course,"Static Test"));
         }
 
         this.studentLoggedInEmitter(student);

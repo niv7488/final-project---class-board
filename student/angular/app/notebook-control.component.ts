@@ -7,40 +7,45 @@ import { NavElement } from './nav-element';
 import { NavElementService } from './nav-element.service';
 import {CanvasComponent} from "./canvas.component";
 import {NotebookGalleryComponent} from "./notebook-gallery.component";
-import {StreamingComponent} from "./streaming.component";
-import {StreamingService} from "./streaming.service";
 import {NotebookGalleryService} from "./notebook-gallery.service";
 import {NotebookService} from "./notebook.service";
+import {Streaming} from "./streaming";
+import {StreamingService} from "./streaming.service";
 
 @Component({
     selector: 'bc-notebook-control-component',
     templateUrl: 'app/notebook-control.component.html',
-    styleUrls: ['app/nav-element.component.css'],
+    styleUrls: [
+        'app/nav-element.component.css',
+        'app/streaming2.component.css'
+    ],
     providers: [
         NavElementService,
-        StreamingService,
         NotebookGalleryService
     ],
     directives: [
         CanvasComponent,
-        NotebookGalleryComponent, 
-        StreamingComponent,
+        NotebookGalleryComponent,
         ROUTER_DIRECTIVES
     ]
 })
 
 export class NotebookControlComponent implements OnInit, OnDestroy{
     currentNavElement: NavElement;
+    streaming: Streaming = new Streaming;
+    errorMessage: string;
     private navElements: NavElement[] = [];
     private navElementSubscription: Subscription;
-    //private notebookServiceSubscription: Subscription;
     
-    constructor(private navElementService: NavElementService,
-                private streamingService: StreamingService,
+    constructor(private streamingService: StreamingService,
+                private navElementService: NavElementService,
                 private galleryService: NotebookGalleryService,
                 private notebookService: NotebookService,
                 private router: Router) {
-        this.navElementSubscription = navElementService.changedSelected$.subscribe(
+    }
+
+    navElementSubscriptionInit() {
+        this.navElementSubscription = this.navElementService.changedSelected$.subscribe(
             navElement => {
                 this.currentNavElement = navElement;
                 console.log("GotIt from control " + this.currentNavElement.name);
@@ -58,16 +63,45 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
                 this.galleryService.changeOpenEmitter();
                 break;
             case "board":
-                this.streamingService.openStreamingEmitter();
+                this.streaming.isOpen = !this.streaming.isOpen;
+                this.getStreaming();
                 break;
+            default:
+                this.navElementService.changedSelectedEmitter(navElement);
         }
-        this.navElementService.changedSelectedEmitter(navElement);
+    }
+
+    private closeStreaming() {
+        this.streaming.isOpen = false;
+        this.streaming.isAvailable = true;
     }
 
     ngOnInit() {
         this.navElements = this.navElementService.getMenuNavElements();
+        this.navElementSubscriptionInit();
+        this.getStreaming();
+        this.currentNavElement = this.navElements.find(element => element.name === "cursor");
+        this.navElementService.changedSelectedEmitter(this.currentNavElement);
     }
 
+    getImage() {
+        console.log("Try to import current image");
+        this.notebookService.saveCurrentCanvas(this.streaming.channel+'/ScreenTask.jpg');
+    }
+
+    getStreaming() {
+        this.streamingService.getStreamingChannel()
+            .subscribe(
+                channel => {
+                    if (channel != "")
+                        this.streaming.isAvailable = true;
+                    this.streaming.channel = channel;
+                    console.log(this.streaming)
+                },
+                    error =>  this.errorMessage = <any>error
+                );
+    }
+    
     ngOnDestroy() {
         this.navElementSubscription.unsubscribe();
     }

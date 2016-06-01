@@ -27,8 +27,7 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
 
     constructor(private courseListService: CourseListService,
         private notebookListService: NotebookGalleryService) {
-        this.currentCourse = new Course();
-        this.currentCourse.id = 99999;
+        this.currentCourse = new Course(123456,"Static Test");
         this.dbSourceSubscription = this.courseListService.changeDbSource$.subscribe(
             source => {
                 this.dbSource = source;
@@ -42,6 +41,10 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
                 console.log("Got new gallery value");
             }
         );
+    }
+    
+    addPageToLocalStorage() {
+        
     }
 
     importContent() {

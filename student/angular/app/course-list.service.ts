@@ -51,11 +51,7 @@ export class CourseListService {
         let courses: Course[] = [];
         let body = res.json();
         for (var course of body) {
-            let temp: Course = new Course();
-            temp.id = course.course_id;
-            temp.name = course.course_name;
-            temp.streaming = course.streaming;
-            courses.push(temp);
+            courses.push(new Course(course.course_id, course.course_name,course.streaming));
         }
         console.log(courses);
         return courses || [];
@@ -79,32 +75,28 @@ export class CourseListService {
     private extractLocalStorageData() {
         let localContent: any;
         let courses: CourseContent[] = [];
-        localContent = JSON.parse(localStorage.getItem("course_99999"));
+        localContent = JSON.parse(localStorage.getItem("course_123456"));
         for(var image of localContent.content) {
-            let temp = new CourseContent();
-            temp.id = image.id;
-            temp.name = image.name;
-            temp.imgSrc.src = image.imgSource;
-            courses.push(temp);
+            courses.push(new CourseContent(image.id,image.name,image.imgSource));
         }
         return courses || [];
     }
 
     private extractImageListData(res: Response) {
         let images: CourseContent[]=[];
+        let counter:number = 0;
         let body = res.json();
         for(var image of body) {
-            let temp: CourseContent = new CourseContent();
-            temp.name = image.filename;
-            temp.imgSrc.src = image.src;
-            images.push(temp);
+            console.log("image: ");
+            console.log(image);
+            images.push(new CourseContent(counter++,image.filename,image.src));
         }
         return images || { };
     }
 
-    getCourseDates(date: number) : Observable<string[]> {
+    getCourseDates(course: number) : Observable<string[]> {
         return this.http.post(this.getDateByCourseIdUrl,JSON.stringify({
-            "course_id": date
+            "course_id": course
         }),this.options)
             .map(this.extractCourseDatesData)
             .catch(this.handleError);

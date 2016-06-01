@@ -1,76 +1,41 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import {Course} from "./course";
-import {Streaming} from "./streaming";
+import { Injectable }     from '@angular/core';
+import { Http, Response, RequestOptions, Headers} from '@angular/http';
+import { Streaming }           from './streaming';
+import { Observable }     from 'rxjs/Observable';
 
-/**
- * Streaming Service
- * Looking for streaming service in open notebook
- * Got listener of streaming to update externals
- * every streaming change
- */
 @Injectable()
 export class StreamingService {
-    private getStreamingCourseChanelUrl = 'http://52.34.153.216:3000/getCourseStreaming';
-    private headers = new Headers({ 'Content-Type': 'application/json'});
-    private options = new RequestOptions({ headers: this.headers});
-    private streaming: Streaming;
-    private streamingSubject = new Subject<Streaming>();
+    
+    private streamingChannelUrl: string = 'http://52.34.153.216:3000/getCourseStreaming';
 
-    /**
-     * External listener of streaming behavior
-     * @type {Observable<Streaming>}
-     */
-    streamingListener$ = this.streamingSubject.asObservable();
-
-    constructor(private http: Http) {
-        this.streaming = new Streaming();
+    constructor (private http: Http) {
     }
 
-    getStreamingChanel(course: Course) : Observable<any> {
-        return this.http.post(this.getStreamingCourseChanelUrl, JSON.stringify({
-            "course_id": course.id
-        }), this.options)
-            .map(this.extractStreamingChanel)
+
+    getStreamingChannel (): Observable<string> {
+        console.log("Request for streaming");
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.streamingChannelUrl,JSON.stringify({
+            "course_id": 123456
+        }),options)
+            .map(this.extractData)
             .catch(this.handleError);
     }
 
-    private extractStreamingChanel(res: Response) {
+    
+    private extractData(res: Response) {
         let body = res.json();
-        if(body.src === "") {
-            this.streaming.isAvailable = false;
-        }
-        else {
-            this.streaming.isAvailable = true;
-        }
-        this.streaming.channel = body.src;
-        return this.streaming;
-    }
-    
-    openStreamingEmitter() {
-        this.streaming.isOpen = true;
-        console.log(this.streaming);
-        this.streamingSubject.next(this.streaming);
-    }
-    
-    closeStreamingEmitter(streaming:Streaming) {
-        console.log("Emitter got close");
-        streaming.isOpen = false;
-        this.streaming.isOpen = false;
-        this.streamingSubject.next(streaming);
+        return body.src || { };
     }
 
-    getStreaming() {
-        return this.streaming;
-    }
-
-    private handleError(error:any) {
-        let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg);
+    private handleError (error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }
+
 }

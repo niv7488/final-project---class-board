@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 
+/**
+ * Gallery Service
+ * Contains boolean listener of gallery status (shown or hide)
+ */
 @Injectable()
 export class NotebookGalleryService {
     private isOpen: boolean = false;

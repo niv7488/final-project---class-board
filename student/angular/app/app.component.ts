@@ -10,6 +10,7 @@ import {DashboardComponent} from './dashboard.component';
 import {LoginComponent} from "./login.component";
 import {NotebookService} from "./notebook.service";
 import {NotebookGalleryService} from "./notebook-gallery.service";
+import {StreamingService} from "./streaming.service";
 
 @Component({
   selector: 'bc-app',
@@ -26,6 +27,7 @@ import {NotebookGalleryService} from "./notebook-gallery.service";
         NotebookGalleryService,
         NavElementService,
         CourseListService,
+        StreamingService,
         ROUTER_PROVIDERS
     ]
 })
@@ -58,5 +60,6 @@ import {NotebookGalleryService} from "./notebook-gallery.service";
 /**
  * Boardcast application container
  */
-export class AppComponent { 
+export class AppComponent {
+    
 }
