@@ -27,8 +27,6 @@ namespace BoardCast
                 // Show PowerPoint to the user.
                 oPPT.Visible = MsoTriState.msoTrue;
                 objPresSet = oPPT.Presentations;
-                //oPPT.SlideShowNextClick += this.SlideShowNextClick;
-
                 OpenFileDialog Opendlg = new OpenFileDialog();
 
                 Opendlg.Filter = "Powerpoint|*.ppt;*.pptx|All files|*.*";
@@ -60,7 +58,6 @@ namespace BoardCast
         {
             oSlideShowView.Application.SlideShowWindows[1].Activate();
             oSlideShowView.Next();
-            
         }
 
         public void ShowPreviousSlide()
@@ -72,6 +69,7 @@ namespace BoardCast
         {
             oSlideShowView.Exit();
             objPres.Close();
+            oPPT.Quit();
         }
     }
 }

@@ -77,6 +77,7 @@ namespace BoardCast
         public event EventHandler CloseButtonClick;
         public event EventHandler HideInkCanvas;
         public event EventHandler CreateBlankCanvasClick;
+        public event EventHandler HideBackgroundCanvas;
 #endregion
 
 #region Window Initialization
@@ -270,15 +271,16 @@ namespace BoardCast
 
         public void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            HideAllSubMenus();
+            deleteStrokePanel.Visibility = Visibility.Visible;
             inkCanvas.Cursor = Cursors.Cross;
             inkCanvas.EditingMode = InkCanvasEditingMode.Select;
-            HideAllSubMenus();
             /*inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
             inkCanvas.DefaultDrawingAttributes.IsHighlighter = true;*/
             setBrushSize();
             resetAllToolBackgrounds();
             editbutton.Style = (Style)FindResource("highlightedButtonStyle");
-            deleteStrokePanel.Visibility = Visibility.Visible;
+            
         }
         
         public void eraserButton_Click(object sender, RoutedEventArgs e)
@@ -528,6 +530,8 @@ namespace BoardCast
             if (_mPowerPointManager.OpenPowerPoint())
             {
                 PowerPointPanel.Visibility = Visibility.Visible;
+                if (HideBackgroundCanvas != null)
+                    HideBackgroundCanvas.Invoke(new object(), new EventArgs());
             }
 
             /*try
@@ -607,10 +611,13 @@ namespace BoardCast
         /// <param name="e"></param>
         private void OnExitPowerPoint(object sender, RoutedEventArgs e)
         {
-            /*oSlideShowView.Exit();
-            objPres.Close();*/
+           
             _mPowerPointManager.ClosePowerPoint();
             PowerPointPanel.Visibility=Visibility.Hidden;
+            if (HideBackgroundCanvas != null)
+            {
+                HideBackgroundCanvas.Invoke(sender,e);
+            }
         }
 #endregion
 
@@ -627,7 +634,7 @@ namespace BoardCast
 
         private void OnCircleDrawClick(object sender, RoutedEventArgs e)
         {
-            Shape1 = SelectedShape.Line;
+            Shape1 = SelectedShape.Circle;
             DrawShape();
         }
 
@@ -647,6 +654,20 @@ namespace BoardCast
         {
             Shape1 = SelectedShape.Line;
             DrawShape();
+        }
+
+        private void OnCoordinateDrawClick(object sender, RoutedEventArgs e)
+        {
+            string src = Path.Combine(Directory.GetCurrentDirectory(), "Images/coordinate.png");
+            Image img = new Image();
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(src);
+            image.EndInit();
+            img.Source = image;
+            img.Width = 200;
+            img.Height = 200;
+            inkCanvas.Children.Add(img);
         }
 
         private void DrawShape()

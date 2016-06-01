@@ -269,24 +269,38 @@ namespace BoardCast
             toolsWindow.Owner = this;
             toolsWindow.CloseButtonClick += new EventHandler(toolsWindow_CloseButtonClick);
             toolsWindow.CreateBlankCanvasClick += new EventHandler(toolsWindow_CreateBlankCanvasClick);
+            toolsWindow.HideBackgroundCanvas += new EventHandler(HideShowBackgroundCanvas);
             toolsWindow.hideInkCheckBox.Checked += new RoutedEventHandler(hideInkCheckBox_Checked);
             toolsWindow.hideInkCheckBox.Unchecked += new RoutedEventHandler(hideInkCheckBox_Checked);
             toolsWindow.cursorButton.Click += new RoutedEventHandler(cursorButton_Click);
             toolsWindow.penButton.Click += new RoutedEventHandler(drawButton_Click);
             toolsWindow.highlighterButton.Click += new RoutedEventHandler(drawButton_Click);
             toolsWindow.eraserButton.Click += new RoutedEventHandler(drawButton_Click);
+            toolsWindow.editbutton.Click += new RoutedEventHandler(drawButton_Click);
             cursorButton_Click(new object(), new RoutedEventArgs());
             toolsWindow.Show();
+        }
+
+        private void HideShowBackgroundCanvas(object sender, EventArgs e)
+        {
+            if (bgwn.IsVisible)
+            {
+                bgwn.Hide();
+            }
+            else
+            {
+                bgwn.Show();
+            }
         }
 
 
         private void setCastingAddress(object sender, EventArgs e)
         {
-            updateCastingDataThread = new Thread(updateCastingUrlInDB);
+            updateCastingDataThread = new Thread(UpdateCastingUrlInDB);
             updateCastingDataThread.Start();
         }
 
-        private void updateCastingUrlInDB()
+        private void UpdateCastingUrlInDB()
         {
             //serialize the json so that the server will know what values we sent
             string json = new JavaScriptSerializer().Serialize(new

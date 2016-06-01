@@ -8,9 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/minus.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/oval.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/rectangle.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/triangle.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/signs.png")]
 
 

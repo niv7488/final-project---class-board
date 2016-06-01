@@ -181,7 +181,8 @@ namespace ScreenCast
                     ctx.Response.ContentType = "text/html"; // Important For Chrome Otherwise will display the HTML as plain text.
 
 
-
+                ctx.Response.AddHeader("Access-Control-Allow-Origin","*");
+                ctx.Response.AddHeader("Access-Control-Allow-Headers", "origin, x-requested-with, content-type");
                 ctx.Response.StatusCode = 200;
                 try
                 {

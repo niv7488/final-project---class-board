@@ -400,7 +400,7 @@
                                         </StackPanel>
                                     </ListBoxItem>
                                 </ListBox>
-                                <StackPanel  x:Name="shapesStackPanel" Orientation="Horizontal"  Width="120"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="35" Margin="220,0,0,0" Background="Transparent" Visibility="Hidden">
+                                <StackPanel  x:Name="shapesStackPanel" Orientation="Horizontal"  Width="155"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="35" Margin="434,0,178,0" Background="Transparent" Visibility="Hidden">
                                     <Button Background="White" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnCircleDrawClick" x:Name="CircleShape" >
                                         <Image Source="icons/oval.png" Height="28"/>
                                     </Button>
@@ -412,6 +412,10 @@
                                     </Button>
                                     <Button Background="White" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnLineDrawClick" x:Name="LineShape" >
                                         <Image Source="icons/minus.png" Height="28"/>
+                                    </Button>
+                                    <Button Background="White" Width="28" Height="28" Margin="0,3.5" Cursor="Hand" Click="OnCoordinateDrawClick" x:Name="CoordinateShape" >
+                                        <Image Source="icons/signs.png" Height="30
+"/>
                                     </Button>
                                 </StackPanel>
 
