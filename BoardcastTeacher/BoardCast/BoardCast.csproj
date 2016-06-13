@@ -143,6 +143,7 @@
     <Compile Include="backgrounWindow.xaml.cs">
       <DependentUpon>backgrounWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomStroke.cs" />
     <Compile Include="GlobalContants.cs" />
     <Compile Include="ImageCaptureManager.cs" />
     <Compile Include="LoginWindow.xaml.cs">

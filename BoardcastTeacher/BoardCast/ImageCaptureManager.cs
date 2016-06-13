@@ -20,12 +20,17 @@ namespace BoardCast
 {
     class ImageCaptureManager
     {
-        public List<StackPanel> _mThumbnailsList;
+        public List<StackPanel> m_ThumbnailsList;
+        public List<System.Windows.Controls.Image> m_StrokeThumbnailsList;
         public static string date;
+        public int m_iLastSelectedStroke;
+        public event EventHandler LoadPreviousStorke;
+
 
         public ImageCaptureManager()
         {
-            _mThumbnailsList = new List<StackPanel>();
+            m_ThumbnailsList = new List<StackPanel>();
+            m_StrokeThumbnailsList = new List<System.Windows.Controls.Image>();
         }
 
         public string CaptureScreen()
@@ -64,8 +69,44 @@ namespace BoardCast
             sp.Children.Add(Img);
             sp.Margin = new Thickness(2, 0, 2, 50);
             Img.MouseDown += new MouseButtonEventHandler(OnThumbnailsClick);
-            _mThumbnailsList.Add(sp);
+            m_ThumbnailsList.Add(sp);
             return sp;
+        }
+
+        public StackPanel CreatePreviewStrokeThumbnail(string path)
+        {
+            StackPanel sp = new StackPanel();
+            sp.Orientation = System.Windows.Controls.Orientation.Horizontal;
+            System.Windows.Controls.Image Img = new System.Windows.Controls.Image();
+            Img.Width = 150;
+            Img.Height = 150;
+            Img.Source = new BitmapImage(new Uri(path));
+            sp.Children.Add(Img);
+            sp.Margin = new Thickness(2, 0, 2, 50);
+            Img.MouseDown += new MouseButtonEventHandler(OnStrokeThumbnailsClick);
+            m_StrokeThumbnailsList.Add(Img);
+            return sp;
+        }
+
+        void OnStrokeThumbnailsClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                var image = sender as System.Windows.Controls.Image;
+                for (int i = 0; i < m_StrokeThumbnailsList.Count; i++)
+                {
+                    if (image.Source == m_StrokeThumbnailsList[i].Source)
+                    {
+                        m_iLastSelectedStroke = i;
+                        if (LoadPreviousStorke != null)
+                        {
+                            LoadPreviousStorke.Invoke(new object(), new EventArgs());
+                        }
+                        return;
+                    }
+                }
+                
+            }
         }
 
         void OnThumbnailsClick(object sender, MouseButtonEventArgs e)
@@ -86,9 +127,9 @@ namespace BoardCast
 
         public void DeleteAllThumbnails()
         {
-            for (int i = 0; i < _mThumbnailsList.Count; i++)
+            for (int i = 0; i < m_ThumbnailsList.Count; i++)
             {
-                _mThumbnailsList[i].Children.RemoveAt(0);
+                m_ThumbnailsList[i].Children.RemoveAt(0);
             }
         }
     }

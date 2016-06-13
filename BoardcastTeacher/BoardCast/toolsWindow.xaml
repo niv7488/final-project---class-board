@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStartupLocation="Manual" 
     Left="0" Top="0"
-        Title="toolsWindow" WindowStyle="None" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" Topmost="True" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  Loaded="Window_Loaded" Width="Auto" Height="400" >
+        Title="toolsWindow" WindowStyle="None" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" Topmost="True" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  Loaded="Window_Loaded" Width="Auto" Height="450" >
 
     <Window.Resources>
 
@@ -271,7 +271,7 @@
                         </Grid>
                         <Grid>
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox  Name="hideInkCheckBox" ToolTip="(Ctrl + 1)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" Checked="clickThroughCheckBox_Checked" Unchecked="clickThroughCheckBox_Checked" Foreground="White" Cursor="Hand" />
+                                <CheckBox  Name="hideInkCheckBox" ToolTip="(Ctrl + 1)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" Checked="ClickThroughCheckBox_Checked" Unchecked="ClickThroughCheckBox_Checked" Foreground="White" Cursor="Hand" />
                                 <TextBlock Text="Hide ink" Foreground="White" VerticalAlignment="Center" Margin="3,0,0,0" />
                             </StackPanel>
                             <TextBlock TextOptions.TextFormattingMode="Ideal" Text="Boardcast" Foreground="White" VerticalAlignment="Center" Margin="6,-2,6,0" TextAlignment="Right" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" FontStyle="Italic" />
@@ -322,18 +322,18 @@
 
                                 </StackPanel>
                                 <StackPanel  x:Name="brushSizeStackPanel" Orientation="Horizontal"  Width="120"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="39" Margin="324,0,323,0" Visibility="Hidden" >
-                                    <Button Style="{StaticResource highlightedButtonStyle}" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="smallestSize" >
+                                    <Button Style="{StaticResource highlightedButtonStyle}" Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="PenSizeButton_MouseDown" x:Name="smallestSize" >
                                         <Ellipse Width="2" Height="2" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
                                     </Button>
-                                    <Button Width="28" Height="28" Margin="1,0,0,0" Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="smallSize" Background="Transparent" BorderThickness="0"  
+                                    <Button Width="28" Height="28" Margin="1,0,0,0" Cursor="Hand" Click="PenSizeButton_MouseDown" x:Name="smallSize" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
                                         <Ellipse Width="5" Height="5" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
                                     </Button>
-                                    <Button Width="28" Height="28" Margin="1,0,0,0"  Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="mediumSize" Background="Transparent" BorderThickness="0"  
+                                    <Button Width="28" Height="28" Margin="1,0,0,0"  Cursor="Hand" Click="PenSizeButton_MouseDown" x:Name="mediumSize" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Ellipse Width="10" Height="10" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
                                     </Button>
-                                    <Button Width="28" Height="28" Margin="1,0,0,0" Cursor="Hand" Click="penSizeButton_MouseDown" x:Name="largeSize" Background="Transparent" BorderThickness="0"  
+                                    <Button Width="28" Height="28" Margin="1,0,0,0" Cursor="Hand" Click="PenSizeButton_MouseDown" x:Name="largeSize" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Ellipse Width="16" Height="16" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
                                     </Button>
@@ -348,7 +348,7 @@
                                         </ItemsControl.ItemsPanel>
                                     </ItemsControl>
                                 </ScrollViewer>
-                                <ListBox x:Name="WinApplicationsLeft" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Opacity="0" Visibility="Hidden">
+                                <ListBox x:Name="WinApplicationsLeft" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Opacity="0" Height="153" Margin="0,-3,0,0" Visibility="Hidden">
                                     <ListBoxItem x:Name="BrowserOpen" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="icons/chrome.png" Height="30"/>
@@ -374,7 +374,7 @@
                                         </StackPanel>
                                     </ListBoxItem>
                                 </ListBox>
-                                <ListBox x:Name="WinApplicationsRight" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="right" Opacity="0" Visibility="Hidden">
+                                <ListBox x:Name="WinApplicationsRight" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="right" Opacity="0" Height="150" Visibility="Hidden">
                                     <ListBoxItem x:Name="BrowserOpen1" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="icons/chrome.png" Height="30"/>
@@ -418,29 +418,39 @@
 "/>
                                     </Button>
                                 </StackPanel>
+                                <ScrollViewer x:Name="LastStrokesScrollViewer" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible" Height="Auto" VerticalAlignment="Bottom" Visibility="Hidden">
+                                    <ItemsControl x:Name="strokesItemsControl1"  Background="Black" >
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate >
+                                                <!-- Custom Panel-->
+                                                <StackPanel Orientation="Horizontal" Background="Black"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </ScrollViewer>
 
                             </Grid >
                             <Grid Background="#B5B5B5"  >
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="openWinAppsPannel" Width="Auto"  HorizontalAlignment="Left" Height="36" >
-                                    <Button  Cursor="Hand" Height="31" HorizontalAlignment="Left"  Name="openFiles" VerticalAlignment="Center" Width="35" Click="openFilesLeft_Click" RenderTransformOrigin="0.5,0.5" Margin="2,0,0,0" Background="Transparent" BorderThickness="0"  
+                                    <Button  Cursor="Hand" Height="31" HorizontalAlignment="Left"  Name="openFiles" VerticalAlignment="Center" Width="35" Click="OpenFilesLeft_Click" RenderTransformOrigin="0.5,0.5" Margin="2,0,0,0" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
                                         <Image Source="icons/apps.png" Width="25" Height="25"/>
                                     </Button>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="toolStackPanel" Width="Auto"  HorizontalAlignment="Center" Height="36" >
 
-                                    <Button Cursor="Hand" Style="{StaticResource highlightedButtonStyle}" x:Name="cursorButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Cursor" Click="cursorButton_Click" Margin="0,2,2,2" IsTabStop="False" Height="32" Width="35" Background="Transparent">
+                                    <Button Cursor="Hand" Style="{StaticResource highlightedButtonStyle}" x:Name="cursorButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Cursor" Click="CursorButton_Click" Margin="0,2,2,2" IsTabStop="False" Height="32" Width="35" Background="Transparent">
                                         <Image Source="icons/arrow.png" Height="17" Width="17"/>
                                     </Button>
-                                    <Button Cursor="Hand" x:Name="penButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Pen" Click="penButton_Click" Background="Transparent" BorderThickness="0"  
+                                    <Button Cursor="Hand" x:Name="penButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Pen" Click="PenButton_Click" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Image Source="icons/pen.png" Height="22" Width="26"/>
                                     </Button>
-                                    <Button Cursor="Hand" x:Name="highlighterButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Highlighter" Click="highlighterButton_Click" Background="Transparent" BorderThickness="0"  
+                                    <Button Cursor="Hand" x:Name="highlighterButton" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Highlighter" Click="HighlighterButton_Click" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Image Source="icons/marker.png" Height="22" Width="26"/>
                                     </Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="eraserButton_Click" x:Name="eraserButton" ToolTip="Eraser" Background="Transparent" BorderThickness="0"  
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="EraserButton_Click" x:Name="eraserButton" ToolTip="Eraser" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Image Source="icons/erease.png" Height="25" Width="25"/>
                                     </Button>
@@ -453,22 +463,26 @@
                                         <Ellipse Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Button}}}" />
                                     </Button>
                                     <Button Width="35" Height="31"  Cursor="Hand" BorderThickness="0"  
-    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" x:Name="penColor" ToolTip="Pen color" Background="Transparent" Click="onColorClick">
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" x:Name="penColor" ToolTip="Pen color" Background="Transparent" Click="OnColorClick">
                                         <Rectangle Fill="Black" Stroke="Black" Height="100" Width="100" Name="SelectedColorRect"/>
                                     </Button>
                                     <Button Width="1" Height="30" Background="Gray" Margin="8,0,7,0"></Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="onCreateBlankCanvasClicked" x:Name="createBlankBackground" Height="31" Width="35" ToolTip="open new blank background"  Margin="2,2.5" Background="Transparent" BorderThickness="0"  
+                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnCreateBlankCanvasClicked" x:Name="createBlankBackground" Height="31" Width="35" ToolTip="open new blank background"  Margin="2,2.5" Background="Transparent" BorderThickness="0"  
                                     	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
                                         <Image Source="icons/board.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
                                     </Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="onShapeSelect" x:Name="drawShape" Height="31" Width="35" ToolTip="Draw shape"   Background="Transparent" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnShapeSelect" x:Name="drawShape" Height="31" Width="35" ToolTip="Draw shape"   Background="Transparent" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
                                         <Image Source="icons/shape.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
                                     </Button>
-                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="onCaptureClick" x:Name="CaptureButton" ToolTip="Screen Capture" Height="31" Width="35" Background="Transparent" BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnCaptureClick" x:Name="CaptureButton" ToolTip="Screen Capture" Height="31" Width="35" Background="Transparent" BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Image Source="icons/camera.png" Height="22" Width="26"/>
                                     </Button>
                                     <Button Width="1" Height="30" Background="Gray" Margin="8,3,7,3"/>
                                     <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnLoadLastShotsClicked" x:Name="LoadLastShotsButton" Height="31" Width="35" ToolTip="Load last screenshots"  Margin="2,2.5" Background="Transparent" BorderThickness="0"  
+                                    	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/gallery.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
+                                    </Button>
+                                    <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnLoadLastStrokesClicked" x:Name="LoadLastStrokesButton" Height="31" Width="35" ToolTip="Load last notes"  Margin="2,2.5" Background="Transparent" BorderThickness="0"  
                                     	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
                                         <Image Source="icons/gallery.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
                                     </Button>
@@ -491,13 +505,13 @@
                                     <!-- <Button Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnOpenFileClicked" x:Name="OpenButton" Height="31" Width="35" ToolTip="Open file"  >
                                         <Image Source="icons/openfile.png" Height="25" Width="25" RenderTransformOrigin="-5.404,0.477" Stretch="Fill"/>
                                     </Button>-->
-                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="eraseAllButton_Click" x:Name="eraseAllButton" ToolTip="Erase all" Background="Transparent" BorderThickness="0"  
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="EraseAllButton_Click" x:Name="eraseAllButton" ToolTip="Erase all" Background="Transparent" BorderThickness="0"  
                                     	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Image Source="icons/clean.png" Height="25" Width="25"/>
                                     </Button>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="openWinAppsPannel_Copy" Width="Auto"  HorizontalAlignment="Right" Height="36" >
-                                    <Button  Cursor="Hand" Height="31" HorizontalAlignment="Left"  x:Name="openFiles1" VerticalAlignment="Center" Width="35" Click="openFilesRight_Click" RenderTransformOrigin="0.5,0.5" Margin="2,0,0,0" Background="Transparent" BorderThickness="0"  
+                                    <Button  Cursor="Hand" Height="31" HorizontalAlignment="Left"  x:Name="openFiles1" VerticalAlignment="Center" Width="35" Click="OpenFilesRight_Click" RenderTransformOrigin="0.5,0.5" Margin="2,0,0,0" Background="Transparent" BorderThickness="0"  
     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Image Source="icons/apps.png" Width="25" Height="25"/>
                                     </Button>

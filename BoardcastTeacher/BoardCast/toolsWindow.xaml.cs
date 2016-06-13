@@ -51,27 +51,26 @@ namespace BoardCast
     /// </summary>
     public partial class ToolsWindow : Window
     {
-        private InkCanvas inkCanvas;
-        private InkCanvas bgCanvas;
-        private Thread FileUploadThread;
-        private Thickness toolsDockMargin;
-        private ProcessManager _mProcessManager;
-        private ImageCaptureManager _mImageCaptureManager;
-        private PowerPointManager _mPowerPointManager;
-        private int courseID;
-        private bool isLastCanvasSaved = false;
-        double penSize=3;
-        double toolsDockPanelDefaultHeight;
-        Style defaultButtonStyle;
-        private StrokeCollection _mTempStrokeCollection;
-        private IReadOnlyCollection<UIElement> _mInkCanvasChildrensElements; 
-        public static string date;
-        public string fileName { get; set; }
-        public bool isTempCanvasOpen { get; set; }
-        public string lastSavedCanvasName { get; set; }
-        public enum SelectedShape
-        { None, Circle, Rectangle, Triangle , Line ,  }
-        public SelectedShape Shape1 = SelectedShape.None;
+        private InkCanvas m_inkCanvas;
+        private InkCanvas m_bgCanvas;
+        private Thread m_FileUploadThread;
+        private Thickness m_toolsDockMargin;
+        private ProcessManager m_ProcessManager;
+        private ImageCaptureManager m_ImageCaptureManager;
+        private PowerPointManager m_PowerPointManager;
+        private int m_iCourseID;
+        private bool m_bIsLastCanvasSaved = false;
+        private double m_dPenSize=3;
+        private double toolsDockPanelDefaultHeight;
+        private Style m_defaultButtonStyle;
+        private List<CustomStroke> m_SavedStrokesList = new List<CustomStroke>();
+        private StrokeCollection m_TempStrokeCollection;
+        private IReadOnlyCollection<UIElement> m_lastInkCanvasChildrensElements;
+        private string m_sFileName = "";
+        private enum SelectedShape { None, Circle, Rectangle, Triangle , Line }
+        private SelectedShape Shape1 = SelectedShape.None;
+        public bool m_bIsTempCanvasOpen { get; set; }
+        public string m_sLastSavedCanvasName { get; set; }
 
 #region EventHandlers
         public event EventHandler CloseButtonClick;
@@ -87,8 +86,8 @@ namespace BoardCast
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
         }
 
-        public void setInkCanvas(InkCanvas _inkCanvas)
-        { inkCanvas = _inkCanvas; }
+        public void SetInkCanvas(InkCanvas _inkCanvas)
+        { m_inkCanvas = _inkCanvas; }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -97,12 +96,13 @@ namespace BoardCast
             WindowStyle = WindowStyle.None;
             this.Width =SystemParameters.PrimaryScreenWidth;
             ResizeMode = ResizeMode.NoResize;
-            FileUploadThread = new Thread(UploadManager.Instance.Main);
-            FileUploadThread.Start();
-            _mProcessManager = new ProcessManager();
-            _mImageCaptureManager = new ImageCaptureManager();
-            _mPowerPointManager = new PowerPointManager();
-            isTempCanvasOpen = false;
+            m_FileUploadThread = new Thread(UploadManager.Instance.Main);
+            m_FileUploadThread.Start();
+            m_ProcessManager = new ProcessManager();
+            m_ImageCaptureManager = new ImageCaptureManager();
+            m_PowerPointManager = new PowerPointManager();
+            m_bIsTempCanvasOpen = false;
+            m_ImageCaptureManager.LoadPreviousStorke += new EventHandler(LoadPreviousStorkes);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -112,12 +112,15 @@ namespace BoardCast
             toolsDockPanelDefaultHeight = toolsDockPanel.Height;
             Height = ActualHeight;
             SizeToContent = System.Windows.SizeToContent.Manual;
-            defaultButtonStyle = eraseAllButton.Style;
+            m_defaultButtonStyle = eraseAllButton.Style;
+            
         }
 
-        public void setCourseID(int cID)
+        
+
+        public void SetCourseID(int cID)
         {
-            courseID = cID;
+            m_iCourseID = cID;
         }
 #endregion
 
@@ -130,7 +133,7 @@ namespace BoardCast
             SelectedColorRect.Stroke = ((Border) sender).Background;
             colorPanel.Visibility = Visibility.Hidden;
             selectedColourBorder.Background = ((Border)sender).Background;
-            inkCanvas.DefaultDrawingAttributes.Color = ((SolidColorBrush)((Border)sender).Background).Color;
+            m_inkCanvas.DefaultDrawingAttributes.Color = ((SolidColorBrush)((Border)sender).Background).Color;
         }
 
         private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -143,8 +146,8 @@ namespace BoardCast
         
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _mProcessManager.CloseAllProcess();
-            _mImageCaptureManager.DeleteAllThumbnails();
+            m_ProcessManager.CloseAllProcess();
+            m_ImageCaptureManager.DeleteAllThumbnails();
             onCloseButtonClick();
         }
 
@@ -154,15 +157,15 @@ namespace BoardCast
                 CloseButtonClick.Invoke(new object(), new EventArgs());
         }
 
-        private void resetAllToolBackgrounds()
+        private void ResetAllToolBackgrounds()
         {
             foreach (Button i in toolStackPanel.Children)
                // if (i.Name != "brushSize")
-                if (!(isTempCanvasOpen && i.Name.Equals("createBlankBackground")))
-                    i.Style = defaultButtonStyle;
+                if (!(m_bIsTempCanvasOpen && i.Name.Equals("createBlankBackground")))
+                    i.Style = m_defaultButtonStyle;
         }
 
-        private void openFilesLeft_Click(object sender, RoutedEventArgs e)
+        private void OpenFilesLeft_Click(object sender, RoutedEventArgs e)
         {
             WinApplicationsRight.Visibility = Visibility.Hidden;
             if (WinApplicationsLeft.Visibility == Visibility.Visible)
@@ -179,7 +182,7 @@ namespace BoardCast
             }
         }
 
-        private void openFilesRight_Click(object sender, RoutedEventArgs e)
+        private void OpenFilesRight_Click(object sender, RoutedEventArgs e)
         {
             WinApplicationsLeft.Visibility = Visibility.Hidden;
             if (WinApplicationsRight.Visibility == Visibility.Visible)
@@ -203,6 +206,7 @@ namespace BoardCast
         /// <param name="e"></param>
         private void OnLoadLastShotsClicked(object sender, RoutedEventArgs e)
         {
+            LastStrokesScrollViewer.Visibility = Visibility.Hidden;
             if (LastShotsScrollViewer.Visibility == Visibility.Visible)
             {
                 LastShotsScrollViewer.Visibility = Visibility.Hidden;
@@ -215,7 +219,6 @@ namespace BoardCast
 
         private void HideAllSubMenus()
         {
-            PowerPointPanel.Visibility = Visibility.Hidden;
             deleteStrokePanel.Visibility = Visibility.Hidden;
             colorPanel.Visibility = Visibility.Hidden;
             brushSizeStackPanel.Visibility = Visibility.Hidden;
@@ -228,44 +231,55 @@ namespace BoardCast
         private Collection<UIElement> GetAllCanvasChildrens()
         {
             Collection<UIElement> elementCollection = new Collection<UIElement>();
-            for (int i = 0; i < inkCanvas.Children.Count; i++)
+            for (int i = 0; i < m_inkCanvas.Children.Count; i++)
             {
-                elementCollection.Add(inkCanvas.Children[i]);
+                elementCollection.Add(m_inkCanvas.Children[i]);
             }
             return elementCollection;
+        }
+
+        private void LoadPreviousStorkes(object sender, EventArgs e)
+        {
+            int strokeIndex = m_ImageCaptureManager.m_iLastSelectedStroke;
+            m_inkCanvas.Strokes = m_SavedStrokesList[strokeIndex].m_strokeCollection;
+            for (int i = 0; i < m_SavedStrokesList[strokeIndex].m_childElement.Count; i++)
+            {
+                m_inkCanvas.Children.Add(m_SavedStrokesList[strokeIndex].m_childElement[i]);
+            }
+
         }
 
 #endregion
         
 #region onClickHandlers
         
-        public void cursorButton_Click(object sender, RoutedEventArgs e)
+        public void CursorButton_Click(object sender, RoutedEventArgs e)
         {
-            resetAllToolBackgrounds();
+            ResetAllToolBackgrounds();
             cursorButton.Style = (Style)FindResource("highlightedButtonStyle");
             HideAllSubMenus();
         }
 
-        public void penButton_Click(object sender, RoutedEventArgs e)
+        public void PenButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
-            inkCanvas.Cursor = Cursors.Pen;
-            inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
-            inkCanvas.DefaultDrawingAttributes.IsHighlighter = false;
-            setBrushSize();
-            resetAllToolBackgrounds();
+            m_inkCanvas.Cursor = Cursors.Pen;
+            m_inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+            m_inkCanvas.DefaultDrawingAttributes.IsHighlighter = false;
+            SetBrushSize();
+            ResetAllToolBackgrounds();
             penButton.Style = (Style)FindResource("highlightedButtonStyle");
 
         }
 
-        public void highlighterButton_Click(object sender, RoutedEventArgs e)
+        public void HighlighterButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
-            inkCanvas.Cursor = Cursors.Pen;
-            inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
-            inkCanvas.DefaultDrawingAttributes.IsHighlighter = true;
-            setBrushSize();
-            resetAllToolBackgrounds();
+            m_inkCanvas.Cursor = Cursors.Pen;
+            m_inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+            m_inkCanvas.DefaultDrawingAttributes.IsHighlighter = true;
+            SetBrushSize();
+            ResetAllToolBackgrounds();
             highlighterButton.Style = (Style)FindResource("highlightedButtonStyle");
         }
 
@@ -273,60 +287,60 @@ namespace BoardCast
         {
             HideAllSubMenus();
             deleteStrokePanel.Visibility = Visibility.Visible;
-            inkCanvas.Cursor = Cursors.Cross;
-            inkCanvas.EditingMode = InkCanvasEditingMode.Select;
-            /*inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
-            inkCanvas.DefaultDrawingAttributes.IsHighlighter = true;*/
-            setBrushSize();
-            resetAllToolBackgrounds();
+            m_inkCanvas.Cursor = Cursors.Cross;
+            m_inkCanvas.EditingMode = InkCanvasEditingMode.Select;
+            /*m_inkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+            m_inkCanvas.DefaultDrawingAttributes.IsHighlighter = true;*/
+            SetBrushSize();
+            ResetAllToolBackgrounds();
             editbutton.Style = (Style)FindResource("highlightedButtonStyle");
             
         }
         
-        public void eraserButton_Click(object sender, RoutedEventArgs e)
+        public void EraserButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
-            inkCanvas.Cursor = Cursors.Cross;
-            inkCanvas.EditingMode = InkCanvasEditingMode.EraseByStroke;
-            setBrushSize();
-            resetAllToolBackgrounds();
+            m_inkCanvas.Cursor = Cursors.Cross;
+            m_inkCanvas.EditingMode = InkCanvasEditingMode.EraseByStroke;
+            SetBrushSize();
+            ResetAllToolBackgrounds();
             eraserButton.Style = (Style)FindResource("highlightedButtonStyle");   
         }
         
-        public void eraseAllButton_Click(object sender, RoutedEventArgs e)
+        public void EraseAllButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
-            inkCanvas.Strokes.Clear();
-            inkCanvas.Children.Clear();
+            m_inkCanvas.Strokes.Clear();
+            m_inkCanvas.Children.Clear();
         }
         
-        private void penSizeButton_MouseDown(object sender, RoutedEventArgs e)
+        private void PenSizeButton_MouseDown(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
-            penSize = ((Ellipse)((Button)sender).Content).Width;
-            ((Ellipse) ((Button) brushSize).Content).Width = penSize;
+            m_dPenSize = ((Ellipse)((Button)sender).Content).Width;
+            ((Ellipse) ((Button) brushSize).Content).Width = m_dPenSize;
             ((Ellipse) ((Button) brushSize).Content).Height = ((Ellipse) ((Button) sender).Content).Height;
-            setBrushSize();
+            SetBrushSize();
             foreach (Button i in brushSizeStackPanel.Children)
-                i.Style = defaultButtonStyle;
+                i.Style = m_defaultButtonStyle;
             ((Button)sender).Style = (Style)FindResource("highlightedButtonStyle");   
         }
 
-        private void setBrushSize()
+        private void SetBrushSize()
         {
-            if (inkCanvas.Cursor == Cursors.Cross)
+            if (m_inkCanvas.Cursor == Cursors.Cross)
             {
-                inkCanvas.DefaultDrawingAttributes.Width = penSize * 5;
-                inkCanvas.DefaultDrawingAttributes.Height = penSize * 5;
+                m_inkCanvas.DefaultDrawingAttributes.Width = m_dPenSize * 5;
+                m_inkCanvas.DefaultDrawingAttributes.Height = m_dPenSize * 5;
             }
             else
             {
-                inkCanvas.DefaultDrawingAttributes.Width = penSize;
-                inkCanvas.DefaultDrawingAttributes.Height = penSize;
+                m_inkCanvas.DefaultDrawingAttributes.Width = m_dPenSize;
+                m_inkCanvas.DefaultDrawingAttributes.Height = m_dPenSize;
             }
         }
 
-        private void clickThroughCheckBox_Checked(object sender, RoutedEventArgs e)
+        private void ClickThroughCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
             if ((bool)hideInkCheckBox.IsChecked)
@@ -341,10 +355,23 @@ namespace BoardCast
 
         private void OnDeleteStroke(object sender, RoutedEventArgs routedEventArgs)
         {
-            inkCanvas.Strokes.Remove(inkCanvas.GetSelectedStrokes());
-            for (int i = 0; i < inkCanvas.GetSelectedElements().Count; i++)
+            m_inkCanvas.Strokes.Remove(m_inkCanvas.GetSelectedStrokes());
+            for (int i = 0; i < m_inkCanvas.GetSelectedElements().Count; i++)
             {
-                inkCanvas.Children.Remove(inkCanvas.GetSelectedElements()[i]);
+                m_inkCanvas.Children.Remove(m_inkCanvas.GetSelectedElements()[i]);
+            }
+        }
+
+        private void OnLoadLastStrokesClicked(object sender, RoutedEventArgs e)
+        {
+            LastShotsScrollViewer.Visibility = Visibility.Hidden;
+            if (LastStrokesScrollViewer.Visibility == Visibility.Visible)
+            {
+                LastStrokesScrollViewer.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                LastStrokesScrollViewer.Visibility = Visibility.Visible;
             }
         }
 
@@ -364,7 +391,7 @@ namespace BoardCast
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onColorClick(object sender, RoutedEventArgs routedEventArgs)
+        private void OnColorClick(object sender, RoutedEventArgs routedEventArgs)
         {
             HideAllSubMenus();
             colorPanel.Visibility = Visibility.Visible;
@@ -381,11 +408,11 @@ namespace BoardCast
             if (result == true)
             {
                 string filename = openFileDialog1.FileName;
-                _mProcessManager.GenerateProcess(filename,false);
+                m_ProcessManager.GenerateProcess(filename,false);
             }
         }
 
-        void OnOpenImageClicked(object sender, MouseButtonEventArgs e)
+        private void OnOpenImageClicked(object sender, MouseButtonEventArgs e)
         {
             HideAllSubMenus();
             FormOpenFileDialog controlex = new FormOpenFileDialog();
@@ -398,7 +425,7 @@ namespace BoardCast
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 string filename = controlex.OpenDialog.FileName;
-                _mProcessManager.GenerateProcess(filename, true);
+                m_ProcessManager.GenerateProcess(filename, true);
                 Thread.Sleep(1000);
                 SendKeys.SendWait("{F11}");
             }
@@ -409,38 +436,39 @@ namespace BoardCast
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void onCreateBlankCanvasClicked(object sender, RoutedEventArgs e)
+        private void OnCreateBlankCanvasClicked(object sender, RoutedEventArgs e)
         {
             //Check if the transparent canvas is not blank
-            if (inkCanvas.Strokes.Count > 0 || inkCanvas.Children.Count > 0)
+            if (m_inkCanvas.Strokes.Count > 0 || m_inkCanvas.Children.Count > 0)
             {
-                if (!isTempCanvasOpen)
-                    isLastCanvasSaved = true;
-
-                onCaptureClick(sender, e);
+                if (!m_bIsTempCanvasOpen)
+                {
+                    m_bIsLastCanvasSaved = true;
+                }
+                OnCaptureClick(sender, e);
             }
-            if (!isTempCanvasOpen)
+            if (!m_bIsTempCanvasOpen)
             {
-                isTempCanvasOpen = true;
+                m_bIsTempCanvasOpen = true;
                 createBlankBackground.Style = (Style) FindResource("highlightedButtonStyle");
             }
             else
             {
-                isTempCanvasOpen = false;
-                if (_mTempStrokeCollection != null && _mTempStrokeCollection.Count > 0)
+                m_bIsTempCanvasOpen = false;
+                if (m_TempStrokeCollection != null && m_TempStrokeCollection.Count > 0)
                 {
-                    inkCanvas.Strokes = _mTempStrokeCollection;
+                    m_inkCanvas.Strokes = m_TempStrokeCollection;
                 }
-                if (_mInkCanvasChildrensElements.Count > 0)
+                if (m_lastInkCanvasChildrensElements!= null && m_lastInkCanvasChildrensElements.Count > 0)
                 {
-                    foreach (var element in _mInkCanvasChildrensElements)
+                    foreach (var element in m_lastInkCanvasChildrensElements)
                     {
-                        inkCanvas.Children.Add(element);
+                        m_inkCanvas.Children.Add(element);
                     }
                 }
-                _mTempStrokeCollection = null;
-                _mInkCanvasChildrensElements = null;
-                createBlankBackground.Style = defaultButtonStyle;
+                m_TempStrokeCollection = null;
+                m_lastInkCanvasChildrensElements = null;
+                createBlankBackground.Style = m_defaultButtonStyle;
             }
 
             //Fire event to create blank background window
@@ -451,7 +479,7 @@ namespace BoardCast
         private void OpenBrowser(object sender, MouseButtonEventArgs e)
         {
             HideAllSubMenus();
-            _mProcessManager.GenerateProcess("http://google.com", false);
+            m_ProcessManager.GenerateProcess("http://google.com", false);
         }
 
 #endregion
@@ -463,20 +491,21 @@ namespace BoardCast
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onCaptureClick(object sender, RoutedEventArgs e)
+        private void OnCaptureClick(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            fileName = _mImageCaptureManager.CaptureScreen();
+            m_sFileName = m_ImageCaptureManager.CaptureScreen();
             ExportCanvasToFile();
-            string fullFilePath = Path.Combine(GlobalContants.screenshotFolderPath, fileName + ".jpeg");
-            UploadManager.Instance.setCourseID(courseID);
+            string fullFilePath = Path.Combine(GlobalContants.screenshotFolderPath, m_sFileName + ".jpeg");
+            UploadManager.Instance.setCourseID(m_iCourseID);
             UploadManager.Instance.uploadFilesStack.Push(fullFilePath);
-            //cursorButton_Click(sender,e);
+            //CursorButton_Click(sender,e);
             if (UploadManager.Instance.isThreadSleep)
             {
-                FileUploadThread.Interrupt();
+                m_FileUploadThread.Interrupt();
             }
-            itemsControl.Items.Add(_mImageCaptureManager.CreatePreviewThumbnail(fullFilePath));
+            itemsControl.Items.Add(m_ImageCaptureManager.CreatePreviewThumbnail(fullFilePath));
+            strokesItemsControl1.Items.Add(m_ImageCaptureManager.CreatePreviewStrokeThumbnail(fullFilePath));
         }
 
         /// <summary>
@@ -484,32 +513,32 @@ namespace BoardCast
         /// </summary>
         public void ExportCanvasToFile()
         {
-            string xaml = XamlWriter.Save(inkCanvas);
+            string xaml = XamlWriter.Save(m_inkCanvas);
             if (Directory.Exists(GlobalContants.canvasFolderPath))
-                File.WriteAllText(Path.Combine(GlobalContants.canvasFolderPath, fileName + ".xaml"), xaml);
+                File.WriteAllText(Path.Combine(GlobalContants.canvasFolderPath, m_sFileName + ".xaml"), xaml);
             else
             {
                 Directory.CreateDirectory(GlobalContants.canvasFolderPath);
-                File.WriteAllText(Path.Combine(GlobalContants.canvasFolderPath, fileName + ".xaml"), xaml);
+                File.WriteAllText(Path.Combine(GlobalContants.canvasFolderPath, m_sFileName + ".xaml"), xaml);
             }
 
-            if (isLastCanvasSaved)
+            if (m_bIsLastCanvasSaved)
             {
-                lastSavedCanvasName = Path.Combine(GlobalContants.canvasFolderPath, fileName + ".xaml");
-                isLastCanvasSaved = false;
+                m_sLastSavedCanvasName = Path.Combine(GlobalContants.canvasFolderPath, m_sFileName + ".xaml");
+                m_bIsLastCanvasSaved = false;
             }
-            if (inkCanvas.Strokes.Count > 0)
+            if (m_inkCanvas.Strokes.Count > 0)
             {
-                _mTempStrokeCollection = new StrokeCollection();
-                _mTempStrokeCollection = inkCanvas.Strokes.Clone();
+                m_TempStrokeCollection = new StrokeCollection();
+                m_TempStrokeCollection = m_inkCanvas.Strokes.Clone();
             }
-            if (inkCanvas.Children.Count > 0)
+            if (m_inkCanvas.Children.Count > 0)
             {
-                _mInkCanvasChildrensElements = GetAllCanvasChildrens();
+                m_lastInkCanvasChildrensElements = GetAllCanvasChildrens();
             }
-            
-            inkCanvas.Strokes.Clear();
-            inkCanvas.Children.Clear();
+            m_SavedStrokesList.Add(new CustomStroke(m_TempStrokeCollection,GetAllCanvasChildrens()));
+            m_inkCanvas.Strokes.Clear();
+            m_inkCanvas.Children.Clear();
 
             this.Show();
         }
@@ -527,7 +556,7 @@ namespace BoardCast
         {
             WinApplicationsLeft.Visibility = Visibility.Hidden;
             WinApplicationsRight.Visibility = Visibility.Hidden;
-            if (_mPowerPointManager.OpenPowerPoint())
+            if (m_PowerPointManager.OpenPowerPoint())
             {
                 PowerPointPanel.Visibility = Visibility.Visible;
                 if (HideBackgroundCanvas != null)
@@ -576,13 +605,13 @@ namespace BoardCast
         /// <param name="e"></param>
         public void OnNextClicked(object sender, RoutedEventArgs e)
         {
-            if (inkCanvas.Strokes.Count > 0)
+            if (m_inkCanvas.Strokes.Count > 0)
             {
-                _mImageCaptureManager.CaptureScreen();
+                m_ImageCaptureManager.CaptureScreen();
             }
 
-            _mPowerPointManager.ShowNextSlide();
-                //onCaptureClick(sender, e);
+            m_PowerPointManager.ShowNextSlide();
+                //OnCaptureClick(sender, e);
             /*string lastSlide = oSlideShowView.Slide.SlideNumber.ToString();
             string currentSlide;
             oSlideShowView.Application.SlideShowWindows[1].Activate();
@@ -598,7 +627,7 @@ namespace BoardCast
         /// <param name="e"></param>
         private void OnBackClicked(object sender, RoutedEventArgs e)
         {
-            _mPowerPointManager.ShowPreviousSlide();
+            m_PowerPointManager.ShowPreviousSlide();
             //oSlideShowView.Application.SlideShowWindows[1].Activate();
 
             //oSlideShowView.Previous();
@@ -612,7 +641,7 @@ namespace BoardCast
         private void OnExitPowerPoint(object sender, RoutedEventArgs e)
         {
            
-            _mPowerPointManager.ClosePowerPoint();
+            m_PowerPointManager.ClosePowerPoint();
             PowerPointPanel.Visibility=Visibility.Hidden;
             if (HideBackgroundCanvas != null)
             {
@@ -622,7 +651,7 @@ namespace BoardCast
 #endregion
 
 #region ShapesHandler
-        private void onShapeSelect(object sender, RoutedEventArgs e)
+        private void OnShapeSelect(object sender, RoutedEventArgs e)
         {
             if (shapesStackPanel.IsVisible)
             {
@@ -667,7 +696,7 @@ namespace BoardCast
             img.Source = image;
             img.Width = 200;
             img.Height = 200;
-            inkCanvas.Children.Add(img);
+            m_inkCanvas.Children.Add(img);
         }
 
         private void DrawShape()
@@ -717,11 +746,11 @@ namespace BoardCast
             }
             InkCanvas.SetTop(Rendershape,300);
             InkCanvas.SetLeft(Rendershape, 300);
-            inkCanvas.Children.Add(Rendershape);
+            m_inkCanvas.Children.Add(Rendershape);
         }
 
 #endregion
 
-        
+
     }
 }

@@ -97,7 +97,7 @@ namespace BoardCast
         {
             realTimeCasting = new ScreenShareServer();
             realTimeCasting.InitServer();
-            toolsWindow.setCourseID(cID);
+            toolsWindow.SetCourseID(cID);
             courseID = cID;
             InitializeComponent();
             blankBackground = new backgroundWindow();
@@ -145,26 +145,26 @@ namespace BoardCast
                     toolsWindow.hideInkCheckBox.IsChecked = !toolsWindow.hideInkCheckBox.IsChecked;
                 else if (key == hotkeys._2)
                 {
-                    toolsWindow.cursorButton_Click(new object(), new RoutedEventArgs());
+                    toolsWindow.CursorButton_Click(new object(), new RoutedEventArgs());
                     ClickThrough = true;
                 }
                 else if (key == hotkeys._3)
                 {
-                    toolsWindow.penButton_Click(new object(), new RoutedEventArgs());
+                    toolsWindow.PenButton_Click(new object(), new RoutedEventArgs());
                     ClickThrough = false;
                 }
                 else if (key == hotkeys._4)
                 {
-                    toolsWindow.highlighterButton_Click(new object(), new RoutedEventArgs());
+                    toolsWindow.HighlighterButton_Click(new object(), new RoutedEventArgs());
                     ClickThrough = false;
                 }
                 else if (key == hotkeys._5)
                 {
-                    toolsWindow.eraserButton_Click(new object(), new RoutedEventArgs());
+                    toolsWindow.EraserButton_Click(new object(), new RoutedEventArgs());
                     ClickThrough = false;
                 }
                 else if (key == hotkeys._6)
-                    toolsWindow.eraseAllButton_Click(new object(), new RoutedEventArgs());
+                    toolsWindow.EraseAllButton_Click(new object(), new RoutedEventArgs());
             }
         }
 
@@ -265,7 +265,7 @@ namespace BoardCast
             inkCanvas.UseCustomCursor = true;
             inkCanvas.DefaultDrawingAttributes.IgnorePressure = false;
             realTimeCasting.SetCastingAddress += new EventHandler(setCastingAddress);
-            toolsWindow.setInkCanvas(inkCanvas);
+            toolsWindow.SetInkCanvas(inkCanvas);
             toolsWindow.Owner = this;
             toolsWindow.CloseButtonClick += new EventHandler(toolsWindow_CloseButtonClick);
             toolsWindow.CreateBlankCanvasClick += new EventHandler(toolsWindow_CreateBlankCanvasClick);
@@ -439,20 +439,20 @@ namespace BoardCast
 
         public void toolsWindow_CreateBlankCanvasClick(object sender, EventArgs e)
         {
-            if (toolsWindow.isTempCanvasOpen)
+            if (toolsWindow.m_bIsTempCanvasOpen)
             {
                 blankBackground.Show();
             }
             else
             {
-                if (!string.IsNullOrEmpty(toolsWindow.lastSavedCanvasName))
+                if (!string.IsNullOrEmpty(toolsWindow.m_sLastSavedCanvasName))
                 {
-                    FileStream lastCanvasStream = new FileStream(toolsWindow.lastSavedCanvasName, FileMode.Open);
+                    FileStream lastCanvasStream = new FileStream(toolsWindow.m_sLastSavedCanvasName, FileMode.Open);
                     lastCanvas = (UIElement)XamlReader.Load(lastCanvasStream);
                     
                     //inkCanvas.Children.Add(lastCanvas);
                     lastCanvasStream.Close();
-                    toolsWindow.lastSavedCanvasName = "";
+                    toolsWindow.m_sLastSavedCanvasName = "";
                 }
                 blankBackground.Hide();
             }

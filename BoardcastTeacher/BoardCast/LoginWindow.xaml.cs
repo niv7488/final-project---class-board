@@ -24,11 +24,12 @@ namespace BoardCast
     /// </summary>
     public partial class LoginWindow : Window
     {
-       public BackgroundWorker bw = new BackgroundWorker();
-       public int selectedCours;
+       private BackgroundWorker bw = new BackgroundWorker();
+       private int m_iSelectedCours;
        private string screenshotFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
        private string canvasFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
-       public LoginWindow()
+       
+        public LoginWindow()
        {
            try
            {
@@ -47,7 +48,7 @@ namespace BoardCast
                    }
                    else if (Directory.EnumerateFileSystemEntries(GlobalContants.screenshotFolderPath).Any())
                    {
-                       System.IO.DirectoryInfo dir = new DirectoryInfo(GlobalContants.screenshotFolderPath);
+                       DirectoryInfo dir = new DirectoryInfo(GlobalContants.screenshotFolderPath);
                        foreach (FileInfo file in dir.GetFiles())
                        {
                            try
@@ -98,7 +99,7 @@ namespace BoardCast
             txtBxuserName.IsEnabled = false;
             passBxPassword.IsEnabled = false;
             btnLogin.IsEnabled = false;
-            string json = new JavaScriptSerializer().Serialize(new
+            string jsonRequest = new JavaScriptSerializer().Serialize(new
             {
                 teacher_id = userName,                  //the picture after transfoming into base64 string
                 teacher_pass = pass
@@ -110,7 +111,7 @@ namespace BoardCast
             http.Accept = "application/json";
             http.ContentType = "application/json";
             http.Method = "POST";
-            string parsedContent = json;
+            string parsedContent = jsonRequest;
             ASCIIEncoding encoding = new ASCIIEncoding();
             Byte[] bytes1 = encoding.GetBytes(parsedContent);
 
@@ -156,32 +157,13 @@ namespace BoardCast
             }
             catch (Exception er)
             {
+                MessageBox.Show(er.Message);
                 if (bw.IsBusy == false)
                 {
                     bw.RunWorkerAsync();
                 }  
                 
             }
-             /*if (userName == "admin" && pass == "123")
-            {
-                if (bw.IsBusy == false)
-                {
-                    bw.RunWorkerAsync();                
-                }                
-            }
-            else
-            {                             
-                lblLoading.Visibility = Visibility.Hidden;
-                lblfrgtPass.Visibility = Visibility.Visible;
-                wrongeDetails.Visibility = Visibility.Visible;
-                lblfrgtPass.Content = "Forgot Password ?";
-                txtBxuserName.IsEnabled = true;
-                txtBxuserName.BorderBrush = Brushes.Red;
-                passBxPassword.IsEnabled = true;
-                passBxPassword.BorderBrush = Brushes.Red;
-                btnLogin.IsEnabled = true;
-                Mouse.OverrideCursor = null;
-            }*/
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
@@ -281,7 +263,7 @@ namespace BoardCast
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow(selectedCours);
+            MainWindow main = new MainWindow(m_iSelectedCours);
             
             App.Current.MainWindow = main;
             this.Close();
@@ -296,7 +278,7 @@ namespace BoardCast
                 string c = item.ToString();
                 Console.WriteLine(c);
                 string[] courseInfo = c.Split(':');
-                selectedCours = Int32.Parse(courseInfo[1]); 
+                m_iSelectedCours = Int32.Parse(courseInfo[1]); 
                 btnStart.Visibility = Visibility.Visible;
                 // ListBox item clicked - do some cool things here
             }
