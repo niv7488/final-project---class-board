@@ -1,0 +1,17 @@
+<template [ngIf]="isInitialized">
+    <div id="login">
+        <img src="./images/BoardCast_Logo.png">
+        <h1><span id="board">Board</span><span id="cast">Cast</span></h1>
+        <h2>Login</h2>
+        <form (ngSubmit)="onSubmit(login.value)" #login="ngForm">
+            <div ng-control-group="credentials">
+                <input type="text" ngControl="id" placeholder="Your ID">
+                <input type="password" ngControl="password" placeholder="Password">
+            </div>
+            <button type="submit">Submit Form</button>
+        </form>
+        <template [ngIf]="error">
+            <p class="errorMsg">{{errorMsg}}</p>
+        </template>
+    </div>
+</template>
