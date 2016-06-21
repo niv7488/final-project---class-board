@@ -85,7 +85,7 @@ namespace BoardCast
                             // woken up by a ThreadInterruptedException.
                             Thread.Sleep(Timeout.Infinite);
                         }
-                        catch (ThreadInterruptedException e)
+                        catch (ThreadInterruptedException )
                         {
                             Console.WriteLine("Upload Thread Woke up");
                             isThreadSleep = false;

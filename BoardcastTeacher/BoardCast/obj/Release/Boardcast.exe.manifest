@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Boardcast.exe" size="1055608">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Boardcast.exe" size="1077112">
       <assemblyIdentity name="Boardcast" version="1.5.5.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qeUWJ+GbU+udYHcERjBqxV6CWEBSckpVvvx7isiZ3Jc=</dsig:DigestValue>
+        <dsig:DigestValue>i5Fiv/qHnwREQ9B1kiYGXTyfNKrxO9CI22AcFyq/Mno=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>YQw8MQcxjMZiIHZI3ylzv0BprmaMYYzg4bRvCuYx6eY=</dsig:DigestValue>
+        <dsig:DigestValue>9fQASWTabU/siNwA4QNnsiVAl3K4SzzLBWHcOt1TUsw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lgdTu8eCAtx1+ahbQwIrk//SCArAuld45Fwv97Rku4I=</dsig:DigestValue>
+        <dsig:DigestValue>6j579EgU5z5KVJ19zQNq+C4qLaqHk5ccQDlJ0U9lpMg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

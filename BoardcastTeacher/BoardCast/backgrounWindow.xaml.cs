@@ -19,7 +19,7 @@ namespace BoardCast
     /// </summary>
     public partial class backgroundWindow : Window
     {
-        private InkCanvas inkCanvas;
+        //private InkCanvas inkCanvas;
         public backgroundWindow()
         {
             InitializeComponent();

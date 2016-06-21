@@ -47,7 +47,7 @@ namespace BoardCast
                 }
                 return false;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 MessageBox.Show("Unable to open Power Point, please make sure you have the program installed correctly");
                 return false;

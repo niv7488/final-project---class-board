@@ -28,3 +28,12 @@ D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFile
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.csproj.GenerateResource.Cache
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.exe
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.pdb
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\bin\Release\CustomOpenFileDialog.exe
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\bin\Release\CustomOpenFileDialog.pdb
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomControls.Controls.OpenFileDialogEx.resources
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomControls.FormMain.resources
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomControls.FormOpenFileDialog.resources
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.Properties.Resources.resources
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.csproj.GenerateResource.Cache
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.exe
+C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.pdb

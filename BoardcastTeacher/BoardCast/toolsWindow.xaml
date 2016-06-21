@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStartupLocation="Manual" 
     Left="0" Top="0"
-        Title="toolsWindow" WindowStyle="None" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" Topmost="True" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  Loaded="Window_Loaded" Width="Auto" Height="450" >
+        Title="toolsWindow" WindowState="Maximized" WindowStyle="None" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" Topmost="True" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  Loaded="Window_Loaded" Width="Auto" Height="450" >
 
     <Window.Resources>
 
@@ -278,21 +278,40 @@
                         </Grid>
                     </DockPanel>
                     <DockPanel Name="toolsDockPanel" LastChildFill="True" HorizontalAlignment="Stretch" Width="Auto" Margin="0,-20,0,1">
-
                         <Border DockPanel.Dock="Right" Background="Black" Width="0" Name="selectedColourBorder" Height="36" VerticalAlignment="Bottom" />
                         <StackPanel  HorizontalAlignment="Stretch" Width="Auto" Margin="0,0,0,0">
-                            <Grid Height="150"  Name="SubMenusGrid">
-                                <StackPanel x:Name="PowerPointPanel" Orientation="Horizontal"  VerticalAlignment="Bottom" Margin="0,0,0,40" HorizontalAlignment="Center" Visibility="Hidden">
-                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnBackClicked" x:Name="backPPTBtn" >
-                                        <Image Source="icons/arrow_left.png" Height="22" Width="17" MouseDown="OnBackClicked"/>
+                            <Grid Height="170"  Name="SubMenusGrid">
+                                <StackPanel x:Name="PowerPointPanelRight" Orientation="Horizontal"  VerticalAlignment="Bottom"  HorizontalAlignment="Right" Visibility="Hidden" >
+                                    <Button  Width="40" Height="40" Cursor="Hand" Click="OnBackClicked" x:Name="backPPTBtn" Background="Transparent" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/arrow_back.png"/>
 
                                     </Button>
-                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnNextClicked" x:Name="forwardPPTBtn_Copy" >
-                                        <Image Source="icons/arrow_right_inv.png" Height="22" Width="17" MouseDown="OnNextClicked"/>
+                                    <Button  Width="40" Height="40" Cursor="Hand" Click="OnNextClicked" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" x:Name="forwardPPTBtn_Copy" Background="Transparent" >
+                                        <Image Source="icons/arrow_next.png" />
 
                                     </Button>
-                                    <Button  Width="28" Height="28" Margin="0,0,0,0" Cursor="Hand" Click="OnExitPowerPoint" x:Name="exitPPTBtn_Copy1" >
-                                        <Image Source="icons/closebar.png" Height="22" Width="17" MouseDown="OnExitPowerPoint" HorizontalAlignment="Center"/>
+                                    <Button  Width="45" Height="45" Cursor="Hand" Click="OnExitPowerPoint" x:Name="exitPPTBtn_Copy1" BorderThickness="0"  
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  Background="Transparent" >
+                                        <Image Source="icons/cancel.png"  HorizontalAlignment="Center"/>
+
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel x:Name="PowerPointPanelLeft" Orientation="Horizontal"  VerticalAlignment="Bottom"  HorizontalAlignment="Left" Visibility="Hidden" >
+                                    <Button  Width="40" Height="40" Cursor="Hand" Click="OnBackClicked" x:Name="backPPTBtn1" Background="Transparent" BorderThickness="0"  
+                                		Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" >
+                                        <Image Source="icons/arrow_back.png"/>
+
+                                    </Button>
+                                    <Button  Width="40" Height="40" Cursor="Hand" Click="OnNextClicked" BorderThickness="0"  
+                                		Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" x:Name="forwardPPTBtn_Copy1" Background="Transparent" >
+                                        <Image Source="icons/arrow_next.png" />
+
+                                    </Button>
+                                    <Button  Width="45" Height="45" Cursor="Hand" Click="OnExitPowerPoint" x:Name="exitPPTBtn_Copy3" BorderThickness="0"  
+                                		Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  Background="Transparent" >
+                                        <Image Source="icons/cancel.png" />
 
                                     </Button>
                                 </StackPanel>
@@ -348,8 +367,8 @@
                                         </ItemsControl.ItemsPanel>
                                     </ItemsControl>
                                 </ScrollViewer>
-                                <ListBox x:Name="WinApplicationsLeft" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Opacity="0" Height="153" Margin="0,-3,0,0" Visibility="Hidden">
-                                    <ListBoxItem x:Name="BrowserOpen" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
+                                <ListBox x:Name="WinApplicationsLeft" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Opacity="0" Height="170" Margin="0,-3,0,0" Visibility="Hidden">
+                                    <ListBoxItem x:Name="BrowserOpen" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser" Margin="0,20,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="icons/chrome.png" Height="30"/>
                                             <TextBlock Text="Browser" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0"/>
@@ -374,8 +393,8 @@
                                         </StackPanel>
                                     </ListBoxItem>
                                 </ListBox>
-                                <ListBox x:Name="WinApplicationsRight" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="right" Opacity="0" Height="150" Visibility="Hidden">
-                                    <ListBoxItem x:Name="BrowserOpen1" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser">
+                                <ListBox x:Name="WinApplicationsRight" Background="Black" VerticalAlignment="Bottom" HorizontalAlignment="right" Opacity="0" Height="170" >
+                                    <ListBoxItem x:Name="BrowserOpen1" FontFamily="Verdana" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenBrowser" Margin="0,20,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="icons/chrome.png" Height="30"/>
                                             <TextBlock Text="Browser" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0"/>
@@ -394,7 +413,7 @@
                                         </StackPanel>
                                     </ListBoxItem>
                                     <ListBoxItem x:Name="PowerPointOpen1" FontFamily="Verdana"  FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" MouseDoubleClick="OpenPPT">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal"  >
                                             <Image Source="icons/powerpoint.png" Height="30"/>
                                             <TextBlock Text="Power Point" Foreground="White" VerticalAlignment="Center" Margin="5,0,0,0"/>
                                         </StackPanel>
@@ -508,6 +527,10 @@
                                     <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="EraseAllButton_Click" x:Name="eraseAllButton" ToolTip="Erase all" Background="Transparent" BorderThickness="0"  
                                     	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                         <Image Source="icons/clean.png" Height="25" Width="25"/>
+                                    </Button>
+                                    <Button Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnKeyboardClick" x:Name="KeyboardButton" ToolTip="Keyboard" Background="Transparent" BorderThickness="0"  
+                                    	Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,3.5">
+                                        <Image Source="icons/keyboard.png" Height="27" Width="25"/>
                                     </Button>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="openWinAppsPannel_Copy" Width="Auto"  HorizontalAlignment="Right" Height="36" >

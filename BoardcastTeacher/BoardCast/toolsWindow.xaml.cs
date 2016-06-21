@@ -408,7 +408,7 @@ namespace BoardCast
             if (result == true)
             {
                 string filename = openFileDialog1.FileName;
-                m_ProcessManager.GenerateProcess(filename,false);
+                m_ProcessManager.GenerateProcess(filename);
             }
         }
 
@@ -479,7 +479,16 @@ namespace BoardCast
         private void OpenBrowser(object sender, MouseButtonEventArgs e)
         {
             HideAllSubMenus();
-            m_ProcessManager.GenerateProcess("http://google.com", false);
+            m_ProcessManager.GenerateProcess("http://google.com");
+        }
+
+        private void OnKeyboardClick(object sender, RoutedEventArgs e)
+        {
+            string sKeyboardPath = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
+                @"Microsoft Shared\ink\TabTip.exe");
+
+            m_ProcessManager.GenerateProcess(sKeyboardPath);
         }
 
 #endregion
@@ -558,7 +567,8 @@ namespace BoardCast
             WinApplicationsRight.Visibility = Visibility.Hidden;
             if (m_PowerPointManager.OpenPowerPoint())
             {
-                PowerPointPanel.Visibility = Visibility.Visible;
+                PowerPointPanelLeft.Visibility = Visibility.Visible;
+                PowerPointPanelRight.Visibility = Visibility.Visible;
                 if (HideBackgroundCanvas != null)
                     HideBackgroundCanvas.Invoke(new object(), new EventArgs());
             }
@@ -642,7 +652,8 @@ namespace BoardCast
         {
            
             m_PowerPointManager.ClosePowerPoint();
-            PowerPointPanel.Visibility=Visibility.Hidden;
+            PowerPointPanelLeft.Visibility = Visibility.Hidden;
+            PowerPointPanelRight.Visibility = Visibility.Hidden;
             if (HideBackgroundCanvas != null)
             {
                 HideBackgroundCanvas.Invoke(sender,e);

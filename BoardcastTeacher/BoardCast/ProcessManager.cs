@@ -16,7 +16,7 @@ namespace BoardCast
             
         }
 
-        public void GenerateProcess(string filePath,bool editMode)
+        public void GenerateProcess(string filePath,bool editMode = false)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = filePath;

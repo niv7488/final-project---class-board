@@ -55,7 +55,7 @@ namespace BoardCast
                            {
                                file.Delete();
                            }
-                           catch (Exception e)
+                           catch (Exception )
                            {}
                        }
                    }
@@ -72,7 +72,7 @@ namespace BoardCast
                            {
                                file.Delete();
                            }
-                           catch (Exception e)
+                           catch (Exception )
                            { }
                        }
                    }
