@@ -15,3 +15,7 @@ export const WEBSERVICE_COURSE_LIST_GET_DATES_BY_COURSE_ID_PATH =
     WEBSERVICE + 'getCoursesContentDates';
 export const WEBSERVICE_COURSE_LIST_GET_IMAGES_BY_DATE_PATH =
     WEBSERVICE + 'getDateImages';
+
+//Streaming Service
+export const WEBSERVICE_STREAMING_GET_STREAMING_CHANNEL = 
+    WEBSERVICE + 'getCourseStreaming';

@@ -38,3 +38,9 @@ var convertFileToDataURLviaFileReader = function (url, callback){
     xhr.open('GET', source);
     xhr.send();
 };
+
+var convertCanvasToUrl = function (canvas, callback) {
+    console.debug("[convertCanvasToUrl] Convert the canvas to base64");
+    var pngUrl = canvas.toDataURL();
+    callback(pngUrl, new Date(milliseconds));
+};

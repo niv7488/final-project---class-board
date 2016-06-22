@@ -2,31 +2,38 @@ import { Injectable }     from '@angular/core';
 import { Http, Response, RequestOptions, Headers} from '@angular/http';
 import { Streaming }           from './streaming';
 import { Observable }     from 'rxjs/Observable';
+import { WEBSERVICE_STREAMING_GET_STREAMING_CHANNEL, OPTION } from './constants';
 
 @Injectable()
 export class StreamingService {
     
-    private streamingChannelUrl: string = 'http://52.34.153.216:3000/getCourseStreaming';
+    //private streamingChannelUrl: string = WEBSERVICE_STREAMING_GET_STREAMING_CHANNEL;
 
     constructor (private http: Http) {
     }
 
 
-    getStreamingChannel (): Observable<string> {
-        console.log("Request for streaming");
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.streamingChannelUrl,JSON.stringify({
-            "course_id": 123456
+    getStreamingChannel (courseId: number): Observable<Streaming> {
+        console.debug("[getStreamingChannel] Request for streaming channel");
+        let options = OPTION;
+        return this.http.post(WEBSERVICE_STREAMING_GET_STREAMING_CHANNEL,JSON.stringify({
+            "course_id": courseId
         }),options)
-            .map(this.extractData)
+            .map(this.extractStreamingData)
             .catch(this.handleError);
     }
 
     
-    private extractData(res: Response) {
+    private extractStreamingData(res: Response) {
         let body = res.json();
-        return body.src || { };
+        console.debug("[extractStreamingData] Streaming channel is: ");
+        console.log(body);
+        if(body.src === "") {
+            return new Streaming();
+        }
+        else {
+            return new Streaming(true,false,body.src);
+        }
     }
 
     private handleError (error: any) {

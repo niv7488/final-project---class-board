@@ -12,13 +12,13 @@
       <ul class="gw-nav gw-nav-list">
         <li class="init-arrow-down" *ngFor="let line of coursesMenu">
           <a href="javascript:void(0)">
-            <img src="{{line.menu.streamingOnAir}}" id="streamingLed">{{line.menu.name}}
+            <img src="{{line.streamingOnAir}}" id="streamingLed">{{line.menu.name}}
           </a>
           <template [ngIf]="line.subMenu.length > 0">
             <ul class="gw-submenu">
-              <li *ngFor="let sub of line.subMenu" (click)="getImages(line.menu,sub)">
+              <li *ngFor="let sub of line.subMenu" (click)="getImages(line.menu,sub.original)">
                 <a href="javascript:void(0)">
-                  {{sub}}
+                  {{sub.dateFormat}}
                 </a>
               </li>
             </ul>

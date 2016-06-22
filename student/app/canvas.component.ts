@@ -35,7 +35,7 @@ export class CanvasComponent implements OnDestroy {
         this.notebookSubscription = courseListService.changeImageBackground$.subscribe(
             courseContent => {
                 this.imgBackground = courseContent.imgSrc.src;
-                console.log("Canvas component got it " + this.imgBackground);
+                console.log("Canvas component got new image background");
             }
         );
     }

@@ -1,12 +1,29 @@
-import {Menu} from "./menu";
 import {Course} from "./course";
-import {CourseContent} from "./course-content";
+let moment = require('../js/moment.min.js');
+
 export class DashboardMenu {
     menu: Course;
-    subMenu: string[];
+    streamingOnAir: string;
+    subMenu: any[] = [];
 
     constructor(course: Course, courseDates: string[] = []) {
         this.menu = course;
-        this.subMenu = courseDates;
+        courseDates.forEach(date => this.subMenu.push({
+            original: date,
+            dateFormat: moment(date, ['DDMMYYYY']).format("DD/MM/YYYY")
+        }));
+        //this.subMenu = ;
+        if(this.menu.streaming.isAvailable) {
+            this.streamingOnAir = "./images/streaming-on.svg";
+        }
+        else {
+            this.streamingOnAir = "./images/streaming-off.svg";
+        }
     }
+
+    private sortDates() {
+
+    }
+
+
 }

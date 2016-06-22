@@ -6,15 +6,16 @@ import {RouteParams }
 import {CourseListService} from './course-list.service';
 import {CourseContent} from './course-content';
 import {DB_SOURCE_ENUM} from "./db-source";
-import {NotebookGalleryDirective} from "./notebook-gallery.directive";
+import {AutoReloadDirective} from "./auto-reload.directive.ts";
 import {Course} from "./course";
 import {NotebookGalleryService} from './notebook-gallery.service';
+import {Notebook} from "./notebook";
 
 @Component({
     selector:'bc-notebook-gallery',
     templateUrl: 'html/notebook-gallery.component.html',
     styleUrls: ['css/notebook-gallery.component.css'],
-    directives: [NotebookGalleryDirective]
+    directives: [AutoReloadDirective]
 })
 
 export class NotebookGalleryComponent implements OnInit, OnDestroy {
@@ -29,7 +30,8 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
 
     constructor(private courseListService: CourseListService,
         private notebookListService: NotebookGalleryService,
-        private params: RouteParams) {
+        private params: RouteParams)
+    {
         this.currentCourse = params.get('course');
         this.dbSourceSubscription = this.courseListService.changeDbSource$.subscribe(
             source => {
@@ -51,24 +53,26 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
     }
 
     importContent() {
-        console.log("NotebookGalleryComponent Import content");
+        console.debug("[importContent] Import content");
         this.courseServiceSubscription =
             this.courseListService.getImagesByCourseIdAndDate(parseInt(this.currentCourse), this.params.get('date'))
                 .subscribe(
                     content => {
                         this.contentList = content;
-                        console.log("Got new course content!");
+                        console.debug("[importContent] Got new course content!");
                         console.log(this.contentList);
                     },
                     error => this.errorMessage = <any>error
                 );
     }
 
-    changeBackground(course: CourseContent) {
-        this.courseListService.changedCanvasBackgroundEmitter(course);
+    changeBackground(content: CourseContent) {
+        console.debug("[changeBackground] Change background for course content");
+        this.courseListService.changedCanvasBackgroundEmitter(content);
     }
 
     changeImportSource(source: string) {
+        console.debug("changeBackground] Change import source to " + source);
         let temp: DB_SOURCE_ENUM;
         if (source == DB_SOURCE_ENUM[0]) {
             temp = DB_SOURCE_ENUM.External;
@@ -80,6 +84,8 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.notebookListService.notebook =
+            new Notebook(new Course(parseInt(this.params.get('course')),""),this.params.get('date'));
         this.importContent();
     }
     

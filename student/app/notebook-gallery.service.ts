@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
+import {Notebook} from "./notebook";
 
 /**
  * Gallery Service
@@ -7,6 +8,7 @@ import {Subject} from 'rxjs/Subject';
  */
 @Injectable()
 export class NotebookGalleryService {
+    notebook: Notebook;
     private isOpen: boolean = false;
     private isOpenSubject = new Subject<boolean>();
     

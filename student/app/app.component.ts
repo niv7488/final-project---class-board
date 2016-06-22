@@ -42,7 +42,7 @@ import {LoginService} from './login.service';
  */
 @RouteConfig([
   {
-    path:'/notebook/:id/:course/:date',
+    path:'/notebook/:course/:date',
     name: 'Notebook',
     component: NotebookControlComponent
   },

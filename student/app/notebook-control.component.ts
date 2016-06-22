@@ -20,8 +20,7 @@ import {StreamingService} from "./streaming.service";
         'css/streaming2.component.css'
     ],
     providers: [
-        NavElementService,
-        NotebookGalleryService
+        NavElementService
     ],
     directives: [
         CanvasComponent,
@@ -65,8 +64,7 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
                 this.galleryService.changeOpenEmitter();
                 break;
             case "board":
-                this.streaming.isOpen = !this.streaming.isOpen;
-                this.getStreaming();
+                this.getStreaming(!this.streaming.isOpen);
                 break;
             default:
                 this.navElementService.changedSelectedEmitter(navElement);
@@ -75,13 +73,11 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
 
     private closeStreaming() {
         this.streaming.isOpen = false;
-        this.streaming.isAvailable = true;
     }
 
     ngOnInit() {
         this.navElements = this.navElementService.getMenuNavElements();
         this.navElementSubscriptionInit();
-        this.getStreaming();
         this.currentNavElement = this.navElements.find(element => element.name === "cursor");
         this.navElementService.changedSelectedEmitter(this.currentNavElement);
     }
@@ -91,25 +87,20 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
         this.notebookService.saveCurrentCanvas(this.streaming.channel+'/ScreenTask.jpg');
     }
 
-    getStreaming() {
-        this.streamingService.getStreamingChannel()
+    getStreaming(openStreaming: boolean = false) {
+        this.streamingService.getStreamingChannel(parseInt(this.params.get('course')))
             .subscribe(
-                channel => {
-                    console.log(channel);
-                    if (channel !== typeof ("")) {
-                        this.streaming.isAvailable = true;
-                        this.streaming.channel = channel;
-                    }
-                    else
-                        this.streaming.channel = "";
-                    console.log(this.streaming)
+                streaming => {
+                    this.streaming.channel = streaming.channel;
+                    this.streaming.isAvailable = streaming.isAvailable;
+                    this.streaming.isOpen = openStreaming;
+                    console.debug("[getStreaming] Successfully got streaming:");
+                    console.log(this.streaming);
                 },
                     error =>  this.errorMessage = <any>error
                 );
     }
 
-    
-    
     ngOnDestroy() {
         this.navElementSubscription.unsubscribe();
     }

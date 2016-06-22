@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 import { Router, RouteParams }
     from '@angular/router-deprecated';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/operator/merge';
+import 'rxjs/add/operator/zip';
 
 import {LoginService} from './login.service';
 import { CourseListService } from './course-list.service'
@@ -10,7 +13,10 @@ import {CourseContent} from "./course-content";
 import {DashboardMenu} from "./dashboard-menu";
 import {DashboardMenuDirective} from "./dashboard-menu.directive";
 import {DB_SOURCE_ENUM} from "./db-source";
-var java = require('js/bs_leftnavi.js');
+
+
+var java = require('../js/bs_leftnavi.js');
+let moment = require('../js/moment.min.js');
 
 
 @Component({
@@ -46,11 +52,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 private router: Router) {}
 
     getImages(course: Course, date: string) {
+        console.debug("[getImages] Get images for course " + course.id + " at date:");
+        console.log(date);
+        console.log(moment(date,["DD/MM/YYYY"]).format("DDMMYYYY"));
         if(this.chosenCourse != course) {
             this.chosenCourse = course;
             this.imageList = [];
         }
         this.chosenDate = date;
+        Observable.zip(
+            this.courseListService.getImagesByCourseIdAndDate(course.id, date, DB_SOURCE_ENUM.External),
+            this.courseListService.getImagesByCourseIdAndDate(course.id,date,DB_SOURCE_ENUM.Localstorage),
+            function(res1, res2) {
+                return res1.concat(res2);
+            }
+        )
+            .subscribe(
+                res => {
+                    res.sort(CourseContent.sort);
+                    this.imageList = res;
+                    console.log(res);
+                    console.log(this.imageList);
+                },
+                err => {
+                    console.error(err);
+                }
+            );
+        /*
         this.courseListService.getImagesByCourseIdAndDate(course.id, date)
             .subscribe(
                 images => {
@@ -58,7 +86,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
                     console.log(images);
                     this.imageList = images;
                 }
-            );
+
+            );*/
 
     }
 
@@ -74,9 +103,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.fullScreenImage = image;
         }
         else {
-            this.fullScreenImage = this.imageList.find(
-                img => img.id == this.fullScreenImage.id+pageDiff
-            ) || this.fullScreenImage;
+            let index = this.imageList.findIndex(
+                img => img.timestamp == this.fullScreenImage.timestamp
+            );
+            if(index >= 0)
+                this.fullScreenImage = this.imageList[index+pageDiff];
         }
         this.fullScreen = true;
     }
@@ -90,12 +121,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.debug("[openNotebook] It will open note book at date");
         this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.Localstorage);
         //this.router.parent.navigate(['/Notebook']);
-        this.router.navigate(['/notebook/'+this.loginService.userLoggedIn.id+'/'+
-            this.chosenCourse.id +'/'+ this.chosenDate]);
+        this.router.navigateByUrl('notebook/'+ this.chosenCourse.id+'/'+ this.chosenDate);
     }
 
     ngOnInit() {
-        this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.External);
+        //this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.Both);
         console.log( this.loginService.userLoggedIn);
         if(typeof this.loginService.userLoggedIn === "undefined") {
             console.log('[ngOnInit] No current user connected');
