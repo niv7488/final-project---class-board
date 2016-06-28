@@ -38,8 +38,9 @@ export class CourseListService {
 
     
     changedCanvasBackgroundEmitter(imgBackground: CourseContent) {
+        console.log("[changedCanvasBackgroundEmitter] Emitting new image");
         this.imgBackground.next(imgBackground);
-    }
+     }
     
     getDbSource() {
         return this.dbSource;

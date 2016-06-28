@@ -1,75 +1,90 @@
 <template [ngIf]="isInitialized">
-<div class="top-bar">
-    <article id="avatar">
-        <span>Hello {{loginService.userLoggedIn.name}}! </span>
-        <img src="{{loginService.userLoggedIn.image}}" width="50" height="50">
-    </article>
-</div>
-<div class="gw-sidebar">
-  <div id="gw-sidebar">
-    <div class="nano-content">
-      <selection id="title">My Courses</selection>
-      <ul class="gw-nav gw-nav-list">
-        <li class="init-arrow-down" *ngFor="let line of coursesMenu">
-          <a href="javascript:void(0)">
-            <img src="{{line.streamingOnAir}}" id="streamingLed">{{line.menu.name}}
-          </a>
-          <template [ngIf]="line.subMenu.length > 0">
-            <ul class="gw-submenu">
-              <li *ngFor="let sub of line.subMenu" (click)="getImages(line.menu,sub.original)">
-                <a href="javascript:void(0)">
-                  {{sub.dateFormat}}
-                </a>
-              </li>
-            </ul>
-          </template>
-            <template [ngIf]="line.subMenu.length == 0">
-                <ul class="gw-submenu">
-                    <li id="noContent">No content is currently available</li>
-                </ul>
-            </template>
-          <template [ngIf]="(courseList[courseList.length-1].name == line.menu.name) && !initialized">
-            <div menuanimation (reload)="menuAnimation()">
-            </div>
-          </template>
-        </li>
-      </ul>
-        <selection id="title">My Notebooks</selection>
-        <ul class="gw-nav gw-nav-list">
-            <li class="init-arrow-down" *ngFor="let line of notebooksMenu" (click)="openNotebook(line.menu)">
-                <a href="javascript:void(0)">
-                    {{line.menu.name}}
-                </a>
-                <template [ngIf]="(courseList[courseList.length-1].name == line.menu.name) && !initialized">
+    <div class="top-bar">
+        <article id="avatar">
+            <span>Hello {{loginService.userLoggedIn.name}}! </span>
+            <img src="{{loginService.userLoggedIn.image}}" width="50" height="50">
+        </article>
+    </div>
+    <nav>
+        <div class="gw-sidebar">
+          <div id="gw-sidebar">
+            <div class="nano-content">
+              <selection id="title">My Courses</selection>
+              <ul class="gw-nav gw-nav-list">
+                <li class="init-arrow-down" *ngFor="let line of coursesMenu">
+                  <a href="javascript:void(0)">
+                    <img src="{{line.streamingOnAir}}" id="streamingLed">{{line.menu.name}}
+                  </a>
+                  <template [ngIf]="line.subMenu.length > 0">
+                    <ul class="gw-submenu">
+                      <li *ngFor="let sub of line.subMenu" (click)="getImages(line.menu,sub.original)">
+                        <a href="javascript:void(0)">
+                          {{sub.dateFormat}}
+                        </a>
+                      </li>
+                    </ul>
+                  </template>
+                    <template [ngIf]="line.subMenu.length == 0">
+                        <ul class="gw-submenu">
+                            <li id="noContent">No content is currently available</li>
+                        </ul>
+                    </template>
+                  <template [ngIf]="(courseList[courseList.length-1].name == line.menu.name) && !initialized">
                     <div menuanimation (reload)="menuAnimation()">
                     </div>
-                </template>
-            </li>
+                  </template>
+                </li>
+              </ul>
+                <selection id="title">My Notebooks</selection>
+                <ul class="gw-nav gw-nav-list">
+                    <li class="init-arrow-down" *ngFor="let line of notebooksMenu" (click)="openNotebook(line.menu)">
+                        <a href="javascript:void(0)">
+                            {{line.menu.name}}
+                        </a>
+                        <template [ngIf]="(courseList[courseList.length-1].name == line.menu.name) && !initialized">
+                            <div menuanimation (reload)="menuAnimation()">
+                            </div>
+                        </template>
+                    </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+    </nav>
+    <main>
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" (click)="addFilter(0)" [class.btn-selected]="0 === dbContentToDisplay">Teacher Content</button>
+            <button type="button" class="btn btn-default" (click)="addFilter(1)" [class.btn-selected]="1 === dbContentToDisplay">My Content</button>
+            <button type="button" class="btn btn-default" (click)="addFilter(2)" [class.btn-selected]="2 === dbContentToDisplay">Merged Content</button>
+        </div>
+      <template [ngIf]="imageList.length > 0">
+        <ul class="content">
+          <li *ngFor="let image of imageList" (click)="openFullScreen(image,0)"><img src="{{image.imgSrc.src}}" width="300" height="200"></li>
         </ul>
-    </div>
-  </div>
-</div>
-<main>
-  <template [ngIf]="imageList.length > 0">
-    <ul class="content">
-      <li *ngFor="let image of imageList" (click)="openFullScreen(image)"><img src="{{image.imgSrc.src}}" width="300" height="200"></li>
-    </ul>
-  </template>
-</main>
-<template [ngIf]="fullScreen">
-  <div class="fullscreen">
-    <button (click)="closeFullScreen()">X</button>
-    <button (click)="openNotebook()">Open Notebook</button>
-    <div class="galleryContainer">
-      <template [ngIf]="fullScreenImage.id>0">
-        <button id="previous" (click)="openFullScreen(null,-1)"><</button>
       </template>
-        <img width="700" height="600" src="{{fullScreenImage.imgSrc.src}}">
-      <template [ngIf]="fullScreenImage.id+1 < imageList.length">
-        <button id="next" (click)="openFullScreen(null,1)">></button>
-      </template>
-    </div>
-  </div>
-</template>
-<div class="show"></div>
+    </main>
+    <template [ngIf]="fullScreen">
+      <div class="fullscreen">
+        <button (click)="closeFullScreen()">X</button>
+        <button (click)="openNotebook()">Open Notebook</button>
+          <div class="navElements">
+              <ul>
+                  <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)" [class.selected]="navElement === currentNavElement">
+                      {{navElement.symbol}}
+                  </li>
+              </ul>
+          </div>
+        <div class="galleryContainer">
+          <template [ngIf]="previousBtn">
+            <button id="previous" (click)="openFullScreen(null,-1)"></button>
+          </template>
+            <bc-canvas></bc-canvas>
+            <!--<img width="700" height="600" src="{{fullScreenImage.imgSrc.src}}">-->
+          <template [ngIf]="nextBtn">
+            <button id="next" (click)="openFullScreen(null,1)">></button>
+          </template>
+        </div>
+      </div>
+    </template>
+    <div class="show"></div>
 </template>

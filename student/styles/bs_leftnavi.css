@@ -291,3 +291,12 @@ arrow-slide1 {  0% {
   text-align: center
 }
 /*=================left navibar end=========================================*/
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 550px) {
+  .gw-sidebar {
+    width: 100%;
+    position: relative;
+    background-color: #101721;
+  }
+}

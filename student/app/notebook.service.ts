@@ -51,7 +51,9 @@ export class NotebookService {
      * Save current opened canvas before switching to another
      */
 
-    saveCurrentCanvas(imgSrc: any) {
+    saveCurrentCanvas(courseContent: CourseContent) {
+        base64.convertFileToDataURLviaFileReader(courseContent, this.base64Response);
+            /*
             console.debug("[saveCurrentCanvas] Save current canvas with imgSrc " + imgSrc);
             var source;
             if (typeof imgSrc === typeof "")
@@ -68,6 +70,7 @@ export class NotebookService {
                 console.log("GOT MATCH! NO NEED TO SAVE");
             else
                 base64.convertFileToDataURLviaFileReader(imgSrc, this.base64Response);
+                */
     }
 
     /**
@@ -81,6 +84,7 @@ export class NotebookService {
         console.debug("[base64Response] Successfully convert to base64");
         let courseKey = "course_" + courseContent.course_id + "_" + courseContent.date ;
         console.debug("[base64Response] Notebook will be save with " + courseKey + " key");
+        console.log(courseContent);
         let localContent = JSON.parse(localStorage.getItem(courseKey));
         console.debug("Local content is:");
         console.log(localContent);

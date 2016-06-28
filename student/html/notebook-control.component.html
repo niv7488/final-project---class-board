@@ -14,7 +14,10 @@
         <button (click)="getStreaming()">Load</button>
         <template [ngIf]="streaming.isAvailable">
             <button (click)="getImage()">Screenshot</button>
-            <iframe id="myIframe" width="700" height="500" src="{{streaming.channel}}"></iframe>
+            <div class="embed-responsive embed-responsive-4by3">
+                <iframe height="700" id="myIframe" class="embed-responsive-item" src="{{streaming.channel}}"></iframe>
+            </div>
+            <!--<iframe id="myIframe" width="700" height="500" src=""></iframe>-->
         </template>
         <template [ngIf]="!streaming.isAvailable">
             No streaming available

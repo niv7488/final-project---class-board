@@ -31,10 +31,12 @@
     padding: 3px 15px;
     margin: 0;
     border-right: 1px solid #101721;
+    font-family: 'Boardcast';
 }
 
 .navElements li:hover {
     background: #fff;
+    font-family: 'Boardcast';
     color: #101721;
 }
 
@@ -42,4 +44,5 @@
     background: #F59237;
     color: #fff;
     font-weight: bold;
+    font-family: 'Boardcast';
 }

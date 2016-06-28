@@ -35,7 +35,9 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
     errorMessage: string;
     private navElements: NavElement[] = [];
     private navElementSubscription: Subscription;
-    
+
+
+
     constructor(private streamingService: StreamingService,
                 private navElementService: NavElementService,
                 private galleryService: NotebookGalleryService,
@@ -84,7 +86,18 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
 
     getImage() {
         console.log("Try to import current image");
-        this.notebookService.saveCurrentCanvas(this.streaming.channel+'/ScreenTask.jpg');
+        this.streamingService.createContentFromUrl(this.params.get('course'),this.streaming.channel+'/ScreenTask.jpg')
+            .subscribe(
+                res => {
+                    console.debug("[getImage] Closing streaming");
+                    this.closeStreaming();
+                    console.debug("[getImage] Save res to localStorage");
+                    console.log(res);
+                    this.notebookService.saveCurrentCanvas(res);
+                }
+            );
+        //this.notebookService.saveCurrentCanvas(this.streaming.channel+'/ScreenTask.jpg');
+        this.closeStreaming();
     }
 
     getStreaming(openStreaming: boolean = false) {
@@ -100,6 +113,8 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
                     error =>  this.errorMessage = <any>error
                 );
     }
+
+
 
     ngOnDestroy() {
         this.navElementSubscription.unsubscribe();

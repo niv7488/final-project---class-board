@@ -29,4 +29,12 @@ export class NavElementService {
         menuNavComponent.push(NAV_ELEMENTS.filter(element => element.name == "redo")[0]);
         return menuNavComponent;
     }
+    
+    getSubNavElements() {
+        let menuNavComponent: NavElement[] = [];
+        menuNavComponent.push(NAV_ELEMENTS.filter(element => element.name == "pen")[0]);
+        menuNavComponent.push(NAV_ELEMENTS.filter(element => element.name == "circle")[0]);
+        menuNavComponent.push(NAV_ELEMENTS.filter(element => element.name == "text")[0]);
+        return menuNavComponent;
+    }
 }

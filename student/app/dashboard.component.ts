@@ -13,6 +13,11 @@ import {CourseContent} from "./course-content";
 import {DashboardMenu} from "./dashboard-menu";
 import {DashboardMenuDirective} from "./dashboard-menu.directive";
 import {DB_SOURCE_ENUM} from "./db-source";
+import {CanvasComponent} from "./canvas.component";
+import {CanvasDirective} from "./canvas.directive";
+import { NavElement } from './nav-element';
+import { NavElementService } from './nav-element.service';
+import {NAV_ELEMENTS} from "./nav-element-list";
 
 
 var java = require('../js/bs_leftnavi.js');
@@ -22,13 +27,19 @@ let moment = require('../js/moment.min.js');
 @Component({
     selector: 'bc-dashboard',
     templateUrl: 'html/dashboard.component.html',
-    styleUrls: ['css/dashboard.component.css',
+    styleUrls: [
+        'css/nav-element.component.css',
+        'css/dashboard.component.css',
         'styles/bootstrap.min.css',
         'styles/bootstrap-theme.min.css',
         'styles/bs_leftnavi.css'
     ],
     directives: [
-        DashboardMenuDirective
+        DashboardMenuDirective,
+        CanvasComponent
+    ],
+    providers: [
+        NavElementService
     ]
 })
 
@@ -39,17 +50,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
     courseListSubscription: Subscription;
     private chosenCourse: Course;
     private chosenDate: string;
+    private dbContentToDisplay: DB_SOURCE_ENUM = DB_SOURCE_ENUM.External;
     courseList: Course[] =[];
     imageList: CourseContent[] = [];
+    private previousBtn = true;
+    private nextBtn = true;
+    private allImagesList: CourseContent[] = [];
     private fullScreenImage: CourseContent;
     private initialized: boolean = false;
     private fullScreen: boolean = false;
+    private navElements: NavElement[] = [];
+    private navElementSubscription: Subscription;
 
     error: string;
     
     constructor(private courseListService: CourseListService,
+                private navElementService: NavElementService,
                 private loginService: LoginService,
-                private router: Router) {}
+                private router: Router) {
+        this.navElements = navElementService.getSubNavElements();
+    }
 
     getImages(course: Course, date: string) {
         console.debug("[getImages] Get images for course " + course.id + " at date:");
@@ -70,7 +90,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
             .subscribe(
                 res => {
                     res.sort(CourseContent.sort);
-                    this.imageList = res;
+                    this.allImagesList = res;
+                    this.imageList = this.allImagesList.filter(image => image.dbSrc === this.dbContentToDisplay);
                     console.log(res);
                     console.log(this.imageList);
                 },
@@ -78,41 +99,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
                     console.error(err);
                 }
             );
-        /*
-        this.courseListService.getImagesByCourseIdAndDate(course.id, date)
-            .subscribe(
-                images => {
-                    console.log("got images:");
-                    console.log(images);
-                    this.imageList = images;
-                }
+    }
 
-            );*/
+    private clickAnotherNavElement(navElement: NavElement) {
+        this.navElementService.changedSelectedEmitter(navElement);
+    }
 
+    private addFilter(filter: DB_SOURCE_ENUM) {
+        if(filter === DB_SOURCE_ENUM.Both)
+            this.imageList = this.allImagesList;
+        else
+            this.imageList = this.allImagesList.filter(image => image.dbSrc === filter);
+        this.dbContentToDisplay = filter;
     }
 
     menuAnimation() {
         if(!this.initialized)
             java();
+        this.fullScreen = false;
         this.initialized = true;
     }
     
     openFullScreen(image: CourseContent, pageDiff: number) {
+        if(!this.fullScreen)
+            this.clickAnotherNavElement(this.navElements[0]);
+        console.log("[openFullScreen] Open full screen with pageDiff " + pageDiff + " content");
         console.log(image);
-        if(image != null) {
-            this.fullScreenImage = image;
-        }
-        else {
-            let index = this.imageList.findIndex(
-                img => img.timestamp == this.fullScreenImage.timestamp
-            );
-            if(index >= 0)
-                this.fullScreenImage = this.imageList[index+pageDiff];
-        }
+        let index: number;
         this.fullScreen = true;
+        index = image != null ?
+            this.imageList.findIndex(
+                img => img.name === image.name
+            )
+            : this.imageList.findIndex(
+            img => img.name == this.fullScreenImage.name
+        );
+        index += pageDiff;
+        console.log("[openFullScreen] Current index: " + index);
+
+        if (index >= 0)
+            this.fullScreenImage = this.imageList[index];
+        console.log(this.fullScreenImage);
+        this.previousBtn = index == 0 ? false : true;
+        this.nextBtn = index == this.imageList.length-1 ? false : true;
+        this.courseListService.changedCanvasBackgroundEmitter(this.fullScreenImage);
+
+        //this.courseListService.changedCanvasBackgroundEmitter(image);
+
+
     }
-    
+
     closeFullScreen() {
+        console.debug("[closeFullScreen]")
         this.fullScreen = false;
         this.fullScreenImage = null;
     }
@@ -125,6 +163,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
         //this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.Both);
         console.log( this.loginService.userLoggedIn);
         if(typeof this.loginService.userLoggedIn === "undefined") {
@@ -140,9 +179,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
                         this.initializeMenu();
                     });
             }
-            else
+            else {
                 this.initializeMenu();
+            }
         }
+
 
     }
 

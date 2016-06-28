@@ -15,27 +15,29 @@ var convertImgToDataURLviaCanvas = function (url, callback){
     img.src = url;
 };
 
-var convertFileToDataURLviaFileReader = function (url, callback){
-    var source;
-    source = url.imgSrc.src || url;
+var convertFileToDataURLviaFileReader = function (courseContent, callback){
+    //var source;
+    //source = url.imgSrc.src || url;
     /*
     console.log(typeof url);
     if(url.indexOf('.jpg') > 1)
         source = url;
     else
         source = url.imgSrc.src;*/
-    console.log("Converting url:"+ source);
+    //console.log("Converting url:"+ source);
     //console.log(url);
+    var url = courseContent.imgSrc.src;
+    console.debug("Convert image to base 64 via blob");
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'blob';
     xhr.onload = function() {
         var reader  = new FileReader();
         reader.onloadend = function () {
-            callback(reader.result, url);
+            callback(reader.result, courseContent);
         };
         reader.readAsDataURL(xhr.response);
     };
-    xhr.open('GET', source);
+    xhr.open('GET', url);
     xhr.send();
 };
 
