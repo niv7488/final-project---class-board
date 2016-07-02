@@ -161,13 +161,27 @@ namespace BoardCast
                 }
                 
             }
-            catch (Exception er)
+            catch (Exception er)    //Error on request
             {
                 MessageBox.Show(er.Message);
-                if (bw.IsBusy == false)
+                string sError = er.Message;
+                int iStartChar = sError.IndexOf("(");
+                Console.WriteLine(er.Message.Length);
+                lblLoading.Visibility = Visibility.Hidden;
+                lblfrgtPass.Visibility = Visibility.Visible;
+                wrongeDetails.Content = er.Message.Substring(iStartChar,sError.Length-iStartChar);
+                wrongeDetails.Visibility = Visibility.Visible;
+                lblfrgtPass.Content = "Forgot Password ?";
+                txtBxuserName.IsEnabled = true;
+                txtBxuserName.BorderBrush = Brushes.Red;
+                passBxPassword.IsEnabled = true;
+                passBxPassword.BorderBrush = Brushes.Red;
+                btnLogin.IsEnabled = true;
+                Mouse.OverrideCursor = null;
+                /*if (bw.IsBusy == false)
                 {
                     bw.RunWorkerAsync();
-                }  
+                } */ 
                 
             }
         }
@@ -178,7 +192,7 @@ namespace BoardCast
         }
 
         /// <summary>
-        /// Thread finished task
+        /// Thread finished task - Login window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

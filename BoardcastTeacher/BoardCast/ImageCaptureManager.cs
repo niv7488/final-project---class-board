@@ -19,9 +19,9 @@ using Orientation = System.Windows.Forms.Orientation;
 namespace BoardCast
 {
     /// <summary>
-    /// Class that manage the screen capture
+    /// Class that manage the screen capture - Singletone
     /// </summary>
-    class ImageCaptureManager
+    public class ImageCaptureManager
     {
         public List<StackPanel> m_ThumbnailsList;
         public List<System.Windows.Controls.Image> m_StrokeThumbnailsList;
@@ -29,13 +29,25 @@ namespace BoardCast
         public int m_iLastSelectedStroke;
         public event EventHandler LoadPreviousStorke;
 
+        private static ImageCaptureManager instance;
+
+        private ImageCaptureManager() { }
+
         /// <summary>
-        /// constructor - init lists
+        /// Singletone
         /// </summary>
-        public ImageCaptureManager()
+        public static ImageCaptureManager Instance
         {
-            m_ThumbnailsList = new List<StackPanel>();
-            m_StrokeThumbnailsList = new List<System.Windows.Controls.Image>();
+            get 
+            {
+                if (instance == null)
+                {
+                    instance = new ImageCaptureManager();
+                    instance.m_ThumbnailsList = new List<StackPanel>();
+                    instance.m_StrokeThumbnailsList = new List<System.Windows.Controls.Image>();
+                }
+                return instance;
+            }
         }
 
         /// <summary>
@@ -149,10 +161,11 @@ namespace BoardCast
                 var image = sender as System.Windows.Controls.Image;
                 // MessageBox.Show(image.Source.ToString());
                 //_mProcessManager.GenerateProcess(image.Source.ToString(), true);
-                ProcessStartInfo startInfo = new ProcessStartInfo(image.Source.ToString());
+                ProcessManager.Instance.GenerateProcess(image.Source.ToString(),true);
+               /* ProcessStartInfo startInfo = new ProcessStartInfo(image.Source.ToString());
                 startInfo.Verb = "edit";
                 startInfo.WindowStyle = ProcessWindowStyle.Maximized;
-                Process.Start(startInfo);
+                Process.Start(startInfo);*/
                 Thread.Sleep(1000);
                 SendKeys.SendWait("{F11}");
             }

@@ -78,24 +78,7 @@ namespace BoardCast
                 return System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             }
         }
-        public const int WM_HOTKEY = 0x0312;
-        public const int VIRTUALKEYCODE_FOR_CAPS_LOCK = 0x14;
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-        WindowInteropHelper _host;
-        enum hotkeys
-        {
-            _1=0x31,
-            _2=0x32,
-            _3=0x33,
-            _4=0x34,
-            _5=0x35,
-            _6=0x36,
-        }
+
         public const int WS_EX_TRANSPARENT = 0x00000020;
         public const int GWL_EXSTYLE = (-20);
         ToolsWindow toolsWindow = new ToolsWindow();
@@ -103,81 +86,10 @@ namespace BoardCast
         System.Windows.Forms.MenuItem rememberContent;
         System.Windows.Forms.MenuItem enableHotkeys;
         string appDataDir;
-        System.Windows.Forms.NotifyIcon trayIcon;
+        System.Windows.Forms.NotifyIcon sideIcon;
 
-        /// <summary>
-        /// MainWindow Ctr - init variables
-        /// </summary>
-        /// <param name="iCourseID">Course id of current lecture</param>
-        public MainWindow(int iCourseID)
-        {
-            realTimeCasting = new ScreenShareServer();
-            realTimeCasting.InitServer();
-            toolsWindow.SetCourseID(iCourseID);
-            courseID = iCourseID;
-            InitializeComponent();
-            blankBackground = new backgroundWindow();
-            bgwn = new backgroundWindow();
-            bgwn.Show();
-            //global hotkeys:
-            _host = new WindowInteropHelper(this);
 
-            SetupHotKey(_host.Handle);
-            ComponentDispatcher.ThreadPreprocessMessage += new ThreadMessageEventHandler(ComponentDispatcher_ThreadPreprocessMessage);
-        }
-
-        /// <summary>
-        /// setup keyboar shortcuts for tooblar
-        /// </summary>
-        /// <param name="handle"></param>
-        private void SetupHotKey(IntPtr handle)
-        {
-            RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._1);
-            RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._2);
-            RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._3);
-            RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._4);
-            RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._5);
-            RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._6);
-        }
-
-        void ComponentDispatcher_ThreadPreprocessMessage(ref MSG msg, ref bool handled)
-        {
-
-            if (msg.message == WM_HOTKEY&&enableHotkeys.Checked)
-            {
-                int D = (((int)msg.lParam >> 16) & 0xFFFF);
-                int F = (((int)msg.lParam >> 16) & 0xFFFF);
-                hotkeys key = (hotkeys)F;
-                ModifierKeys modifier = (ModifierKeys)((int)msg.lParam & 0xFFFF);
-
-                if (key == hotkeys._1)
-                    toolsWindow.hideInkCheckBox.IsChecked = !toolsWindow.hideInkCheckBox.IsChecked;
-                else if (key == hotkeys._2)
-                {
-                    toolsWindow.CursorButton_Click(new object(), new RoutedEventArgs());
-                    ClickThrough = true;
-                }
-                else if (key == hotkeys._3)
-                {
-                    toolsWindow.PenButton_Click(new object(), new RoutedEventArgs());
-                    ClickThrough = false;
-                }
-                else if (key == hotkeys._4)
-                {
-                    toolsWindow.HighlighterButton_Click(new object(), new RoutedEventArgs());
-                    ClickThrough = false;
-                }
-                else if (key == hotkeys._5)
-                {
-                    toolsWindow.EraserButton_Click(new object(), new RoutedEventArgs());
-                    ClickThrough = false;
-                }
-                else if (key == hotkeys._6)
-                    toolsWindow.EraseAllButton_Click(new object(), new RoutedEventArgs());
-            }
-        }
-
-#region Dll functions
+#region DLL Functions
         //if((IntPtr)
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hwnd, int index);
@@ -207,6 +119,26 @@ namespace BoardCast
 #endregion
 
         /// <summary>
+        /// MainWindow Ctr - init variables
+        /// </summary>
+        /// <param name="iCourseID">Course id of current lecture</param>
+        public MainWindow(int iCourseID)
+        {
+            realTimeCasting = new ScreenShareServer();
+            realTimeCasting.InitServer();
+            toolsWindow.SetCourseID(iCourseID);
+            courseID = iCourseID;
+            InitializeComponent();
+            blankBackground = new backgroundWindow();
+            bgwn = new backgroundWindow();
+            bgwn.Show();
+            //global hotkeys:
+
+            //SetupHotKey(_host.Handle);
+            //ComponentDispatcher.ThreadPreprocessMessage += new ThreadMessageEventHandler(ComponentDispatcher_ThreadPreprocessMessage);
+        }
+
+        /// <summary>
         /// Trigger when Window loaded - init event handlers and variables
         /// </summary>
         /// <param name="sender"></param>
@@ -217,30 +149,13 @@ namespace BoardCast
             if (!Directory.Exists(appDataDir))
                 Directory.CreateDirectory(appDataDir);
 
-            trayIcon = new System.Windows.Forms.NotifyIcon(new System.ComponentModel.Container());
+            sideIcon = new System.Windows.Forms.NotifyIcon(new System.ComponentModel.Container());
+            sideIcon.Icon = new System.Drawing.Icon(GetType(),"Logo.ico");
 
-            trayIcon.Icon = new System.Drawing.Icon(GetType(), "pencilIcon.ico");
-            trayIcon.Visible = true;
-            //notify icon:
-            System.Windows.Forms.MenuItem about = new System.Windows.Forms.MenuItem("About Epic Pen");
-            enableHotkeys = new System.Windows.Forms.MenuItem("Enable hotkeys");
-            enableHotkeys.Checked = true;
-            enableHotkeys.Click += new EventHandler(enableHotkeys_Click);
-            rememberContent = new System.Windows.Forms.MenuItem("Remember content when closed");
-            rememberContent.Checked = false;
-            rememberContent.Click += new EventHandler(rememberContent_Click);
-            System.Windows.Forms.MenuItem exit = new System.Windows.Forms.MenuItem("Exit");
-            exit.Click += new EventHandler(toolsWindow_CloseButtonClick);
-
-
-
-            trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] { about, enableHotkeys, rememberContent, exit });
-
+            //sideIcon.Icon = new System.Drawing.Icon(GetType(), "pencilIcon.ico");
+            sideIcon.Visible = true;
+            
             this.Closing += new System.ComponentModel.CancelEventHandler(MainWindow_Closing);
-
-            loadSettings();
-
-
 
             int tempWidth = 0;
             int tempHeight = 0;
@@ -259,21 +174,13 @@ namespace BoardCast
             this.Left = 0;
             this.Top = 0;
 
-
-            if (System.IO.File.Exists(appDataDir + "\\content.ink"))
-            {
-                FileStream fS = new System.IO.FileStream(appDataDir + "\\content.ink", System.IO.FileMode.Open);
-                inkCanvas.Strokes = new System.Windows.Ink.StrokeCollection(fS);
-                fS.Close();
-                System.IO.File.Delete(appDataDir + "\\content.ink");
-            }
-
             inkCanvas.Cursor = Cursors.Pen;
             inkCanvas.UseCustomCursor = true;
             inkCanvas.DefaultDrawingAttributes.IgnorePressure = false;
-            realTimeCasting.SetCastingAddress += new EventHandler(setCastingAddress);
             toolsWindow.SetInkCanvas(inkCanvas);
             toolsWindow.Owner = this;
+            //Event handlers init
+            realTimeCasting.SetCastingAddress += new EventHandler(setCastingAddress);
             toolsWindow.CloseButtonClick += new EventHandler(toolsWindow_CloseButtonClick);
             toolsWindow.CreateBlankCanvasClick += new EventHandler(toolsWindow_CreateBlankCanvasClick);
             toolsWindow.HideBackgroundCanvas += new EventHandler(HideShowBackgroundCanvas);
@@ -417,48 +324,9 @@ namespace BoardCast
         /// <param name="e"></param>
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            trayIcon.Visible = false;
-           /* saveSettings();
-            if (rememberContent.Checked)
-            {
-
-                FileStream fS = new System.IO.FileStream(appDataDir + "\\content.ink", System.IO.FileMode.Create);
-                inkCanvas.Strokes.Save(fS);
-                fS.Close();
-            }*/
+            sideIcon.Visible = false;
         }
 
-        /// <summary>
-        /// Load default window settings 
-        /// </summary>
-        void loadSettings()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            if (File.Exists(appDataDir + "\\settings.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load(appDataDir + "\\settings.xml");
-                    rememberContent.Checked = bool.Parse(xmlDoc.LastChild["RememberContent"].Attributes["value"].Value);
-                    enableHotkeys.Checked = bool.Parse(xmlDoc.LastChild["EnableHotkeys"].Attributes["value"].Value);
-
-                }
-                catch (Exception)
-                {                    
-                }
-            }
-        }
-        
-        void rememberContent_Click(object sender, EventArgs e)
-        {
-            rememberContent.Checked = !rememberContent.Checked;
-        }
-
-        void enableHotkeys_Click(object sender, EventArgs e)
-        {
-            enableHotkeys.Checked = !enableHotkeys.Checked;
-        }
-        
         /// <summary>
         /// Eventhandler when toolswindow close button clicked
         /// </summary>

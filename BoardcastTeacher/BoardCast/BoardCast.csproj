@@ -219,7 +219,9 @@
     <Resource Include="icons\pencil.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="pencilIcon.ico" />
+    <EmbeddedResource Include="pencilIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -371,6 +373,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icons\keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

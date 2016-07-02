@@ -83,9 +83,13 @@ namespace BoardCast
         /// </summary>
         public void ClosePowerPoint()
         {
-            oSlideShowView.Exit();
-            objPres.Close();
-            oPPT.Quit();
+            try
+            {
+                oSlideShowView.Exit();
+                objPres.Close();
+                oPPT.Quit();
+            }
+            catch (Exception) { }
         }
     }
 }

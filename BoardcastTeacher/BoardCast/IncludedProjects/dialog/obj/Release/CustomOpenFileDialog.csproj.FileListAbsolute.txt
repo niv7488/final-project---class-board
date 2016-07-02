@@ -20,7 +20,6 @@ D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Release\CustomOpenFileD
 D:\BoardcastTeacher\Epic Pen\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.csprojResolveAssemblyReference.cache
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\bin\Release\CustomOpenFileDialog.exe
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\bin\Release\CustomOpenFileDialog.pdb
-D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.csprojResolveAssemblyReference.cache
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomControls.Controls.OpenFileDialogEx.resources
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomControls.FormMain.resources
 D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomControls.FormOpenFileDialog.resources
@@ -37,3 +36,4 @@ C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Rel
 C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.csproj.GenerateResource.Cache
 C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.exe
 C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.pdb
+D:\BoardcastTeacher\BoardCast\IncludedProjects\dialog\obj\Release\CustomOpenFileDialog.csprojResolveAssemblyReference.cache

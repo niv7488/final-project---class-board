@@ -9,14 +9,29 @@ using System.Threading.Tasks;
 namespace BoardCast
 {
     /// <summary>
-    /// Class that managed all opened processes
+    /// Class that managed all opened processes - Singletone
     /// </summary>
-    class ProcessManager
+    public class ProcessManager
     {
-        
-        public ProcessManager()
-        {}
+        private static ProcessManager instance;
 
+        private ProcessManager() { }
+
+        /// <summary>
+        /// Singletone
+        /// </summary>
+        public static ProcessManager Instance
+        {
+            get 
+            {
+                if (instance == null)
+                {
+                    instance = new ProcessManager();
+                }
+                return instance;
+            }
+        }
+        
         /// <summary>
         /// Generate process to open file
         /// </summary>

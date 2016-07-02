@@ -61,7 +61,7 @@ namespace BoardCast
         private int m_iCourseID;
         private bool m_bIsLastCanvasSaved = false;
         private double m_dPenSize=3;
-        private double toolsDockPanelDefaultHeight;
+        private double m_dToolsDockPanelDefaultHeight;
         private Style m_defaultButtonStyle;
         private List<CustomStroke> m_SavedStrokesList = new List<CustomStroke>();
         private StrokeCollection m_NewStrokeCollection;
@@ -105,8 +105,8 @@ namespace BoardCast
             ResizeMode = ResizeMode.NoResize;
             m_FileUploadThread = new Thread(UploadManager.Instance.Main);
             m_FileUploadThread.Start();
-            m_ProcessManager = new ProcessManager();
-            m_ImageCaptureManager = new ImageCaptureManager();
+            m_ProcessManager = ProcessManager.Instance;
+            m_ImageCaptureManager = ImageCaptureManager.Instance;
             m_PowerPointManager = new PowerPointManager();
             m_bIsTempCanvasOpen = false;
             m_ImageCaptureManager.LoadPreviousStorke += new EventHandler(LoadPreviousStorkes);
@@ -120,7 +120,7 @@ namespace BoardCast
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             toolsDockPanel.Height = toolsDockPanel.ActualHeight;
-            toolsDockPanelDefaultHeight = toolsDockPanel.Height;
+            m_dToolsDockPanelDefaultHeight = toolsDockPanel.Height;
             Height = ActualHeight;
             SizeToContent = System.Windows.SizeToContent.Manual;
             m_defaultButtonStyle = eraseAllButton.Style;
@@ -875,7 +875,7 @@ namespace BoardCast
                     Rendershape.Fill = Ellipsebrush;
                     break;
                 case SelectedShape.Rectangle:
-                    Rendershape = new Rectangle() { Height = 100, Width = 100, RadiusX = 12, RadiusY = 12 };
+                    Rendershape = new Rectangle() { Height = 100, Width = 100, RadiusX = 2, RadiusY = 2 };
                     RadialGradientBrush Rectbrush = new RadialGradientBrush();
                     Rectbrush.GradientStops.Add(new GradientStop(Color.FromArgb(0, 255, 255, 255), 0));
                     Rendershape.Stroke = SelectedColorRect.Stroke;

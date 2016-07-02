@@ -121,3 +121,4 @@ C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\obj\Release\BoardCast.Propertie
 C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\obj\Release\BoardCast.csproj.GenerateResource.Cache
 C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\obj\Release\Boardcast.exe.manifest
 C:\Users\Eyal\Desktop\BoardcastTeacher\BoardCast\obj\Release\Boardcast.application
+D:\BoardcastTeacher\BoardCast\bin\Release\pencilIcon.ico
