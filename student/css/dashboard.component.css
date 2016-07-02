@@ -1,13 +1,21 @@
+/* General ------------------ */
 * {
     margin: 0;
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.container {
-    position: absolute;
-    width: 100%;
-    height:100%;
+#course-date-content {
+    margin: 0;
+    padding: 0;
+    max-height: 0;
+}
+
+.hideItem {
+    display: none;
+}
+
+.showItem {
     display: block;
 }
 
@@ -15,35 +23,78 @@ li:hover {
     cursor: pointer;
 }
 
-nav {
-    float: left;
-    display: block;
-    height: 100%;
-    width: 25%;
-    background: #141126;
-    padding: 10px;
-}
-
-section {
+/* Top bar -------------- */
+.top-bar section {
     float: left;
     display: block;
     width: 10%;
     height:100%;
 }
 
-main {
-    width: 85%;
+.top-bar #avatar
+{
     display: block;
-    margin-left: 200px;
-    padding: 10px;
+    z-index: 100;
 }
 
-main > img {
-    margin: 5px;
-    float: left;
-    padding-top:5px;
+.top-bar #avatar > img {
+    position: absolute;
+    display: inline-block;
+    right: 5px;
 }
 
+.top-bar #avatar > span {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 5px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+}
+
+#hamburger {
+    width: 45px;
+    height: 45px;
+    display: block;
+    background: url('../images/menu-button.png') center no-repeat;;
+    z-index: 10;
+    position: absolute;
+}
+
+#logo {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    min-width: 300px;
+    line-height: 60px;
+}
+
+#logo > * {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+#logo > .board {
+    color: #235592;
+    vertical-align: super;
+}
+
+#logo > .cast {
+    color: #ffa83d;
+    vertical-align: super;
+}
+
+.logo-image {
+    height: 45px;
+    width: 60px;
+    display: inline-block;
+    background: url("../images/logo-60x45.png") no-repeat;
+}
+
+/* Nav courses ------------- */
 .coursesList {
     list-style: none;
     padding-top:10px;
@@ -74,57 +125,10 @@ main > img {
     
 }
 
-/*.dates >ul
-{
-    max-height: auto;
-    min-height: 200px;
-    height: 200px;
-    overflow:hidden; 
-    overflow-y:scroll;
-}
-
-.dates > ul > li {
-    display: block;
-    float: left;
-    margin: 5px;
-    padding :5px;
-    list-style: none;
-}*/
-
-#title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    padding: 0 5px;
-    display:block;
-    height: 38px;
-    line-height: 36px;
-    background: #F59237;
-}
-
-#avatar
-{
-    display: block;
-    z-index: 100;
-}
-
-#avatar > img {
-    position: absolute;
-    display: inline-block;
-    right: 5px;
-}
-
-#avatar > span {
-    height: 50px;
-    line-height: 50px;
-    padding: 0 5px;
-    display: inline-block;
-    vertical-align: middle;
-    color: #fff;
-}
-
+/* Main section ---------------- */
 .content {
     list-style: none;
+    width: 100%;
 }
 
 .content > li {
@@ -133,6 +137,12 @@ main > img {
     border: 1px solid #202020;
 }
 
+main > p {
+    color: #101721;
+    padding: 10px;
+}
+
+/* Full screen ---------------- */
 .fullscreen {
     position: fixed;
     top: 0;
@@ -165,14 +175,6 @@ main > img {
 
 button {
     z-index: 10000;
-}
-
-.hide {
-    display: none;
-}
-
-.show {
-    display: block;
 }
 
 #previous {
@@ -214,12 +216,9 @@ button {
 }
 
 #streamingLed {
-    display: inline-block;
     width: 10px;
     height: 10px;
-    position: absolute;
-    left: 5px;
-    top: 12px;
+    margin-right: 10px;
 }
 
 #noContent {
@@ -229,38 +228,269 @@ button {
     padding: 5px;
 }
 
-.btn-group {
-    margin-bottom: 5px;
-    z-index: 0;
+.course-dates {
+    max-height: inherit;
 }
 
-.btn-group>.btn{
-    background: #BCEDF1;
-    color: #000;
+.is-selected {
+    display: block;
+    background: #f3f3f3;
+    margin: 0 -15px;
+    padding-left: 20px;
+    animation: show 500ms;
 }
 
-.btn-group > .btn-selected {
-    background: #F59237;
-    color:#fff;
+.is-not-selected {
+    max-height: 0;
+    display: none;
 }
 
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 320px) and (max-device-width : 550px) {
-    .gw-sidebar {
-        width: 100%;
-        position: relative;
-        background-color: #101721;
+@keyframes show {
+    0% {
+        max-height: 0;
+        visibility: visible;
+    }
+    100% {
+        max-height: 2.5em;
     }
 }
 
+#title {
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 0 10px;
+    display:block;
+    line-height: 3em;
+    background: #F59237;
+    border-radius: 0;
+}
+
+.course-line {
+    line-height: 2.5em;
+    padding: 5px 15px;
+    border-bottom: #1f1f3f solid 1px;
+}
+
+.course-line > a {
+    color: #fff;
+}
+
+.course-dates {
+    line-height: 2.5em;
+    color: #101721;
+}
+
+.course-dates:hover {
+    color: #F59237;
+    background: #fff;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (max-device-width : 550px) {
+    /* Top bar ----------- */
+    #hamburger {
+        display: block;
+    }
+
+    #logo > .board {
+        vertical-align: baseline;
+    }
+
+    #logo > .cast {
+        vertical-align: baseline;
+    }
+
+    #name {
+        display: none;
+    }
+
+    .logo-image {
+        display: none;
+    }
+
+    /* Nav menu ----------- */
+    nav {
+        width: 100%;
+        background: #101721;
+        position: absolute;
+    }
+
+    /* Main section ----------- */
+    .btn-group {
+        display: none;
+    }
+
+    .btn-group>.btn{
+        display: none;
+    }
+
+    main {
+        width: 100%;
+        display: block;
+    }
+
+    main > p {
+        padding: 10px;
+        color: #101721;
+    }
+
+    .content {
+        width: 100%;
+    }
+    .content > li {
+        display: block;
+        position: relative;
+        width: 98%;
+        margin: 1%;
+    }
+
+    .content > li > img {
+        width: 100%;
+        height: auto;
+        border: 1px solid #101721;
+    }
+
+    .breadcrumb {
+        background: #F59237;
+        display: block;
+        font-size: 1.2em;
+        margin-bottom: 3px;
+        border-radius: 0;
+    }
+}
 
 /* Tablets (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 550px) and (max-device-width : 1024px) {
     /* Styles */
+    nav {
+        float: left;
+        display: block;
+        height: 100%;
+        width: 30%;
+        background: #101721;
+    }
+
+    .btn-group {
+        margin-bottom: 5px;
+        z-index: 0;
+    }
+
+    .btn-group>.btn{
+        background: #BCEDF1;
+        color: #000;
+    }
+
+    .btn-group > .btn-selected {
+        background: #F59237;
+        color:#fff;
+    }
+
+    main {
+        width: 70%;
+    }
+
+    #hamburger {
+        display: block;
+    }
 }
 
 /* Desktops and laptops ----------- */
 @media only screen  and (min-width : 1024px) {
     /* Styles */
+    nav {
+        position: absolute;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 20%;
+        background: #101721;
+    }
 
+    nav.hideItem {
+        display: block;
+    }
+
+    #title {
+        line-height: 2em;
+    }
+
+    .course-line {
+        line-height: 2em;
+    }
+
+    .course-line > * {
+        line-height: 2em;
+    }
+
+    #hamburger {
+        display: none;
+    }
+
+    main {
+        width: 80%;
+        position: absolute;
+        left: 20%;
+        right: 0;
+        top: 60px;
+        bottom: 0;
+        display: block;
+        color: #101721;
+    }
+
+    .btn-group {
+        width: 99%;
+        margin: 0.5%;
+        display: block;
+        text-align: center;
+    }
+
+    .btn-group>.btn{
+        background: #f3f3f3;
+        color: #000;
+        width:33%;
+    }
+
+    .btn-group > .btn-selected {
+        background: #235592;
+        color:#fff;
+    }
+
+    .breadcrumb {
+        display: none;
+    }
+
+    .content {
+        margin-top: 50px;
+        max-height: 80vh;
+        overflow-y: scroll;
+        display: block;
+    }
+
+    .content > li {
+        width: 23%;
+        padding: 1px;
+    }
+
+    .content > li > img {
+        width: 100%;
+        height: auto;
+    }
+
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+}
+
+.clear {
+    clear: both;
 }

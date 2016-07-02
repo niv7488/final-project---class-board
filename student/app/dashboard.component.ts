@@ -19,20 +19,16 @@ import { NavElement } from './nav-element';
 import { NavElementService } from './nav-element.service';
 import {NAV_ELEMENTS} from "./nav-element-list";
 
-
-var java = require('../js/bs_leftnavi.js');
 let moment = require('../js/moment.min.js');
-
 
 @Component({
     selector: 'bc-dashboard',
     templateUrl: 'html/dashboard.component.html',
     styleUrls: [
         'css/nav-element.component.css',
-        'css/dashboard.component.css',
         'styles/bootstrap.min.css',
         'styles/bootstrap-theme.min.css',
-        'styles/bs_leftnavi.css'
+        'css/dashboard.component.css'
     ],
     directives: [
         DashboardMenuDirective,
@@ -46,8 +42,8 @@ let moment = require('../js/moment.min.js');
 export class DashboardComponent implements OnInit, OnDestroy {
     private isInitialized: boolean = false;
     coursesMenu: DashboardMenu[] =[];
-    notebooksMenu: DashboardMenu[] =[];
     courseListSubscription: Subscription;
+    private menuIsOpen: boolean = false;
     private chosenCourse: Course;
     private chosenDate: string;
     private dbContentToDisplay: DB_SOURCE_ENUM = DB_SOURCE_ENUM.External;
@@ -72,6 +68,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     getImages(course: Course, date: string) {
+        this.menuIsOpen = false;
         console.debug("[getImages] Get images for course " + course.id + " at date:");
         console.log(date);
         console.log(moment(date,["DD/MM/YYYY"]).format("DDMMYYYY"));
@@ -113,13 +110,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.dbContentToDisplay = filter;
     }
 
-    menuAnimation() {
-        if(!this.initialized)
-            java();
-        this.fullScreen = false;
-        this.initialized = true;
-    }
-    
     openFullScreen(image: CourseContent, pageDiff: number) {
         if(!this.fullScreen)
             this.clickAnotherNavElement(this.navElements[0]);
@@ -162,6 +152,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('notebook/'+ this.chosenCourse.id+'/'+ this.chosenDate);
     }
 
+    private selectCourse(course: DashboardMenu) {
+        this.coursesMenu.find(item => item === course).isSelected = !course.isSelected;
+        console.log(course);
+    }
+
     ngOnInit() {
 
         //this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.Both);
@@ -185,6 +180,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
 
 
+    }
+    
+    private menuManager() {
+        this.menuIsOpen = !this.menuIsOpen;
     }
 
     private initializeMenu() {

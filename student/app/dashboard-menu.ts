@@ -5,6 +5,7 @@ export class DashboardMenu {
     menu: Course;
     streamingOnAir: string;
     subMenu: any[] = [];
+    isSelected: boolean = false;
 
     constructor(course: Course, courseDates: string[] = []) {
         this.menu = course;
