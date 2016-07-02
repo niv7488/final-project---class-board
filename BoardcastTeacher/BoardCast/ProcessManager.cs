@@ -8,14 +8,20 @@ using System.Threading.Tasks;
 
 namespace BoardCast
 {
+    /// <summary>
+    /// Class that managed all opened processes
+    /// </summary>
     class ProcessManager
     {
         
         public ProcessManager()
-        {
-            
-        }
+        {}
 
+        /// <summary>
+        /// Generate process to open file
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="editMode">Edit file mode (true in case of image)</param>
         public void GenerateProcess(string filePath,bool editMode = false)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -29,14 +35,5 @@ namespace BoardCast
 
         }
 
-        public void CloseAllProcess()
-        {
-           
-        }
-
-        private void DeleteUnusedProcesses()
-        {
-            
-        }
     }
 }

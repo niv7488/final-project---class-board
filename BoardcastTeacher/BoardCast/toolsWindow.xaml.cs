@@ -64,13 +64,15 @@ namespace BoardCast
         private double toolsDockPanelDefaultHeight;
         private Style m_defaultButtonStyle;
         private List<CustomStroke> m_SavedStrokesList = new List<CustomStroke>();
-        private StrokeCollection m_TempStrokeCollection;
+        private StrokeCollection m_NewStrokeCollection;
+        private StrokeCollection m_tempStrokeCollection;
         private IReadOnlyCollection<UIElement> m_lastInkCanvasChildrensElements;
+        private IReadOnlyCollection<UIElement> m_tempInkCanvasChildrensElements;
         private string m_sFileName = "";
         private enum SelectedShape { None, Circle, Rectangle, Triangle , Line }
         private SelectedShape Shape1 = SelectedShape.None;
-        public bool m_bIsTempCanvasOpen { get; set; }
-        public string m_sLastSavedCanvasName { get; set; }
+        public bool m_bIsTempCanvasOpen;
+        public string m_sLastSavedCanvasName;
 
 #region EventHandlers
         public event EventHandler CloseButtonClick;
@@ -89,6 +91,11 @@ namespace BoardCast
         public void SetInkCanvas(InkCanvas _inkCanvas)
         { m_inkCanvas = _inkCanvas; }
 
+        /// <summary>
+        /// After Mainwindow finished loaded, event called and Init variables
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var desktopWorkingArea = SystemParameters.WorkArea;
@@ -105,9 +112,13 @@ namespace BoardCast
             m_ImageCaptureManager.LoadPreviousStorke += new EventHandler(LoadPreviousStorkes);
         }
 
+        /// <summary>
+        /// Event called when window loaded . Init variables
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
             toolsDockPanel.Height = toolsDockPanel.ActualHeight;
             toolsDockPanelDefaultHeight = toolsDockPanel.Height;
             Height = ActualHeight;
@@ -115,8 +126,6 @@ namespace BoardCast
             m_defaultButtonStyle = eraseAllButton.Style;
             
         }
-
-        
 
         public void SetCourseID(int cID)
         {
@@ -146,17 +155,22 @@ namespace BoardCast
         
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            m_ProcessManager.CloseAllProcess();
             m_ImageCaptureManager.DeleteAllThumbnails();
             onCloseButtonClick();
         }
 
+        /// <summary>
+        /// Close toolbar button clicked - trigger event in MainWindow to close toolsWindow
+        /// </summary>
         private void onCloseButtonClick()
         {
             if (CloseButtonClick != null)
                 CloseButtonClick.Invoke(new object(), new EventArgs());
         }
 
+        /// <summary>
+        /// Reset all buttons background to default 
+        /// </summary>
         private void ResetAllToolBackgrounds()
         {
             foreach (Button i in toolStackPanel.Children)
@@ -165,6 +179,11 @@ namespace BoardCast
                     i.Style = m_defaultButtonStyle;
         }
 
+        /// <summary>
+        /// Event triggered when click on left side menu - hide unrelevant objects
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenFilesLeft_Click(object sender, RoutedEventArgs e)
         {
             WinApplicationsRight.Visibility = Visibility.Hidden;
@@ -182,6 +201,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Event triggered when click on right side menu - hide unrelevant objects
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenFilesRight_Click(object sender, RoutedEventArgs e)
         {
             WinApplicationsLeft.Visibility = Visibility.Hidden;
@@ -217,6 +241,9 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Hide all submenus . submenus = all the non static buttons.
+        /// </summary>
         private void HideAllSubMenus()
         {
             deleteStrokePanel.Visibility = Visibility.Hidden;
@@ -228,6 +255,10 @@ namespace BoardCast
             shapesStackPanel.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Get all canvas childrens *Elements*
+        /// </summary>
+        /// <returns>Collection with all canvas childrens elements</returns>
         private Collection<UIElement> GetAllCanvasChildrens()
         {
             Collection<UIElement> elementCollection = new Collection<UIElement>();
@@ -238,6 +269,11 @@ namespace BoardCast
             return elementCollection;
         }
 
+        /// <summary>
+        /// Add to canvas Strokes 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadPreviousStorkes(object sender, EventArgs e)
         {
             int strokeIndex = m_ImageCaptureManager.m_iLastSelectedStroke;
@@ -253,6 +289,11 @@ namespace BoardCast
         
 #region onClickHandlers
         
+        /// <summary>
+        /// Set normal cursor mode 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void CursorButton_Click(object sender, RoutedEventArgs e)
         {
             ResetAllToolBackgrounds();
@@ -260,6 +301,11 @@ namespace BoardCast
             HideAllSubMenus();
         }
 
+        /// <summary>
+        /// Set Pen cursor mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void PenButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
@@ -272,6 +318,11 @@ namespace BoardCast
 
         }
 
+        /// <summary>
+        /// Set highlighter cursor mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HighlighterButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
@@ -283,6 +334,11 @@ namespace BoardCast
             highlighterButton.Style = (Style)FindResource("highlightedButtonStyle");
         }
 
+        /// <summary>
+        /// Enter edit storkes / shapes mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void EditButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
@@ -297,6 +353,11 @@ namespace BoardCast
             
         }
         
+        /// <summary>
+        /// Erase selected Storkes / shapes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void EraserButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
@@ -307,6 +368,11 @@ namespace BoardCast
             eraserButton.Style = (Style)FindResource("highlightedButtonStyle");   
         }
         
+        /// <summary>
+        /// Erase all strokes & shapes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void EraseAllButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
@@ -314,6 +380,11 @@ namespace BoardCast
             m_inkCanvas.Children.Clear();
         }
         
+        /// <summary>
+        /// Open pen size selection menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PenSizeButton_MouseDown(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
@@ -326,6 +397,9 @@ namespace BoardCast
             ((Button)sender).Style = (Style)FindResource("highlightedButtonStyle");   
         }
 
+        /// <summary>
+        /// Set selected size as current brush size
+        /// </summary>
         private void SetBrushSize()
         {
             if (m_inkCanvas.Cursor == Cursors.Cross)
@@ -340,6 +414,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Hide / unhide toolbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClickThroughCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             HideAllSubMenus();
@@ -353,6 +432,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Delete selected stroke / shape
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="routedEventArgs"></param>
         private void OnDeleteStroke(object sender, RoutedEventArgs routedEventArgs)
         {
             m_inkCanvas.Strokes.Remove(m_inkCanvas.GetSelectedStrokes());
@@ -362,6 +446,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Display / hide last strokes menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnLoadLastStrokesClicked(object sender, RoutedEventArgs e)
         {
             LastShotsScrollViewer.Visibility = Visibility.Hidden;
@@ -397,6 +486,11 @@ namespace BoardCast
             colorPanel.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Open file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="mouseButtonEventArgs"></param>
         private void OnOpenFileClicked(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             HideAllSubMenus();
@@ -412,6 +506,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Open image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnOpenImageClicked(object sender, MouseButtonEventArgs e)
         {
             HideAllSubMenus();
@@ -447,6 +546,7 @@ namespace BoardCast
                 }
                 OnCaptureClick(sender, e);
             }
+
             if (!m_bIsTempCanvasOpen)
             {
                 m_bIsTempCanvasOpen = true;
@@ -455,19 +555,20 @@ namespace BoardCast
             else
             {
                 m_bIsTempCanvasOpen = false;
-                if (m_TempStrokeCollection != null && m_TempStrokeCollection.Count > 0)
+                if (m_tempStrokeCollection != null && m_tempStrokeCollection.Count > 0 && m_bIsLastCanvasSaved)
                 {
-                    m_inkCanvas.Strokes = m_TempStrokeCollection;
+                    m_inkCanvas.Strokes = m_tempStrokeCollection;
                 }
-                if (m_lastInkCanvasChildrensElements!= null && m_lastInkCanvasChildrensElements.Count > 0)
+                if (m_tempInkCanvasChildrensElements != null && m_tempInkCanvasChildrensElements.Count > 0 && m_bIsLastCanvasSaved)
                 {
-                    foreach (var element in m_lastInkCanvasChildrensElements)
+                    foreach (var element in m_tempInkCanvasChildrensElements)
                     {
                         m_inkCanvas.Children.Add(element);
                     }
                 }
-                m_TempStrokeCollection = null;
-                m_lastInkCanvasChildrensElements = null;
+                m_tempStrokeCollection = null;
+                m_tempInkCanvasChildrensElements = null;
+                m_bIsLastCanvasSaved = false;
                 createBlankBackground.Style = m_defaultButtonStyle;
             }
 
@@ -476,12 +577,22 @@ namespace BoardCast
                 CreateBlankCanvasClick.Invoke(new object(), new EventArgs());
         }
 
+        /// <summary>
+        /// Open browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenBrowser(object sender, MouseButtonEventArgs e)
         {
             HideAllSubMenus();
             m_ProcessManager.GenerateProcess("http://google.com");
         }
 
+        /// <summary>
+        /// Open windows keyboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyboardClick(object sender, RoutedEventArgs e)
         {
             string sKeyboardPath = System.IO.Path.Combine(
@@ -518,7 +629,7 @@ namespace BoardCast
         }
 
         /// <summary>
-        /// Export transparent canvas layer to local xaml file
+        /// Export transparent canvas layer to local xaml file and save last canvas strokes in temp variable
         /// </summary>
         public void ExportCanvasToFile()
         {
@@ -531,21 +642,25 @@ namespace BoardCast
                 File.WriteAllText(Path.Combine(GlobalContants.canvasFolderPath, m_sFileName + ".xaml"), xaml);
             }
 
-            if (m_bIsLastCanvasSaved)
-            {
-                m_sLastSavedCanvasName = Path.Combine(GlobalContants.canvasFolderPath, m_sFileName + ".xaml");
-                m_bIsLastCanvasSaved = false;
-            }
             if (m_inkCanvas.Strokes.Count > 0)
             {
-                m_TempStrokeCollection = new StrokeCollection();
-                m_TempStrokeCollection = m_inkCanvas.Strokes.Clone();
+                m_NewStrokeCollection = new StrokeCollection();
+                m_NewStrokeCollection = m_inkCanvas.Strokes.Clone();
+                if (m_bIsLastCanvasSaved && !m_bIsTempCanvasOpen)
+                {
+                    m_tempStrokeCollection = new StrokeCollection();
+                    m_tempStrokeCollection = m_inkCanvas.Strokes.Clone();
+                }
             }
             if (m_inkCanvas.Children.Count > 0)
             {
                 m_lastInkCanvasChildrensElements = GetAllCanvasChildrens();
+                if (m_bIsLastCanvasSaved && !m_bIsTempCanvasOpen)
+                {
+                    m_tempInkCanvasChildrensElements = GetAllCanvasChildrens();    
+                }
             }
-            m_SavedStrokesList.Add(new CustomStroke(m_TempStrokeCollection,GetAllCanvasChildrens()));
+            m_SavedStrokesList.Add(new CustomStroke(m_NewStrokeCollection,GetAllCanvasChildrens()));
             m_inkCanvas.Strokes.Clear();
             m_inkCanvas.Children.Clear();
 
@@ -617,7 +732,7 @@ namespace BoardCast
         {
             if (m_inkCanvas.Strokes.Count > 0)
             {
-                m_ImageCaptureManager.CaptureScreen();
+                OnCaptureClick(sender, e);
             }
 
             m_PowerPointManager.ShowNextSlide();
@@ -662,6 +777,12 @@ namespace BoardCast
 #endregion
 
 #region ShapesHandler
+
+        /// <summary>
+        /// Open shapes menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnShapeSelect(object sender, RoutedEventArgs e)
         {
             if (shapesStackPanel.IsVisible)
@@ -672,30 +793,55 @@ namespace BoardCast
                 shapesStackPanel.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Draw circle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnCircleDrawClick(object sender, RoutedEventArgs e)
         {
             Shape1 = SelectedShape.Circle;
             DrawShape();
         }
 
+        /// <summary>
+        /// Draw rectangle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnRectangleDrawClick(object sender, RoutedEventArgs e)
         {
             Shape1 = SelectedShape.Rectangle;
             DrawShape();
         }
 
+        /// <summary>
+        /// Draw triangle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnTriangleDrawClick(object sender, RoutedEventArgs e)
         {
             Shape1 = SelectedShape.Triangle;
             DrawShape();
         }
-
+        
+        /// <summary>
+        /// Draw line
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnLineDrawClick(object sender, RoutedEventArgs e)
         {
             Shape1 = SelectedShape.Line;
             DrawShape();
         }
 
+        /// <summary>
+        /// Draw coordinator system 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnCoordinateDrawClick(object sender, RoutedEventArgs e)
         {
             string src = Path.Combine(Directory.GetCurrentDirectory(), "Images/coordinate.png");
@@ -710,6 +856,9 @@ namespace BoardCast
             m_inkCanvas.Children.Add(img);
         }
 
+        /// <summary>
+        /// Draw selected shape on canvas
+        /// </summary>
         private void DrawShape()
         {
             Shape Rendershape = null;

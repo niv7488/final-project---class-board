@@ -11,6 +11,9 @@ using Application = Microsoft.Office.Interop.PowerPoint.Application;
 
 namespace BoardCast
 {
+    /// <summary>
+    /// Class that manage power point process and events
+    /// </summary>
     class PowerPointManager
     {
         Application oPPT;
@@ -18,6 +21,10 @@ namespace BoardCast
         Presentation objPres;
         SlideShowView oSlideShowView;
 
+        /// <summary>
+        /// Open PPT App and opens dialog to select presentation
+        /// </summary>
+        /// <returns></returns>
         public bool OpenPowerPoint()
         {
             try
@@ -54,17 +61,26 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Show the next slide
+        /// </summary>
         public void ShowNextSlide()
         {
             oSlideShowView.Application.SlideShowWindows[1].Activate();
             oSlideShowView.Next();
         }
 
+        /// <summary>
+        /// Show previous slide
+        /// </summary>
         public void ShowPreviousSlide()
         {
             oSlideShowView.Previous();
         }
 
+        /// <summary>
+        /// Close Powerpoint process
+        /// </summary>
         public void ClosePowerPoint()
         {
             oSlideShowView.Exit();

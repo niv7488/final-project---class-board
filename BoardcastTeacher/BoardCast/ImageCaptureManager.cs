@@ -18,6 +18,9 @@ using Orientation = System.Windows.Forms.Orientation;
 
 namespace BoardCast
 {
+    /// <summary>
+    /// Class that manage the screen capture
+    /// </summary>
     class ImageCaptureManager
     {
         public List<StackPanel> m_ThumbnailsList;
@@ -26,13 +29,19 @@ namespace BoardCast
         public int m_iLastSelectedStroke;
         public event EventHandler LoadPreviousStorke;
 
-
+        /// <summary>
+        /// constructor - init lists
+        /// </summary>
         public ImageCaptureManager()
         {
             m_ThumbnailsList = new List<StackPanel>();
             m_StrokeThumbnailsList = new List<System.Windows.Controls.Image>();
         }
 
+        /// <summary>
+        /// Capture the screen and saves as image
+        /// </summary>
+        /// <returns> The creted image filename</returns>
         public string CaptureScreen()
         {
             date = DateTime.Now.ToString("ddMMyyyy");
@@ -48,16 +57,25 @@ namespace BoardCast
             g.CopyFromScreen(ix, iy, ix, iy,
                      new System.Drawing.Size(iw, ih),
                      CopyPixelOperation.SourceCopy);
-            if (Directory.Exists(GlobalContants.screenshotFolderPath))
-                image.Save(Path.Combine(GlobalContants.screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
-            else
+            try
             {
-                Directory.CreateDirectory(GlobalContants.screenshotFolderPath);
-                image.Save(Path.Combine(GlobalContants.screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
+                if (Directory.Exists(GlobalContants.screenshotFolderPath))
+                    image.Save(Path.Combine(GlobalContants.screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
+                else
+                {
+                    Directory.CreateDirectory(GlobalContants.screenshotFolderPath);
+                    image.Save(Path.Combine(GlobalContants.screenshotFolderPath, fileName + ".jpeg"), ImageFormat.Jpeg);
+                }
             }
+            catch (Exception) { }
             return fileName;
         }
 
+        /// <summary>
+        /// Generate thumbnail from image and add it to last shots taken menu
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public StackPanel CreatePreviewThumbnail(string path)
         {
             StackPanel sp = new StackPanel();
@@ -73,6 +91,11 @@ namespace BoardCast
             return sp;
         }
 
+        /// <summary>
+        /// Generate thumbnail from image and add it to last Storkes taken menu
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public StackPanel CreatePreviewStrokeThumbnail(string path)
         {
             StackPanel sp = new StackPanel();
@@ -88,6 +111,11 @@ namespace BoardCast
             return sp;
         }
 
+        /// <summary>
+        /// Trigger when clicked on load last storkes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void OnStrokeThumbnailsClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -109,6 +137,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Open selected image from last screenshot taken
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void OnThumbnailsClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -125,6 +158,9 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Delete all thumbnails
+        /// </summary>
         public void DeleteAllThumbnails()
         {
             for (int i = 0; i < m_ThumbnailsList.Count; i++)

@@ -19,24 +19,9 @@ namespace BoardCast
     /// </summary>
     public partial class backgroundWindow : Window
     {
-        //private InkCanvas inkCanvas;
         public backgroundWindow()
         {
             InitializeComponent();
-            OnWindowLoad();
-        }
-
-
-
-        void OnWindowLoad()
-        {
-            
-           /* ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = new BitmapImage(new Uri(@"/whiteBg.jpg", UriKind.Relative));
-            MessageBox.Show(Directory.GetCurrentDirectory());
-            InkCanvas cnvs = new InkCanvas();
-            cnvs.Background = imageBrush;*/
-
         }
 
     }

@@ -280,7 +280,7 @@ namespace ScreenCast
                 return;
             }
             Rectangle bounds = Screen.GetBounds(Point.Empty);
-            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height - 70))
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {

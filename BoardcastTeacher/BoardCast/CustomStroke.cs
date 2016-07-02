@@ -9,6 +9,9 @@ using System.Windows.Ink;
 
 namespace BoardCast
 {
+    /// <summary>
+    /// Class that saves object with 2 variables : StrokeCollection and Collection<UIElement> - Shapes
+    /// </summary>
     class CustomStroke
     {
         public StrokeCollection m_strokeCollection { get; set; }

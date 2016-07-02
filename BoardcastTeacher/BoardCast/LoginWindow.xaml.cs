@@ -26,69 +26,75 @@ namespace BoardCast
     {
        private BackgroundWorker bw = new BackgroundWorker();
        private int m_iSelectedCours;
-       private string screenshotFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
-       private string canvasFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "CanvasLayouts");
        
+        /// <summary>
+        /// Ctr - Init variables & event handler for login thread
+        /// </summary>
         public LoginWindow()
-       {
-           try
-           {
-               InitializeComponent();
-               //fillCoursesList();
-               bw.WorkerReportsProgress = true;
-               bw.WorkerSupportsCancellation = true;
-               bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-               bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-               bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-               if (!UploadManager.Instance.isUploading)
-               {
-                   if (!Directory.Exists(GlobalContants.screenshotFolderPath))
-                   {
-                       Directory.CreateDirectory(GlobalContants.screenshotFolderPath);
-                   }
-                   else if (Directory.EnumerateFileSystemEntries(GlobalContants.screenshotFolderPath).Any())
-                   {
-                       DirectoryInfo dir = new DirectoryInfo(GlobalContants.screenshotFolderPath);
-                       foreach (FileInfo file in dir.GetFiles())
-                       {
-                           try
-                           {
-                               file.Delete();
-                           }
-                           catch (Exception )
-                           {}
-                       }
-                   }
-                   if (!Directory.Exists(GlobalContants.canvasFolderPath))
-                   {
-                       Directory.CreateDirectory(GlobalContants.canvasFolderPath);
-                   }
-                   else if (Directory.EnumerateFileSystemEntries(GlobalContants.canvasFolderPath).Any())
-                   {
-                       System.IO.DirectoryInfo dir = new DirectoryInfo(GlobalContants.canvasFolderPath);
-                       foreach (FileInfo file in dir.GetFiles())
-                       {
-                           try
-                           {
-                               file.Delete();
-                           }
-                           catch (Exception )
-                           { }
-                       }
-                   }
-               }
-           }
-           catch (Exception e)
-           {
-               MessageBox.Show(e.Message);
-           }
-       }
+        {
+            try
+            {
+                InitializeComponent();
+                //fillCoursesList();
+                bw.WorkerReportsProgress = true;
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+                bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+                if (!UploadManager.Instance.isUploading)                        //if there is no file in the middle of upload state , delete all images in selected folder
+                {
+                    if (!Directory.Exists(GlobalContants.screenshotFolderPath))
+                    {
+                        Directory.CreateDirectory(GlobalContants.screenshotFolderPath);
+                    }
+                    else if (Directory.EnumerateFileSystemEntries(GlobalContants.screenshotFolderPath).Any())
+                    {
+                        DirectoryInfo dir = new DirectoryInfo(GlobalContants.screenshotFolderPath);
+                        foreach (FileInfo file in dir.GetFiles())
+                        {
+                            try
+                            {
+                                file.Delete();
+                            }
+                            catch (Exception )
+                            {}
+                        }
+                    }
+                    if (!Directory.Exists(GlobalContants.canvasFolderPath))
+                    {
+                        Directory.CreateDirectory(GlobalContants.canvasFolderPath);
+                    }
+                    else if (Directory.EnumerateFileSystemEntries(GlobalContants.canvasFolderPath).Any())
+                    {
+                        System.IO.DirectoryInfo dir = new DirectoryInfo(GlobalContants.canvasFolderPath);
+                        foreach (FileInfo file in dir.GetFiles())
+                        {
+                            try
+                            {
+                                file.Delete();
+                            }
+                            catch (Exception )
+                            { }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Handle login - get Username & password , send validation to db
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string userName = txtBxuserName.Text.ToLower();
@@ -127,7 +133,7 @@ namespace BoardCast
                 JObject contentToObject = (JObject)JsonConvert.DeserializeObject(responeContent);
                 
                 var responeStatus = (string) contentToObject["status"];
-                if (responeStatus != "success")
+                if (responeStatus != "success")                         //Login Validation error
                 {
                     lblLoading.Visibility = Visibility.Hidden;
                     lblfrgtPass.Visibility = Visibility.Visible;
@@ -141,9 +147,9 @@ namespace BoardCast
                     btnLogin.IsEnabled = true;
                     Mouse.OverrideCursor = null;
                 }
-                else
+                else 
                 {
-                    var JsonCoursesList = contentToObject["CoursesList"];
+                    var JsonCoursesList = contentToObject["CoursesList"];               //Get all teacher courses list
                     foreach (var course in JsonCoursesList)
                     {
                         CoursesList.Items.Add(course["course_id"]+":"+course["course_name"]);
@@ -171,6 +177,11 @@ namespace BoardCast
             Thread.Sleep(2000);
         }
 
+        /// <summary>
+        /// Thread finished task
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if ((e.Cancelled == true))
@@ -195,11 +206,6 @@ namespace BoardCast
                 btnLogin.Visibility = Visibility.Hidden;
                 CoursesList.Visibility = Visibility.Visible;
                 btnLogout.Visibility = Visibility.Visible;
-                //btnStart.Visibility = Visibility.Visible;
-                /* MainWindow main = new MainWindow();
-                App.Current.MainWindow = main;
-                this.Close();
-                main.Show();*/
             }
         }
 
@@ -208,41 +214,53 @@ namespace BoardCast
             
         }
 
+        /// <summary>
+        /// Close app
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
             App.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Detect mouse down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
 
+        /// <summary>
+        /// text color of username field
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtBxuserName_TextChanged(object sender, TextChangedEventArgs e)
         {
             txtBxuserName.BorderBrush = Brushes.White;            
         }
 
+        /// <summary>
+        /// Password field text color
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void passBxPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
             passBxPassword.BorderBrush = Brushes.White;
         }
 
-        void fillCoursesList()
-        {
-            CoursesList.Items.Add("123456:לוגיקה");
-            CoursesList.Items.Add("99999:חדווא 1");
-            CoursesList.Items.Add("350876541:JAVA");
-            CoursesList.Items.Add("350876543:לוגיקה");
-            CoursesList.Items.Add("350876542:חדווא 1");
-            CoursesList.Items.Add("350876541:JAVA");
-            CoursesList.Items.Add("350876543:לוגיקה");
-            CoursesList.Items.Add("350876542:חדווא 1");
-            CoursesList.Items.Add("350876541:JAVA");
-        }
-
+        /// <summary>
+        /// Handle logout
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             lblLoading.Visibility = Visibility.Hidden;
@@ -261,6 +279,11 @@ namespace BoardCast
             passBxPassword.Password = "";
         }
 
+        /// <summary>
+        /// Open MainWindow and close login window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = new MainWindow(m_iSelectedCours);
@@ -270,6 +293,11 @@ namespace BoardCast
             main.Show();
         }
 
+        /// <summary>
+        /// Get selected course from list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlaceholdersListBox_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
@@ -284,6 +312,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Set "Enter" keyboard mouse event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)

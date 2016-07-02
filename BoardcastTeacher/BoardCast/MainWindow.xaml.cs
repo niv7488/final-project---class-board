@@ -59,7 +59,6 @@ namespace BoardCast
         private Thread updateCastingDataThread;
         UIElement lastCanvas;
         private bool isInkVisible = true;
-        
         public string AssemblyTitle
        {
            get
@@ -79,26 +78,43 @@ namespace BoardCast
                 return System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             }
         }
-
         public const int WM_HOTKEY = 0x0312;
         public const int VIRTUALKEYCODE_FOR_CAPS_LOCK = 0x14;
-
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
-
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
         WindowInteropHelper _host;
+        enum hotkeys
+        {
+            _1=0x31,
+            _2=0x32,
+            _3=0x33,
+            _4=0x34,
+            _5=0x35,
+            _6=0x36,
+        }
+        public const int WS_EX_TRANSPARENT = 0x00000020;
+        public const int GWL_EXSTYLE = (-20);
+        ToolsWindow toolsWindow = new ToolsWindow();
+        bool is64Bit;
+        System.Windows.Forms.MenuItem rememberContent;
+        System.Windows.Forms.MenuItem enableHotkeys;
+        string appDataDir;
+        System.Windows.Forms.NotifyIcon trayIcon;
 
-        public MainWindow(int cID)
+        /// <summary>
+        /// MainWindow Ctr - init variables
+        /// </summary>
+        /// <param name="iCourseID">Course id of current lecture</param>
+        public MainWindow(int iCourseID)
         {
             realTimeCasting = new ScreenShareServer();
             realTimeCasting.InitServer();
-            toolsWindow.SetCourseID(cID);
-            courseID = cID;
+            toolsWindow.SetCourseID(iCourseID);
+            courseID = iCourseID;
             InitializeComponent();
             blankBackground = new backgroundWindow();
             bgwn = new backgroundWindow();
@@ -110,16 +126,10 @@ namespace BoardCast
             ComponentDispatcher.ThreadPreprocessMessage += new ThreadMessageEventHandler(ComponentDispatcher_ThreadPreprocessMessage);
         }
 
-        enum hotkeys
-        {
-            _1=0x31,
-            _2=0x32,
-            _3=0x33,
-            _4=0x34,
-            _5=0x35,
-            _6=0x36,
-        }
-
+        /// <summary>
+        /// setup keyboar shortcuts for tooblar
+        /// </summary>
+        /// <param name="handle"></param>
         private void SetupHotKey(IntPtr handle)
         {
             RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._1);
@@ -129,7 +139,6 @@ namespace BoardCast
             RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._5);
             RegisterHotKey(handle, GetType().GetHashCode(), 2, (int)hotkeys._6);
         }
-
 
         void ComponentDispatcher_ThreadPreprocessMessage(ref MSG msg, ref bool handled)
         {
@@ -168,9 +177,7 @@ namespace BoardCast
             }
         }
 
-        public const int WS_EX_TRANSPARENT = 0x00000020;
-        public const int GWL_EXSTYLE = (-20);
-        
+#region Dll functions
         //if((IntPtr)
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hwnd, int index);
@@ -197,15 +204,15 @@ namespace BoardCast
                 extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
         }
         
-        ToolsWindow toolsWindow = new ToolsWindow();
-        bool is64Bit;
-        System.Windows.Forms.MenuItem rememberContent;
-        System.Windows.Forms.MenuItem enableHotkeys;
-        string appDataDir;
-        System.Windows.Forms.NotifyIcon trayIcon;
+#endregion
+
+        /// <summary>
+        /// Trigger when Window loaded - init event handlers and variables
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + AssemblyTitle;
             if (!Directory.Exists(appDataDir))
                 Directory.CreateDirectory(appDataDir);
@@ -281,6 +288,11 @@ namespace BoardCast
             toolsWindow.Show();
         }
 
+        /// <summary>
+        /// Hide / show temp with canvas layer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HideShowBackgroundCanvas(object sender, EventArgs e)
         {
             if (bgwn.IsVisible)
@@ -293,13 +305,20 @@ namespace BoardCast
             }
         }
 
-
+        /// <summary>
+        /// Thread that manage the screencast url process
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setCastingAddress(object sender, EventArgs e)
         {
             updateCastingDataThread = new Thread(UpdateCastingUrlInDB);
             updateCastingDataThread.Start();
         }
 
+        /// <summary>
+        /// Update screencast address on DB
+        /// </summary>
         private void UpdateCastingUrlInDB()
         {
             //serialize the json so that the server will know what values we sent
@@ -347,11 +366,22 @@ namespace BoardCast
         
         }
 
+        /// <summary>
+        /// Event trigger when any cursor except normal is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void drawButton_Click(object sender, RoutedEventArgs e)
-        { ClickThrough = false; }
+        {
+            ClickThrough = false;  //Write on transparent canvas
+            
+        }
 
         void cursorButton_Click(object sender, RoutedEventArgs e)
-        { ClickThrough = true; }
+        {
+            ClickThrough = true; //Manage click behinde transparent canvas
+            
+        }
 
         bool clickThrough = false;
 
@@ -380,6 +410,11 @@ namespace BoardCast
             }
         }
 
+        /// <summary>
+        /// Trigger runs when Mainwindow close
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             trayIcon.Visible = false;
@@ -393,6 +428,9 @@ namespace BoardCast
             }*/
         }
 
+        /// <summary>
+        /// Load default window settings 
+        /// </summary>
         void loadSettings()
         {
             XmlDocument xmlDoc = new XmlDocument();
@@ -415,13 +453,17 @@ namespace BoardCast
         {
             rememberContent.Checked = !rememberContent.Checked;
         }
+
         void enableHotkeys_Click(object sender, EventArgs e)
         {
             enableHotkeys.Checked = !enableHotkeys.Checked;
         }
         
-
-
+        /// <summary>
+        /// Eventhandler when toolswindow close button clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void toolsWindow_CloseButtonClick(object sender, EventArgs e)
         {
             realTimeCasting.CloseCastingService();
@@ -437,6 +479,11 @@ namespace BoardCast
             main.Show();
         }
 
+        /// <summary>
+        /// Event handler when open blank canvas was clicked in toolWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void toolsWindow_CreateBlankCanvasClick(object sender, EventArgs e)
         {
             if (toolsWindow.m_bIsTempCanvasOpen)
@@ -445,20 +492,17 @@ namespace BoardCast
             }
             else
             {
-                if (!string.IsNullOrEmpty(toolsWindow.m_sLastSavedCanvasName))
-                {
-                    FileStream lastCanvasStream = new FileStream(toolsWindow.m_sLastSavedCanvasName, FileMode.Open);
-                    lastCanvas = (UIElement)XamlReader.Load(lastCanvasStream);
-                    
-                    //inkCanvas.Children.Add(lastCanvas);
-                    lastCanvasStream.Close();
-                    toolsWindow.m_sLastSavedCanvasName = "";
-                }
+                
                 blankBackground.Hide();
             }
         }
 
-       public void hideInkCheckBox_Checked(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Event handler when hide toolWindow is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void hideInkCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if ((bool)((CheckBox)sender).IsChecked)
                 this.Visibility = System.Windows.Visibility.Hidden;
@@ -466,10 +510,5 @@ namespace BoardCast
                 this.Visibility = System.Windows.Visibility.Visible;
         }
 
-
-        private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine("MouseDown!!!!");
-        }
     }
 }
