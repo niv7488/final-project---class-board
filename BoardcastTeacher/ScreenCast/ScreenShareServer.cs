@@ -29,7 +29,7 @@ namespace ScreenCast
         private MemoryStream img;
         private List<Tuple<string, string>> _ips;
         HttpListener serv;
-        private int port = 7070;
+        private int port = 8080;
         List<string> ipList = new List<string>(); 
 
         public ScreenShareServer()
@@ -41,6 +41,8 @@ namespace ScreenCast
             isPreview = false;
             isMouseCapture = false;
         }
+
+        public event EventHandler SetCastingAddress;
 
         public async void InitServer()
         {
@@ -69,7 +71,9 @@ namespace ScreenCast
 
         public void CloseCastingService()
         {
-            
+            Variables.castingAddress = "";
+            if (SetCastingAddress != null)
+                SetCastingAddress.Invoke(new object(), new EventArgs());
             isWorking = false;
             isTakingScreenshots = false;
             Console.WriteLine("Server Stoped.");
@@ -88,6 +92,9 @@ namespace ScreenCast
             serv.Prefixes.Add(url + "/");
             serv.Start();
             Console.WriteLine("Server Started Successfuly!");
+            Variables.castingAddress = url;
+            if (SetCastingAddress != null)
+                SetCastingAddress.Invoke(new object(), new EventArgs());
             Console.WriteLine("Private Network URL : " + url);
             Console.WriteLine("Localhost URL : " + "http://localhost:" + port.ToString() + "/");
             while (isWorking)
@@ -174,7 +181,8 @@ namespace ScreenCast
                     ctx.Response.ContentType = "text/html"; // Important For Chrome Otherwise will display the HTML as plain text.
 
 
-
+                ctx.Response.AddHeader("Access-Control-Allow-Origin","*");
+                ctx.Response.AddHeader("Access-Control-Allow-Headers", "origin, x-requested-with, content-type");
                 ctx.Response.StatusCode = 200;
                 try
                 {
@@ -272,7 +280,7 @@ namespace ScreenCast
                 return;
             }
             Rectangle bounds = Screen.GetBounds(Point.Empty);
-            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height - 70))
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {
