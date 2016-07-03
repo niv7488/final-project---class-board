@@ -19,9 +19,12 @@
                     {{line.menu.name}}
                 </a>
                 <ul>
-                    <li [class.is-selected]="line.isSelected" class="course-dates"
-                        [class.is-not-selected]="!line.isSelected" *ngFor="let sub of line.subMenu"
-                        (click)="getImages(line.menu,sub.original)">
+                    <li class="course-dates"
+                        [class.is-selected]="line.isSelected"
+                        [class.is-not-selected]="!line.isSelected"
+                        [class.selected]="sub==chosenDate"
+                        *ngFor="let sub of line.subMenu"
+                        (click)="getImages(line.menu,sub)">
                         <a href="javascript:void(0)">
                             {{sub.dateFormat}}
                         </a>
@@ -35,54 +38,6 @@
             </li>
         </ul>
     </nav>
-    <!--
-    <nav>
-        <div class="gw-sidebar">
-          <div id="gw-sidebar">
-            <div class="nano-content">
-              <selection id="title">My Courses</selection>
-              <ul class="gw-nav gw-nav-list">
-                <li class="init-arrow-down" *ngFor="let line of coursesMenu">
-                  <a href="javascript:void(0)">
-                    <img src="{{line.streamingOnAir}}" id="streamingLed">{{line.menu.name}}
-                  </a>
-                  <template [ngIf]="line.subMenu.length > 0">
-                    <ul class="gw-submenu">
-                      <li *ngFor="let sub of line.subMenu" (click)="getImages(line.menu,sub.original)">
-                        <a href="javascript:void(0)">
-                          {{sub.dateFormat}}
-                        </a>
-                      </li>
-                    </ul>
-                  </template>
-                    <template [ngIf]="line.subMenu.length == 0">
-                        <ul class="gw-submenu">
-                            <li id="noContent">No content is currently available</li>
-                        </ul>
-                    </template>
-                  <template [ngIf]="(courseList[courseList.length-1].name == line.menu.name) && !initialized">
-                    <div menuanimation (reload)="menuAnimation()">
-                    </div>
-                  </template>
-                </li>
-              </ul>
-                <selection id="title">My Notebooks</selection>
-                <ul class="gw-nav gw-nav-list">
-                    <li class="init-arrow-down" *ngFor="let line of notebooksMenu" (click)="openNotebook(line.menu)">
-                        <a href="javascript:void(0)">
-                            {{line.menu.name}}
-                        </a>
-                        <template [ngIf]="(courseList[courseList.length-1].name == line.menu.name) && !initialized">
-                            <div menuanimation (reload)="menuAnimation()">
-                            </div>
-                        </template>
-                    </li>
-                </ul>
-            </div>
-          </div>
-        </div>
-    </nav>
-    -->
     <main id="course-date-content">
         <template [ngIf]="allImagesList.length > 0">
             <section class="breadcrumb">{{chosenCourse.name}} > {{chosenDate}}</section>
@@ -111,25 +66,33 @@
     <div class="clear"></div>
     <template [ngIf]="fullScreen">
         <div class="fullscreen">
-            <button (click)="closeFullScreen()">X</button>
-            <button (click)="openNotebook()">Open Notebook</button>
-            <div class="navElements">
-                <ul>
-                    <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)"
-                        [class.selected]="navElement === currentNavElement">
-                        {{navElement.symbol}}
-                    </li>
-                </ul>
-            </div>
+            <section class="fullscreen-nav">
+                <button id="close-btn" (click)="closeFullScreen()">X</button>
+                <button id="open-notebook-btn" (click)="openNotebook()">Open Notebook</button>
+                <div class="navElements">
+                    <ul>
+                        <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)"
+                            [class.selected]="navElement === currentNavElement">
+                            {{navElement.symbol}}
+                        </li>
+                    </ul>
+                </div>
+            </section>
             <div class="galleryContainer">
-                <template [ngIf]="previousBtn">
-                    <button id="previous" (click)="openFullScreen(null,-1)"></button>
-                </template>
-                <bc-canvas></bc-canvas>
+                <section class="previous-container">
+                    <template [ngIf]="previousBtn">
+                        <button id="previous" (click)="openFullScreen(null,-1)"></button>
+                    </template>
+                </section>
+                <section class="canvas-container">
+                    <bc-canvas id="canvas-img"></bc-canvas>
+                </section>
                 <!--<img width="700" height="600" src="{{fullScreenImage.imgSrc.src}}">-->
-                <template [ngIf]="nextBtn">
-                    <button id="next" (click)="openFullScreen(null,1)">></button>
-                </template>
+                <section class="next-container">
+                    <template [ngIf]="nextBtn">
+                        <button id="next" (click)="openFullScreen(null,1)">></button>
+                    </template>
+                </section>
             </div>
         </div>
     </template>

@@ -67,19 +67,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.navElements = navElementService.getSubNavElements();
     }
 
-    getImages(course: Course, date: string) {
+    getImages(course: Course, date: any) {
         this.menuIsOpen = false;
         console.debug("[getImages] Get images for course " + course.id + " at date:");
-        console.log(date);
-        console.log(moment(date,["DD/MM/YYYY"]).format("DDMMYYYY"));
+        console.log(date.original);
         if(this.chosenCourse != course) {
             this.chosenCourse = course;
             this.imageList = [];
         }
-        this.chosenDate = date;
+        this.chosenDate = date.dateFormat;
         Observable.zip(
-            this.courseListService.getImagesByCourseIdAndDate(course.id, date, DB_SOURCE_ENUM.External),
-            this.courseListService.getImagesByCourseIdAndDate(course.id,date,DB_SOURCE_ENUM.Localstorage),
+            this.courseListService.getImagesByCourseIdAndDate(course.id, date.original, DB_SOURCE_ENUM.External),
+            this.courseListService.getImagesByCourseIdAndDate(course.id,date.original,DB_SOURCE_ENUM.Localstorage),
             function(res1, res2) {
                 return res1.concat(res2);
             }
@@ -133,14 +132,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.previousBtn = index == 0 ? false : true;
         this.nextBtn = index == this.imageList.length-1 ? false : true;
         this.courseListService.changedCanvasBackgroundEmitter(this.fullScreenImage);
-
-        //this.courseListService.changedCanvasBackgroundEmitter(image);
-
-
     }
 
     closeFullScreen() {
-        console.debug("[closeFullScreen]")
+        console.debug("[closeFullScreen]");
         this.fullScreen = false;
         this.fullScreenImage = null;
     }
@@ -148,17 +143,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     openNotebook() {
         console.debug("[openNotebook] It will open note book at date");
         this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.Localstorage);
-        //this.router.parent.navigate(['/Notebook']);
-        this.router.navigateByUrl('notebook/'+ this.chosenCourse.id+'/'+ this.chosenDate);
+        this.router.navigateByUrl('notebook/'+ this.chosenCourse.id+'/'+
+            moment(this.chosenDate, ['DD/MM/YYYY']).format("DDMMYYYY"));
     }
 
     private selectCourse(course: DashboardMenu) {
+        if(course.menu===this.chosenCourse)
+            return;
         this.coursesMenu.find(item => item === course).isSelected = !course.isSelected;
         console.log(course);
     }
 
     ngOnInit() {
-
         //this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.Both);
         console.log( this.loginService.userLoggedIn);
         if(typeof this.loginService.userLoggedIn === "undefined") {

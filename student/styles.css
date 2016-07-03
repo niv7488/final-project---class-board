@@ -10,3 +10,16 @@ body {
     display: block;
     width: 100%;
 }
+
+#loading {
+    width: 90vw;
+    max-width: 465px;
+    height: auto;
+    position: absolute;
+    display: block;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
