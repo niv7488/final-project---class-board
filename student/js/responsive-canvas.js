@@ -7,3 +7,13 @@ var modifyCanvasSize = function () {
     myCanvas.width = $(container).width();
     myCanvas.height = $(container).height();
 };
+
+var modifyIframeSize = function () {
+    var myIframe = document.getElementById('streamingIframe');
+    console.log(myIframe);
+    var container = $('.iframeContainer');
+    console.log(container);
+    console.log($(container).width());
+    myCanvas.width = $(container).width();
+    myCanvas.height = $(container).height();
+};

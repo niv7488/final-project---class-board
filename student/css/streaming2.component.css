@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-.streaming {
+.streaming, .streaming > *  {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     position: fixed;
     top: 0;
@@ -13,6 +13,25 @@
     display: block;
     background: rgba(255,255,255,0.8);
     z-index: 10;
+    color: #fff;
+}
+
+.iframeContainer {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+}
+
+.streaming > button {
+    background: #ffa83d;
+    border: none;
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+    height: 40px;
+    position: relative;
 }
 
 .streaming .close {
@@ -44,9 +63,13 @@
 }
 
 .streaming .hide {
-    display: none;
+    visibility: hidden;
 }
 
-.streaming .show {
-    display: block;
+.hideStreaming {
+    visibility: hidden;
+}
+
+.showStreaming {
+    visibility: visible;
 }

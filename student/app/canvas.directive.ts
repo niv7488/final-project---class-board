@@ -12,8 +12,6 @@ let moment = require('../js/moment.min.js');
 @Directive({
     selector: '[myCanvas]',
     host: {
-        '(mouseenter)': 'onMouseEnter()',
-        '(mouseleave)': 'onMouseLeave()',
         '(mousedown)' : 'onClick($event)',
         '(mouseup)' : 'onUnclick($event)',
         '(mousemove)' : 'onPaint($event)'
@@ -47,13 +45,6 @@ export class CanvasDirective implements OnInit, OnDestroy {
     changeBackground(imgSrc: any)
     {
         this.canvas.drawImage(imgSrc,0,0,imgSrc.width,imgSrc.height,0,0,this.canvas.canvas.width,this.canvas.canvas.height);
-    }
-
-    onMouseEnter() {
-
-    }
-    onMouseLeave() {
-
     }
 
     onClick(event: any) {

@@ -25,7 +25,7 @@ export class CanvasComponent implements OnDestroy {
     notebookSubscription:Subscription;
 
     constructor(private navElementService: NavElementService,
-        courseListService: CourseListService) {
+        private courseListService: CourseListService) {
         this.navSubscription = navElementService.changedSelected$.subscribe(
             current => {
                 this.current = current;

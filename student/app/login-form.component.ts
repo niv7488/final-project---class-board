@@ -35,14 +35,14 @@ export class LoginFormComponent implements OnInit {
                         id: data.id,
                         name: res.name,
                         permission: res.permission,
-                        image: res.image
+                        image: res.user_picture
                     }));
                     let courses : Course[] = [];
                     for(var course of res.CoursesList) {
                         courses.push(new Course(course.id, course.name, course.streaming));
                     }
                     this.loginService.userLoggedIn =
-                        new User(data.id,res.name, res.image, courses);
+                        new User(data.id,res.name, res.user_picture, courses);
                     this.router.navigate(['Dashboard']);
                 },
                 error => {

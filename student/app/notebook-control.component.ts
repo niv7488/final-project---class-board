@@ -11,6 +11,7 @@ import {NotebookGalleryService} from "./notebook-gallery.service";
 import {NotebookService} from "./notebook.service";
 import {Streaming} from "./streaming";
 import {StreamingService} from "./streaming.service";
+var iframeResize = require('../js/responsive-canvas.js');
 
 @Component({
     selector: 'bc-notebook-control-component',
@@ -35,9 +36,7 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
     errorMessage: string;
     private navElements: NavElement[] = [];
     private navElementSubscription: Subscription;
-
-
-
+    
     constructor(private streamingService: StreamingService,
                 private navElementService: NavElementService,
                 private galleryService: NotebookGalleryService,
@@ -58,9 +57,8 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
     clickAnotherNavElement(navElement: NavElement) {
         switch (navElement.name) {
             case "coursesMenu":
-                console.log("HERE");
                 //this.router.parent.navigate(['/Dashboard']);
-                this.router.parent.navigateByUrl('/dashboard/' + this.params.get('id'));
+                this.router.navigate(['Dashboard']);
                 break;
             case "gallery":
                 this.galleryService.changeOpenEmitter();
@@ -113,8 +111,6 @@ export class NotebookControlComponent implements OnInit, OnDestroy{
                     error =>  this.errorMessage = <any>error
                 );
     }
-
-
 
     ngOnDestroy() {
         this.navElementSubscription.unsubscribe();

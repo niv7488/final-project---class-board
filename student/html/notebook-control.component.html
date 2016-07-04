@@ -8,14 +8,14 @@
 <!--
 <bc-streaming></bc-streaming>
 -->
-<template [ngIf]="streaming.isOpen">
-    <div class="streaming">
+
+    <div class="streaming" [class.hideStreaming]="!streaming.isOpen" [class.showStreaming]="streaming.isOpen">
         <button (click)="closeStreaming()">X</button>
         <button (click)="getStreaming()">Load</button>
         <template [ngIf]="streaming.isAvailable">
             <button (click)="getImage()">Screenshot</button>
-            <div class="embed-responsive embed-responsive-4by3">
-                <iframe height="700" id="myIframe" class="embed-responsive-item" src="{{streaming.channel}}"></iframe>
+            <div class="iframeContainer">
+                <iframe height="700" id="myIframe" src="{{streaming.channel}}"></iframe>
             </div>
             <!--<iframe id="myIframe" width="700" height="500" src=""></iframe>-->
         </template>
@@ -23,7 +23,7 @@
             No streaming available
         </template>
     </div>
-</template>
+
 <div class="show"></div>
 <bc-notebook-gallery></bc-notebook-gallery>
 <bc-canvas></bc-canvas>

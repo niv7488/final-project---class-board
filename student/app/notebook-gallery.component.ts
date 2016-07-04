@@ -25,6 +25,7 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
     private isOpen: boolean = false;
     galleryServiceSubscription: Subscription;
     courseServiceSubscription: Subscription;
+    backgroundChangeSubscription: Subscription;
     dbSourceSubscription: Subscription;
     dbSource: DB_SOURCE_ENUM = DB_SOURCE_ENUM.Localstorage;
 
@@ -58,7 +59,9 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
             this.courseListService.getImagesByCourseIdAndDate(parseInt(this.currentCourse), this.params.get('date'))
                 .subscribe(
                     content => {
-                        if(this.contentList.length == content.length)
+                        if((this.dbSource === DB_SOURCE_ENUM.External) && (this.contentList.length == content.length))
+                            return;
+                        if((this.dbSource === DB_SOURCE_ENUM.Localstorage) && (content === this.contentList))
                             return;
                         this.contentList = content;
                         console.debug("[importContent] Got new course content!");

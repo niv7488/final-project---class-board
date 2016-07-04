@@ -18,6 +18,7 @@ import {CanvasDirective} from "./canvas.directive";
 import { NavElement } from './nav-element';
 import { NavElementService } from './nav-element.service';
 import {NAV_ELEMENTS} from "./nav-element-list";
+import {DateFormats} from "./date";
 
 let moment = require('../js/moment.min.js');
 var canvasResize = require('../js/responsive-canvas.js');
@@ -46,7 +47,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     courseListSubscription: Subscription;
     private menuIsOpen: boolean = false;
     private chosenCourse: Course;
-    private chosenDate: string;
+    private chosenDate: DateFormats;
     private dbContentToDisplay: DB_SOURCE_ENUM = DB_SOURCE_ENUM.External;
     courseList: Course[] =[];
     imageList: CourseContent[] = [];
@@ -114,7 +115,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     openFullTry(image: CourseContent, pageDiff: number) {
         this.clickAnotherNavElement(this.navElements[0]);
         this.fullScreen = true;
-        canvasResize();
+        canvasResize.modifyCanvasSize();
         this.openFullScreen(image,pageDiff);
     }
     
@@ -150,8 +151,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     openNotebook() {
         console.debug("[openNotebook] It will open note book at date");
         this.courseListService.changeDbSourceEmitter(DB_SOURCE_ENUM.Localstorage);
-        this.router.navigateByUrl('notebook/'+ this.chosenCourse.id+'/'+
-            moment(this.chosenDate, ['DD/MM/YYYY']).format("DDMMYYYY"));
+        this.router.navigateByUrl('notebook/'+ this.chosenCourse.id+'/'+ this.chosenDate.original);
     }
 
     private selectCourse(course: DashboardMenu) {
