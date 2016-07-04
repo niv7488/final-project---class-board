@@ -40,7 +40,7 @@
     </nav>
     <main id="course-date-content">
         <template [ngIf]="allImagesList.length > 0">
-            <section class="breadcrumb">{{chosenCourse.name}} > {{chosenDate}}</section>
+            <section class="breadcrumb">{{chosenCourse.name}} > {{chosenDate.dateFormat}}</section>
             <section class="btn-group" role="group" aria-label="...">
                 <button type="button" class="btn btn-default" (click)="addFilter(0)"
                         [class.btn-selected]="0 === dbContentToDisplay">Teacher Content
@@ -53,7 +53,7 @@
                 </button>
             </section>
             <ul class="content">
-                <li *ngFor="let image of imageList" (click)="openFullScreen(image,0)"><img
+                <li *ngFor="let image of imageList" (click)="openFullTry(image,0)"><img
                         src="{{image.imgSrc.src}}" width="400" height="300"></li>
             </ul>
         </template>
@@ -64,37 +64,34 @@
         </template>
     </main>
     <div class="clear"></div>
-    <template [ngIf]="fullScreen">
-        <div class="fullscreen">
-            <section class="fullscreen-nav">
-                <button id="close-btn" (click)="closeFullScreen()">X</button>
-                <button id="open-notebook-btn" (click)="openNotebook()">Open Notebook</button>
-                <div class="navElements">
-                    <ul>
-                        <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)"
-                            [class.selected]="navElement === currentNavElement">
-                            {{navElement.symbol}}
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <div class="galleryContainer">
-                <section class="previous-container">
-                    <template [ngIf]="previousBtn">
-                        <button id="previous" (click)="openFullScreen(null,-1)"></button>
-                    </template>
-                </section>
-                <section class="canvas-container">
-                    <bc-canvas id="canvas-img"></bc-canvas>
-                </section>
-                <!--<img width="700" height="600" src="{{fullScreenImage.imgSrc.src}}">-->
-                <section class="next-container">
-                    <template [ngIf]="nextBtn">
-                        <button id="next" (click)="openFullScreen(null,1)">></button>
-                    </template>
-                </section>
+    <div class="fullscreen" [class.showFull]="fullScreen" [class.unshowFull]="!fullScreen">
+        <section class="fullscreen-nav">
+            <button id="close-btn" (click)="closeFullScreen()">X</button>
+            <button id="open-notebook-btn" (click)="openNotebook()">Open Notebook</button>
+            <div class="navElements">
+                <ul>
+                    <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)"
+                        [class.selected]="navElement === currentNavElement">
+                        {{navElement.symbol}}
+                    </li>
+                </ul>
             </div>
-        </div>
-    </template>
+        </section>
+        <ul class="galleryContainer">
+            <li class="previous-container">
+                <template [ngIf]="previousBtn">
+                    <button id="previous" (click)="openFullScreen(null,-1)"></button>
+                </template>
+            </li>
+            <li class="canvas-container">
+                <bc-canvas id="canvas-img"></bc-canvas>
+            </li>
+            <li class="next-container">
+                <template [ngIf]="nextBtn">
+                    <button id="next" (click)="openFullScreen(null,1)">></button>
+                </template>
+            </li>
+        </ul>
+    </div>
     <div class="show"></div>
 </template>

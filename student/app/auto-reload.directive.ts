@@ -7,6 +7,6 @@ import { Directive, Output, EventEmitter } from '@angular/core';
 export class AutoReloadDirective {
     @Output() reload = new EventEmitter();
     constructor() {
-        setInterval(() => this.reload.emit("event"), 1000000);
+        setInterval(() => this.reload.emit("event"), 10000);
     }
 }

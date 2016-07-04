@@ -3,7 +3,9 @@
         <button (click)="changeImportSource('External')">Board</button>
         <button (click)="changeImportSource('Localstorage')">Notebook</button>
         <ul reload (reload)="importContent()">
-            <li *ngFor="let c of contentList" (click)="changeBackground(c)"><img width="150" height="100" src="{{c.imgSrc.src}}"></li>
+            <li *ngFor="let c of contentList" (click)="changeBackground(c)">
+                <img width="150" height="100" src="{{c.imgSrc.src}}">
+            </li>
         </ul>
         <template [ngIf]="contentList.length == 0">
             <p>No content is available</p>

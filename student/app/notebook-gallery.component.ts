@@ -58,6 +58,8 @@ export class NotebookGalleryComponent implements OnInit, OnDestroy {
             this.courseListService.getImagesByCourseIdAndDate(parseInt(this.currentCourse), this.params.get('date'))
                 .subscribe(
                     content => {
+                        if(this.contentList.length == content.length)
+                            return;
                         this.contentList = content;
                         console.debug("[importContent] Got new course content!");
                         console.log(this.contentList);

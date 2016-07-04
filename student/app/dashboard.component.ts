@@ -20,6 +20,7 @@ import { NavElementService } from './nav-element.service';
 import {NAV_ELEMENTS} from "./nav-element-list";
 
 let moment = require('../js/moment.min.js');
+var canvasResize = require('../js/responsive-canvas.js');
 
 @Component({
     selector: 'bc-dashboard',
@@ -75,7 +76,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.chosenCourse = course;
             this.imageList = [];
         }
-        this.chosenDate = date.dateFormat;
+        this.chosenDate = date;
         Observable.zip(
             this.courseListService.getImagesByCourseIdAndDate(course.id, date.original, DB_SOURCE_ENUM.External),
             this.courseListService.getImagesByCourseIdAndDate(course.id,date.original,DB_SOURCE_ENUM.Localstorage),
@@ -88,6 +89,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                     res.sort(CourseContent.sort);
                     this.allImagesList = res;
                     this.imageList = this.allImagesList.filter(image => image.dbSrc === this.dbContentToDisplay);
+                    this.addFilter(this.dbContentToDisplay);
                     console.log(res);
                     console.log(this.imageList);
                 },
@@ -109,13 +111,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.dbContentToDisplay = filter;
     }
 
+    openFullTry(image: CourseContent, pageDiff: number) {
+        this.clickAnotherNavElement(this.navElements[0]);
+        this.fullScreen = true;
+        canvasResize();
+        this.openFullScreen(image,pageDiff);
+    }
+    
     openFullScreen(image: CourseContent, pageDiff: number) {
-        if(!this.fullScreen)
-            this.clickAnotherNavElement(this.navElements[0]);
         console.log("[openFullScreen] Open full screen with pageDiff " + pageDiff + " content");
         console.log(image);
         let index: number;
-        this.fullScreen = true;
         index = image != null ?
             this.imageList.findIndex(
                 img => img.name === image.name
@@ -138,6 +144,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.debug("[closeFullScreen]");
         this.fullScreen = false;
         this.fullScreenImage = null;
+        this.getImages(this.chosenCourse,this.chosenDate);
     }
 
     openNotebook() {
