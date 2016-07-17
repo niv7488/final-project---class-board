@@ -38,7 +38,7 @@ namespace BoardCast
 
                 Opendlg.Filter = "Powerpoint|*.ppt;*.pptx|All files|*.*";
 
-                // Open file when user  click "Open" button  
+                // Open file when user  click "Open" button
                 if (Opendlg.ShowDialog() == true)
                 {
                     string pptFilePath = Opendlg.FileName;

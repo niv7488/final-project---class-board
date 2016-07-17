@@ -735,14 +735,14 @@ namespace BoardCast
                 OnCaptureClick(sender, e);
             }
 
-            m_PowerPointManager.ShowNextSlide();
-                //OnCaptureClick(sender, e);
-            /*string lastSlide = oSlideShowView.Slide.SlideNumber.ToString();
-            string currentSlide;
-            oSlideShowView.Application.SlideShowWindows[1].Activate();
-            
-            oSlideShowView.Next();
-            */
+            try
+            {
+                m_PowerPointManager.ShowNextSlide();
+            }
+            catch (Exception)
+            {
+                OnExitPowerPoint(sender, e);
+            }
         }
 
         /// <summary>
@@ -752,10 +752,14 @@ namespace BoardCast
         /// <param name="e"></param>
         private void OnBackClicked(object sender, RoutedEventArgs e)
         {
-            m_PowerPointManager.ShowPreviousSlide();
-            //oSlideShowView.Application.SlideShowWindows[1].Activate();
-
-            //oSlideShowView.Previous();
+            try
+            {
+                m_PowerPointManager.ShowPreviousSlide();  
+            }
+            catch (Exception)
+            {
+                OnExitPowerPoint(sender, e);
+            }
         }
 
         /// <summary>
@@ -765,7 +769,6 @@ namespace BoardCast
         /// <param name="e"></param>
         private void OnExitPowerPoint(object sender, RoutedEventArgs e)
         {
-           
             m_PowerPointManager.ClosePowerPoint();
             PowerPointPanelLeft.Visibility = Visibility.Hidden;
             PowerPointPanelRight.Visibility = Visibility.Hidden;
