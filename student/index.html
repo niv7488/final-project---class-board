@@ -1,46 +1,31 @@
-<!-- Special Credits
-********** Icons **********
-Icon made by Freepik from www.flaticon.com 
--->
-
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.board-cast.com/index.html">
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>ממשק סטודנט</title>
-		<link rel="stylesheet" href="includes/style.css">
-		<script src="includes/jquery-2.2.1.min.js"></script>
-		<script src="includes/jCanvas_v16.02.09.min.js"></script>
-	</head>
-	<body>
-		<header>
-			<nav id="tools">
-				<ul>
-					<li id="pen"></li>
-					<li id="penColorRed"></li>
-					<li id="penColorBlue"></li>
-					<li id="penColorGreen"></li>
-					<li id="penColorBlack"></li>
-					<li id="penColorPurple"></li>
-					<li id="erase"></li>
-					<li id="shapes"></li>
-					<li id="previous"></li>
-					<li id="next"></li>
-					<li id="save"></li>
-				</ul>
-				<input type="text" name="notebook"><div id="buttonOk">OK</div>
-				<div class="clear"></div>
-			</nav>
-		</header>
-		<main>
-			<canvas id="noteCanvas">
-			</canvas>
-		</main>
-		<script src="includes/navScript.js"></script>
-		<script>(function() {
-			initialize();
-		}());</script>
-	</body>
+<!DOCTYPE html>
+    <html>
+    <head>
+        <base href=".">
+        <title>BoardCast</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+        <!-- 1. Load libraries -->
+        <!-- Polyfill(s) for older browsers -->
+        <script src="./js/core-js/client/shim.min.js"></script>
+        <script src="./js/zone-js/dist/zone.js"></script>
+        <script src="./js/reflect-metadata/Reflect.js"></script>
+        <script src="./js/systemjs/dist/system.src.js"></script>
+        <script src="js/base64-converter.js"></script>
+        <!-- 2. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
+        <script>
+            System.import('app').catch(function (err) {
+                console.error(err);
+            });
+        </script>
+    </head>
+    <!-- 3. Display the application -->
+    <body>
+        <bc-app>
+            <img id="loading" src="images/loading.gif" width="365" height="256">
+        </bc-app>
+    </body>
 </html>

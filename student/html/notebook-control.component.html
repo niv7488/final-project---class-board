@@ -1,0 +1,30 @@
+<div class="navElements">
+    <ul>
+        <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)" [class.selected]="navElement === currentNavElement">
+            {{navElement.symbol}}
+        </li>
+    </ul>
+</div>
+<!--
+<bc-streaming></bc-streaming>
+-->
+
+    <div class="streaming" [class.hideStreaming]="!streaming.isOpen" [class.showStreaming]="streaming.isOpen">
+        <button (click)="closeStreaming()">X</button>
+        <button (click)="getStreaming()">Load</button>
+        <template [ngIf]="streaming.isAvailable">
+            <button (click)="getImage()">Screenshot</button>
+            <div class="iframeContainer">
+                <iframe height="700" id="myIframe" src="{{streaming.channel}}"></iframe>
+            </div>
+            <!--<iframe id="myIframe" width="700" height="500" src=""></iframe>-->
+        </template>
+        <template [ngIf]="!streaming.isAvailable">
+            No streaming available
+        </template>
+    </div>
+
+<div class="show"></div>
+<bc-notebook-gallery></bc-notebook-gallery>
+<bc-canvas></bc-canvas>
+<div class="clear"></div>

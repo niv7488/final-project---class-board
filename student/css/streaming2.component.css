@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.streaming, .streaming > *  {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left:0;
+    bottom:0;
+    display: block;
+    background: rgba(255,255,255,0.8);
+    z-index: 10;
+    color: #fff;
+}
+
+.iframeContainer {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+}
+
+.streaming > button {
+    background: #ffa83d;
+    border: none;
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+    height: 40px;
+    position: relative;
+}
+
+.streaming .close {
+    position: fixed;
+    top:0;
+    right:0;
+    width: 30px;
+    height: 20px;
+    background: #000;
+    color: #fff;
+    display: block;
+    z-index: 11;
+}
+
+.streaming iframe {
+    border: 3px solid #000;
+    margin: 3%;
+    width: 94%;
+    background: rgba(255,255,255,1);
+}.streaming img {
+     border: 3px solid #000;
+     margin: 3%;
+     width: 94%;
+     background: rgba(255,255,255,1);
+ }
+
+.streaming button {
+    z-index: 10000;
+}
+
+.streaming .hide {
+    visibility: hidden;
+}
+
+.hideStreaming {
+    visibility: hidden;
+}
+
+.showStreaming {
+    visibility: visible;
+}

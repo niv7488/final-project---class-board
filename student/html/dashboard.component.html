@@ -1,0 +1,97 @@
+<template [ngIf]="isInitialized">
+    <header class="top-bar">
+        <article id="avatar">
+            <section id="hamburger" (click)="menuManager()"></section>
+            <section id="logo">
+                <span class="logo-image"></span>
+                <span class="board">Board</span>
+                <span class="cast">Cast</span>
+            </section>
+            <img src="{{loginService.userLoggedIn.image}}" width="50" height="50">
+        </article>
+    </header>
+    <nav [class.showItem]="menuIsOpen" [class.hideItem]="!menuIsOpen">
+        <selection id="title">My Courses</selection>
+        <ul>
+            <li *ngFor="let line of coursesMenu" (click)="selectCourse(line)" class="course-line">
+                <a href="javascript:void(0)">
+                    <img src="{{line.streamingOnAir}}" id="streamingLed">
+                    {{line.menu.name}}
+                </a>
+                <ul>
+                    <li class="course-dates"
+                        [class.is-selected]="line.isSelected"
+                        [class.is-not-selected]="!line.isSelected"
+                        [class.selected]="sub==chosenDate"
+                        *ngFor="let sub of line.subMenu"
+                        (click)="getImages(line.menu,sub)">
+                        <a href="javascript:void(0)">
+                            {{sub.dateFormat}}
+                        </a>
+                    </li>
+                    <template [ngIf]="line.subMenu.length == 0">
+                        <li [class.is-selected]="line.isSelected" class="course-dates"
+                            [class.is-not-selected]="!line.isSelected" id="noContent">No content is currently available
+                        </li>
+                    </template>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <main id="course-date-content">
+        <template [ngIf]="allImagesList.length > 0">
+            <section class="breadcrumb">{{chosenCourse.name}} > {{chosenDate.dateFormat}}</section>
+            <section class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" (click)="addFilter(0)"
+                        [class.btn-selected]="0 === dbContentToDisplay">Teacher Content
+                </button>
+                <button type="button" class="btn btn-default" (click)="addFilter(1)"
+                        [class.btn-selected]="1 === dbContentToDisplay">My Content
+                </button>
+                <button type="button" class="btn btn-default" (click)="addFilter(2)"
+                        [class.btn-selected]="2 === dbContentToDisplay">Merged Content
+                </button>
+            </section>
+            <ul class="content">
+                <li *ngFor="let image of imageList" (click)="openFullTry(image,0)"><img
+                        src="{{image.imgSrc.src}}" width="400" height="300"></li>
+            </ul>
+        </template>
+        <template [ngIf]="imageList.length == 0">
+            <p>
+                No content is available
+            </p>
+        </template>
+    </main>
+    <div class="clear"></div>
+    <div class="fullscreen" [class.showFull]="fullScreen" [class.unshowFull]="!fullScreen">
+        <section class="fullscreen-nav">
+            <button id="close-btn" (click)="closeFullScreen()">X</button>
+            <button id="open-notebook-btn" (click)="openNotebook()">Open Notebook</button>
+            <div class="navElements">
+                <ul>
+                    <li *ngFor="let navElement of navElements" (click)="clickAnotherNavElement(navElement)"
+                        [class.selected]="navElement === currentNavElement">
+                        {{navElement.symbol}}
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <ul class="galleryContainer">
+            <li class="previous-container">
+                <template [ngIf]="previousBtn">
+                    <button id="previous" (click)="openFullScreen(null,-1)"></button>
+                </template>
+            </li>
+            <li class="canvas-container">
+                <bc-canvas id="canvas-img"></bc-canvas>
+            </li>
+            <li class="next-container">
+                <template [ngIf]="nextBtn">
+                    <button id="next" (click)="openFullScreen(null,1)">></button>
+                </template>
+            </li>
+        </ul>
+    </div>
+    <div class="show"></div>
+</template>
